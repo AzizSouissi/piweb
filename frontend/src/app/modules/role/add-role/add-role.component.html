@@ -1,0 +1,48 @@
+<div class="content">
+    <nav class="mb-2" aria-label="breadcrumb">
+        <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item"><a href="/roles">List Roles</a></li>
+            <li class="breadcrumb-item active">Add Roles</li>
+        </ol>
+    </nav>
+    <form [formGroup]="myForm" (ngSubmit)="onSubmit()" class="mb-9">
+        <div class="row justify-content-between align-items-end g-3 mb-5">
+            <div class="col-12 col-sm-auto col-xl-8">
+                <h2 class="mb-0">Create Role</h2>
+            </div>
+            <div class="col-12 col-sm-auto col-xl-4">
+                <div class="d-flex">
+                    <button type="submit" class="btn btn-primary px-5 me-2">Add Role</button>
+                    <a href="/roles" class="btn btn-phoenix-primary px-5 me-2">Cancel</a>
+                </div>
+            </div>
+        </div>
+        <div class="row g-5">
+            <div class="col-xl-8">
+                <div class="row gx-3 gy-4">
+                    <h4 class="fs-1 mb-0">Role Details</h4>
+
+                    <div class="form-floating">
+                        <input type="text" class="form-control" id="roleTitle" formControlName="roleTitle" pattern="[A-Za-z]+" required placeholder="ROLE TITLE">
+                        <label for="roleTitle">ROLE TITLE</label>
+                        <div *ngIf="myForm.get('roleTitle')?.invalid && (myForm.get('roleTitle')?.dirty || myForm.get('roleTitle')?.touched)">
+                            <span class="error-message">Role Title must contain only uppercase letters.</span>
+                        </div>
+                    </div>
+                    
+                    
+
+
+                    <div *ngFor="let privilege of privileges" >
+                        <label class="checkbox-label">
+                          <input class="styled-checkbox" type="checkbox" (change)="onprivilegeSelect(privilege, $event)"> {{ privilege.name }} 
+                        </label>
+            
+                      </div>
+
+                    
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
