@@ -4,6 +4,7 @@ import { AuthenticationResponse } from '../../core/models/AuthentificationRespon
 import { AuthService } from '../../core/services/auth.service';
 import { Router } from '@angular/router';
 import { UserService } from '../../core/services/user.service';
+import { EncryptionService } from '../../core/services/encryption.service';
 
 @Component({
   selector: 'app-login',
@@ -15,6 +16,7 @@ export class LoginComponent {
   authRequest: AuthenticationRequest = {};
   authResponse: AuthenticationResponse = {};
   constructor(
+    private encryptionService :EncryptionService,
     private authService: AuthService,
     private router: Router,
     private userService :UserService,
@@ -32,15 +34,17 @@ export class LoginComponent {
           localStorage.setItem('token', response.access_token as string);
         this.userService.getUser(this.authRequest.email).subscribe(
             { next : (userData : any) =>{
-              console.log(userData)
-             
-             localStorage.setItem('user',JSON.stringify(userData));
-             /*if(userData.role="ADMIN")
-             {
-              this.router.navigate(['/users']);
-             }else if (userData.role="ETUDIANT"){
-              this.router.navigate(['/home']);
-             }*/
+              
+              const user = {
+                firstname : userData.firstname,
+                lastanme : userData.lastname,
+                email : userData.email
+              }
+               
+             const authorities =this.encryptionService.encrypt(JSON.stringify(userData.authorities),"2f7a9c81b0d4")
+             localStorage.setItem('authorities',authorities)
+             localStorage.setItem('user',JSON.stringify(user));
+            
 
              },error: (err: any) => {
                console.error(err);}
