@@ -10,6 +10,7 @@ import { NavbarComponent } from './modules/navbar/navbar.component';
 import { SidebarComponent } from './modules/sidebar/sidebar.component';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './modules/home/home.component';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { HomeComponent } from './modules/home/home.component';
     RoleModule
   ],
   providers: [
-    provideClientHydration()
+    provideClientHydration(),
+    provideAnimationsAsync()
   ],
   bootstrap: [AppComponent]
 })
