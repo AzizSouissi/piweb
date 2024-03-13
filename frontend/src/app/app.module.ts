@@ -9,13 +9,15 @@ import { RoleModule } from './modules/role/role.module';
 import { NavbarComponent } from './modules/navbar/navbar.component';
 import { SidebarComponent } from './modules/sidebar/sidebar.component';
 import { AppComponent } from './app.component';
+import { HomeComponent } from './modules/home/home.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     NavbarComponent,
-    SidebarComponent
+    SidebarComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
