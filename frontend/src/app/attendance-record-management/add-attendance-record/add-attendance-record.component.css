@@ -1,0 +1,10 @@
+.cal-day-container {
+    width: calc(100% / 7); /* Adjust for mobile view */
+    text-align: center;
+  }
+  
+  @media (max-width: 768px) {
+    .cal-header {
+      font-size: 14px;
+    }
+  }

@@ -1,0 +1,42 @@
+// schema.prisma
+
+// Define the data model
+datasource db {
+    provider = "mongodb"
+    url      = env("DATABASE_URL")
+}
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+model Employee {
+    id               String             @id @default(auto()) @map("_id") @db.ObjectId
+    employee_id      String             @unique
+    name             String
+    job              String
+    attendanceRecord AttendanceRecord[]
+}
+
+model AttendanceRecord {
+    id            String    @id @default(auto()) @map("_id") @db.ObjectId
+    date          String
+    shiftType     ShiftType
+    status        Status
+    absent_reason String?
+    employee      Employee  @relation(fields: [employeeId], references: [id])
+    employeeId    String    @db.ObjectId
+}
+
+// Define enum for status
+enum Status {
+    PRESENT
+    ABSENT
+}
+
+// Define enum for shift type
+enum ShiftType {
+    FULL_DAY
+    HALF_DAY
+    QUARTER_SHIFT
+}
