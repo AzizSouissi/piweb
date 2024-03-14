@@ -58,6 +58,18 @@ onEditClick(id: string) {
 }
 delete(id : string)
 {
+  this.roleService.deleteRole(id).subscribe(
+    {
+      next: (res) => 
+      {
+        
+        this.getRoles();
+      },
+      error : console.log,
+
+    }
+  )
+
 
 }
 

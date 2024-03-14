@@ -6,8 +6,7 @@ import { LoginComponent } from './modules/login/login.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RoleModule } from './modules/role/role.module';
-import { NavbarComponent } from './modules/navbar/navbar.component';
-import { SidebarComponent } from './modules/sidebar/sidebar.component';
+
 import { AppComponent } from './app.component';
 import { HomeComponent } from './modules/home/home.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
@@ -16,8 +15,7 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
   declarations: [
     AppComponent,
     LoginComponent,
-    NavbarComponent,
-    SidebarComponent,
+    
     HomeComponent
   ],
   imports: [

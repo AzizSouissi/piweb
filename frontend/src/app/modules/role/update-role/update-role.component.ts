@@ -60,6 +60,9 @@ export class UpdateRoleComponent implements OnInit {
           console.log(res);
           this.role = res;
           this.selectedPrivileges=this.role.privileges
+          this.myForm.patchValue({
+            roleTitle :  this.role.name,
+          });
         },
         error: (err:  any) => {
           console.log(err);

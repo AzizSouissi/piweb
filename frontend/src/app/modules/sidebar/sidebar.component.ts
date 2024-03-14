@@ -7,7 +7,11 @@ import { EncryptionService } from '../../core/services/encryption.service';
   styleUrl: './sidebar.component.css'
 })
 export class SidebarComponent  implements OnInit{
-  displayRole = false
+  displayRoleList = false
+  displayRoleAdd = false
+  displayUserList = false
+  displayUserAdd = false
+
   addRole = false
 
 
@@ -18,7 +22,19 @@ export class SidebarComponent  implements OnInit{
     const authorities =this.encryptionService.decrypt(authoritiesCrypted!,"2f7a9c81b0d4")
     if(authorities.includes("view roles" ))
     {
-      this.displayRole=true
+      this.displayRoleList=true
+    }
+    if(authorities.includes("add roles" ))
+    {
+      this.displayRoleAdd=true
+    }
+    if(authorities.includes("view users" ))
+    {
+      this.displayUserList=true
+    }
+    if(authorities.includes("add users" ))
+    {
+      this.displayUserAdd=true
     }
     
   }

@@ -5,7 +5,7 @@
               <div class="b-bg">
                   <i class="feather icon-trending-up"></i>
               </div>
-              <span class="b-title">Datta Able</span>
+              <span class="b-title">HRMS</span>
           </a>
           <a class="mobile-menu" id="mobile-collapse" href="javascript:"><span></span></a>
       </div>
@@ -14,29 +14,35 @@
               <li class="nav-item pcoded-menu-caption">
                   <label>Navigation</label>
               </li>
-              <li data-username="dashboard Default Ecommerce CRM Analytics Crypto Project" class="nav-item active">
-                  <a href="index.html" class="nav-link "><span class="pcoded-micon"><i class="feather icon-home"></i></span><span class="pcoded-mtext">Dashboard</span></a>
-              </li>
-              <li class="nav-item pcoded-menu-caption">
-                  <label>UI Element</label>
-              </li>
-              <li data-username="basic components Button Alert Badges breadcrumb Paggination progress Tooltip popovers Carousel Cards Collapse Tabs pills Modal Grid System Typography Extra Shadows Embeds" class="nav-item pcoded-hasmenu">
-                  <a href="javascript:" class="nav-link "><span class="pcoded-micon"><i class="feather icon-box"></i></span><span class="pcoded-mtext">Components</span></a>
-                  <ul class="pcoded-submenu">
-                      <li class=""><a href="bc_button.html" class="">Button</a></li>
-
-                      <li class=""><a href="bc_typography.html" class="">Typography</a></li>
-
-
-                      
-                  </ul>
-              </li>
+             
+              
             
             
-              <li *ngIf="displayRole" data-username="Table bootstrap datatable footable" class="nav-item">
-                <a href="tbl_bootstrap.html" class="nav-link">
+            
+              <li *ngIf="displayRoleList" data-username="Table bootstrap datatable footable" class="nav-item">
+                <a href="/roles" class="nav-link">
                     <span class="pcoded-micon"><i class="feather icon-server"></i></span>
                     <span class="pcoded-mtext">Roles</span>
+                </a>
+            </li>
+            <li *ngIf="displayRoleAdd" data-username="Table bootstrap datatable footable" class="nav-item">
+                <a href="/roles/add" class="nav-link">
+                    <span class="pcoded-micon"><i class="feather icon-server"></i></span>
+                    <span class="pcoded-mtext"> Add Roles</span>
+                </a>
+            </li>
+
+            
+            <li *ngIf="displayUserList" data-username="Table bootstrap datatable footable" class="nav-item">
+                <a href="/users" class="nav-link">
+                    <span class="pcoded-micon"><i class="feather icon-server"></i></span>
+                    <span class="pcoded-mtext">Employees</span>
+                </a>
+            </li>
+            <li *ngIf="displayUserAdd" data-username="Table bootstrap datatable footable" class="nav-item">
+                <a href="/users/add" class="nav-link">
+                    <span class="pcoded-micon"><i class="feather icon-server"></i></span>
+                    <span class="pcoded-mtext"> Add Employees</span>
                 </a>
             </li>
             

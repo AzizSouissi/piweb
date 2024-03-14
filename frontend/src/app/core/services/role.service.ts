@@ -25,5 +25,9 @@ import { Role } from "../models/Role";
     {
       return this._http.put(this.URL,role);
     }
+    deleteRole(id : string)
+    {
+       return this._http.delete(this.URL+`/${id}`);
+    }
 
   }
