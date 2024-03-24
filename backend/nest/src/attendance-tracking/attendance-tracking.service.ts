@@ -77,6 +77,43 @@ export class AttendanceTrackingService {
       },
     });
   }
+  async updateEmployeeWithAttendance(
+    id: string,
+    employeeData: Employee,
+  ): Promise<Employee> {
+    try {
+      // Find the employee by ID
+      const existingEmployee = await this.prisma.employee.findUnique({
+        where: { id },
+        include: { attendanceRecord: true }, // Include the associated attendance records
+      });
+
+      if (!existingEmployee) {
+        throw new Error(`Employee with ID ${id} not found`);
+      }
+
+      // Update employee details
+      const updatedEmployee = await this.prisma.employee.update({
+        where: { id },
+        data: employeeData,
+      });
+
+      // Update attendance records
+      await Promise.all(
+        existingEmployee.attendanceRecord.map(async (record) => {
+          await this.prisma.attendanceRecord.update({
+            where: { id: record.id },
+            data: {},
+          });
+        }),
+      );
+
+      return updatedEmployee;
+    } catch (error) {
+      console.error('Error updating employee with attendance:', error);
+      throw new Error('Failed to update employee with attendance');
+    }
+  }
 
   async findAll(): Promise<AttendanceRecord[]> {
     return this.prisma.attendanceRecord.findMany();
@@ -98,15 +135,13 @@ export class AttendanceTrackingService {
     }
   }
 
-  
-
-  async update(
+  /*async update(
     id: string,
     updateAttendanceTrackingDto: UpdateAttendanceTrackingDto,
   ): Promise<AttendanceRecord | any> {
     try {
       const updatedRecord = await this.prisma.attendanceRecord.update({
-        where: { id: id }, // Specify which attendance record to update based on the id
+        where: { id: id },
         data: {
           date: updateAttendanceTrackingDto.date,
           shiftType: updateAttendanceTrackingDto.shiftType,
@@ -127,7 +162,7 @@ export class AttendanceTrackingService {
       console.error('Error updating attendance record:', error);
       throw new Error('Failed to update attendance record');
     }
-  }
+  }*/
 
   async remove(id: string): Promise<boolean> {
     try {
@@ -142,6 +177,44 @@ export class AttendanceTrackingService {
     } catch (error) {
       console.error('Error deleting attendance record:', error);
       throw new Error('Failed to delete attendance record');
+    }
+  }
+  async findEmployeesAttendance(month: number, year: number) {
+    try {
+      const startDate = new Date(`${year}-${month}-01`);
+      const endDate = new Date(year, month, 0);
+      const attendanceRecords = await this.prisma.attendanceRecord.findMany({
+        where: {
+          AND: [
+            { date: { gte: startDate.toISOString() } },
+            { date: { lt: endDate.toISOString() } },
+          ],
+        },
+        include: {
+          employee: true,
+        },
+      });
+
+      const employeesAttendance = attendanceRecords.reduce((acc, record) => {
+        const { employee } = record;
+        if (!acc[employee.id]) {
+          acc[employee.id] = {
+            employeeId: employee.id,
+            name: employee.name,
+            job: employee.job,
+            attendanceRecord: [record],
+          };
+        } else {
+          acc[employee.id].attendanceRecord.push(record);
+        }
+        return acc;
+      }, {});
+
+      const result = Object.values(employeesAttendance);
+
+      return result;
+    } catch (error) {
+      throw new Error(`Failed to fetch employees attendance: ${error.message}`);
     }
   }
 }
