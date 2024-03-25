@@ -1,23 +1,21 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from './FrontOffice/home/home.component';
-import { AttendanceRecordManagementModule } from './attendance-record-management/attendance-record-management.module';
-
+import { HomeComponent } from './modules/home/home.component';
 
 const routes: Routes = [
-
-  { path: "home", component: HomeComponent },
+  { path: '', component: HomeComponent },
 
   {
-    path: "attendance", loadChildren: () =>
-      import('./attendance-record-management/attendance-record-management.module').then(m => m.AttendanceRecordManagementModule)
+    path: 'attendance',
+    loadChildren: () =>
+      import(
+        './modules/attendance-management/attendance-management.module'
+      ).then((m) => m.AttendanceManagementModule),
   },
-
-
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

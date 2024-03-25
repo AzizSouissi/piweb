@@ -5,24 +5,36 @@ import {
 } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NavbarComponent } from './modules/navbar/navbar.component';
+import { SidebarComponent } from './modules/sidebar/sidebar.component';
 import { AppComponent } from './app.component';
-import { HeaderComponent } from './FrontOffice/header/header.component';
-import { FooterComponent } from './FrontOffice/footer/footer.component';
-import { BodyFrontComponent } from './FrontOffice/body-front/body-front.component';
-import { HomeComponent } from './FrontOffice/home/home.component';
-import { AttendanceRecordManagementModule } from './attendance-record-management/attendance-record-management.module';
-import { AttendanceTrackingService } from './core/services/attendance-tracking.service';
+import { HomeComponent } from './modules/home/home.component';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { AttendanceManagementModule } from './modules/attendance-management/attendance-management.module';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent,
-    FooterComponent,
-    BodyFrontComponent,
+    NavbarComponent,
+    SidebarComponent,
     HomeComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, AttendanceRecordManagementModule],
-  providers: [provideClientHydration()],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    ReactiveFormsModule,
+    FormsModule,
+    AttendanceManagementModule,
+    MatDatepickerModule,
+    MatNativeDateModule
+  
+  ],
+  providers: [provideClientHydration(), provideAnimationsAsync()],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { CreateAttendanceTrackingDto } from '../models/Dto/CreateAttendanceTrackingDto';
+import { Observable, catchError, tap } from 'rxjs';
 import { AttendanceRecord } from '../models/attendanceRecord';
 import { Employee } from '../models/emloyee';
+import { CreateAttendanceTrackingDto } from '../models/Dto/CreateAttendanceTrackingDto';
 
 @Injectable({
   providedIn: 'root',
@@ -63,6 +63,23 @@ export class AttendanceTrackingService {
   }
 
   findAllEmployees(): Observable<Employee[]> {
-    return this.http.get<Employee[]>(`${this.URL}/employers`, this.httpOptions);
+    return this.http
+      .get<Employee[]>(`${this.URL}/employers`, this.httpOptions)
+      .pipe(
+        tap((data: Employee[]) =>
+          console.log('Response from findAllEmployees():', data)
+        ),
+        catchError((error) => {
+          console.error('Error in findAllEmployees():', error);
+          throw error;
+        })
+      );
+  }
+  findAllEmployeesWithAttendance(): Observable<Employee[]> {
+    return this.http.get<Employee[]>(`${this.URL}/with-attendance`);
+  }
+  findEmployeesAttendance(month: number, year: number): Observable<Employee[]> {
+    const url = `${this.URL}/${month}/${year}`;
+    return this.http.get<Employee[]>(url);
   }
 }

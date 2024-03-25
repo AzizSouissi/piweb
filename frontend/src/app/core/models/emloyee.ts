@@ -4,5 +4,5 @@ export class Employee {
   employee_id!: string;
   name!: string;
   job!: string;
-  attendanceRecord: AttendanceRecord[] = [];
+  attendanceRecord!: AttendanceRecord[];
 }

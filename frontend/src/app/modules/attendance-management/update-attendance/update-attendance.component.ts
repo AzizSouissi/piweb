@@ -1,0 +1,137 @@
+import { Component, OnInit } from '@angular/core';
+import { AttendanceTrackingService } from '../../../core/services/attendance-tracking.service';
+import { Employee } from '../../../core/models/emloyee';
+import {
+  AttendanceRecord,
+  ShiftType,
+} from '../../../core/models/attendanceRecord'; // Make sure to import ShiftType
+
+@Component({
+  selector: 'app-update-attendance',
+  templateUrl: './update-attendance.component.html',
+  styleUrls: ['./update-attendance.component.css'],
+})
+export class UpdateAttendanceComponent implements OnInit {
+  monthData: MonthData[] = [];
+  employees: Employee[] = [];
+  daysInMonth: number[] = [];
+  currentMonthYear: string = '';
+  selectedDate: Date = new Date();
+
+  constructor(private attendanceService: AttendanceTrackingService) {}
+
+  ngOnInit() {
+    this.generateMonthData(this.selectedDate);
+    this.attendanceService.findAllEmployees().subscribe({
+      next: (data: Employee[]) => {
+        console.log(data);
+        this.employees = data;
+      },
+      error: (error) => {
+        console.error('There was an error!', error);
+      },
+    });
+  }
+
+  getStatusForDay(employee: Employee, day: number, monthIndex: number): string {
+    // Filter attendance records for the current month and employee
+    const attendanceRecordsForMonth = employee.attendanceRecord.filter(
+      (record) => {
+        const recordDate = new Date(record.date);
+        return (
+          recordDate.getMonth() === monthIndex && recordDate.getDate() === day
+        );
+      }
+    );
+
+    // Get the status for the filtered attendance record
+    const attendanceRecordForDay =
+      attendanceRecordsForMonth.length > 0
+        ? attendanceRecordsForMonth[0].status
+        : '';
+    return attendanceRecordForDay;
+  }
+  isWeekend(day: number): boolean {
+    const date = new Date(
+      this.selectedDate.getFullYear(),
+      this.selectedDate.getMonth(),
+      day
+    );
+    const dayOfWeek = date.getDay();
+    return dayOfWeek === 0 || dayOfWeek === 6; // 0 is Sunday, 6 is Saturday
+  }
+  getShiftTypeForDay(
+    employee: Employee,
+    day: number,
+    monthIndex: number
+  ): '' | ShiftType {
+    // Filter attendance records for the current month and employee
+    const attendanceRecordsForMonth = employee.attendanceRecord.filter(
+      (record) => {
+        const recordDate = new Date(record.date);
+        return (
+          recordDate.getMonth() === monthIndex && recordDate.getDate() === day
+        );
+      }
+    );
+
+    // Get the shift type for the filtered attendance record
+    const attendanceRecordForDay =
+      attendanceRecordsForMonth.length > 0
+        ? attendanceRecordsForMonth[0].shiftType
+        : '';
+
+    // Ensure that an empty string is converted to ShiftType if necessary
+    return attendanceRecordForDay !== ''
+      ? attendanceRecordForDay
+      : ShiftType.FULL_DAY;
+  }
+
+  generateMonthData(date: Date) {
+    const month = date.getMonth();
+    const year = date.getFullYear();
+    const days = new Date(year, month + 1, 0).getDate();
+
+    this.daysInMonth = Array.from({ length: days }, (_, i) => i + 1);
+
+    const monthNames = [
+      'January',
+      'February',
+      'March',
+      'April',
+      'May',
+      'June',
+      'July',
+      'August',
+      'September',
+      'October',
+      'November',
+      'December',
+    ];
+
+    this.currentMonthYear = `${monthNames[month]} ${year}`;
+
+    // Creating month data structure
+    const monthData: MonthData = {
+      monthName: this.currentMonthYear,
+      monthIndex: month,
+      days: this.daysInMonth,
+      employees: this.employees,
+    };
+
+    this.monthData.push(monthData);
+  }
+
+  switchMonth(delta: number) {
+    this.monthData = [];
+    this.selectedDate.setMonth(this.selectedDate.getMonth() + delta);
+    this.generateMonthData(this.selectedDate);
+  }
+}
+
+interface MonthData {
+  monthName: string;
+  monthIndex: number;
+  days: number[];
+  employees: Employee[];
+}
