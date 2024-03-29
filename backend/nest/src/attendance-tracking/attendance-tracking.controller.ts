@@ -8,6 +8,7 @@ import {
   Delete,
   Put,
   NotFoundException,
+  Query,
 } from '@nestjs/common';
 import { AttendanceTrackingService } from './attendance-tracking.service';
 import { UpdateAttendanceTrackingDto } from './dto/update-attendance-tracking.dto';
@@ -62,33 +63,37 @@ export class AttendanceTrackingController {
     return this.attendanceTrackingService.findAllEmployees();
   }
 
-  @Put(':id')
+  @Put('/updateAttendance/:id')
   async updateAttendance(
     @Param('id') id: string,
-    @Body() updateAttendanceDto: UpdateAttendanceTrackingDto,
-  ): Promise<AttendanceRecord> {
+    @Body() updateAttendanceTrackingDto: UpdateAttendanceTrackingDto,
+  ): Promise<AttendanceRecord | any> {
     try {
-      // Check if attendance record exists
-      const attendanceRecord = await this.prisma.attendanceRecord.findUnique({
-        where: { id },
-        include: { employee: true },
+      const updatedRecord = await this.prisma.attendanceRecord.update({
+        where: { id: id },
+        data: {
+          date: updateAttendanceTrackingDto.date,
+          shiftType: updateAttendanceTrackingDto.shiftType,
+          status: updateAttendanceTrackingDto.status,
+          absent_reason: updateAttendanceTrackingDto.absent_reason,
+          employeeId: updateAttendanceTrackingDto.employeeId,
+        },
+        select: {
+          id: true,
+          date: true,
+          shiftType: true,
+          status: true,
+          absent_reason: true,
+          employeeId: true,
+        },
       });
-      if (!attendanceRecord) {
-        throw new NotFoundException(
-          `Attendance record with ID ${id} not found.`,
-        );
-      }
-
-      // Update attendance record
-      return await this.prisma.attendanceRecord.update({
-        where: { id },
-        data: updateAttendanceDto,
-      });
+      return updatedRecord;
     } catch (error) {
-      throw new Error(`Failed to update attendance record: ${error.message}`);
+      console.error('Error updating attendance record:', error);
+      throw new Error('Failed to update attendance record');
     }
   }
-  @Put('/updateEmployee/:id')
+  /*@Put('/updateEmployee/:id')
   async updateEmployeeAndAttendance(
     @Param('id') id: string,
     @Body() updateEmployeeDto: Employee,
@@ -103,10 +108,13 @@ export class AttendanceTrackingController {
         throw new NotFoundException(`Employee with ID ${id} not found.`);
       }
 
+      // Remove the id property from updateEmployeeDto
+      const { id: employeeId, ...updateData } = updateEmployeeDto;
+
       // Update employee
       const updatedEmployee = await this.prisma.employee.update({
         where: { id },
-        data: updateEmployeeDto,
+        data: updateData, // Pass only the fields that need to be updated
       });
 
       // Update attendance records associated with the employee
@@ -126,7 +134,7 @@ export class AttendanceTrackingController {
         `Failed to update employee and attendance records: ${error.message}`,
       );
     }
-  }
+  }*/
   @Get('with-attendance')
   async findAllWithAttendance(): Promise<any[]> {
     return this.prisma.employee.findMany({
@@ -141,5 +149,15 @@ export class AttendanceTrackingController {
     @Param('year') year: number,
   ): Promise<any[]> {
     return this.attendanceTrackingService.findEmployeesAttendance(month, year);
+  }
+  @Get('/:employeeId')
+  async getAttendanceByEmployeeIdAndDate(
+    @Param('employeeId') employeeId: string,
+    @Query('date') date: string,
+  ): Promise<AttendanceRecord | null> {
+    return this.attendanceTrackingService.getAttendanceByEmployeeIdAndDate(
+      employeeId,
+      date,
+    );
   }
 }

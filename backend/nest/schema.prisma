@@ -19,13 +19,13 @@ model Employee {
 }
 
 model AttendanceRecord {
-    id            String    @id @default(auto()) @map("_id") @db.ObjectId
+    id            String     @id @default(auto()) @map("_id") @db.ObjectId
     date          String
-    shiftType     ShiftType
+    shiftType     ShiftType?
     status        Status
     absent_reason String?
-    employee      Employee  @relation(fields: [employeeId], references: [id])
-    employeeId    String    @db.ObjectId
+    employee      Employee   @relation(fields: [employeeId], references: [id])
+    employeeId    String     @db.ObjectId
 }
 
 // Define enum for status

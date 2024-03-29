@@ -1,4 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { CreateAttendanceTrackingDto } from './dto/create-attendance-tracking.dto';
 import { UpdateAttendanceTrackingDto } from './dto/update-attendance-tracking.dto';
 import {
@@ -135,35 +139,6 @@ export class AttendanceTrackingService {
     }
   }
 
-  /*async update(
-    id: string,
-    updateAttendanceTrackingDto: UpdateAttendanceTrackingDto,
-  ): Promise<AttendanceRecord | any> {
-    try {
-      const updatedRecord = await this.prisma.attendanceRecord.update({
-        where: { id: id },
-        data: {
-          date: updateAttendanceTrackingDto.date,
-          shiftType: updateAttendanceTrackingDto.shiftType,
-          status: updateAttendanceTrackingDto.status,
-          absent_reason: updateAttendanceTrackingDto.absent_reason,
-        },
-        select: {
-          id: true,
-          date: true,
-          shiftType: true,
-          status: true,
-          absent_reason: true,
-          employee: true,
-        },
-      });
-      return updatedRecord;
-    } catch (error) {
-      console.error('Error updating attendance record:', error);
-      throw new Error('Failed to update attendance record');
-    }
-  }*/
-
   async remove(id: string): Promise<boolean> {
     try {
       const deletedRecord = await this.prisma.attendanceRecord.delete({
@@ -215,6 +190,24 @@ export class AttendanceTrackingService {
       return result;
     } catch (error) {
       throw new Error(`Failed to fetch employees attendance: ${error.message}`);
+    }
+  }
+  async getAttendanceByEmployeeIdAndDate(
+    employeeId: string,
+    date: string,
+  ): Promise<AttendanceRecord | null> {
+    try {
+      const attendanceRecord = await this.prisma.attendanceRecord.findFirst({
+        where: {
+          employeeId: employeeId,
+          date: date,
+        },
+      });
+
+      return attendanceRecord;
+    } catch (error) {
+      console.error('Error fetching attendance record:', error);
+      throw new Error('Failed to fetch attendance record');
     }
   }
 }

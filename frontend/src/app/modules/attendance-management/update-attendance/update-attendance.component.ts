@@ -4,7 +4,7 @@ import { Employee } from '../../../core/models/emloyee';
 import {
   AttendanceRecord,
   ShiftType,
-} from '../../../core/models/attendanceRecord'; // Make sure to import ShiftType
+} from '../../../core/models/attendanceRecord';
 
 @Component({
   selector: 'app-update-attendance',
@@ -64,8 +64,7 @@ export class UpdateAttendanceComponent implements OnInit {
     employee: Employee,
     day: number,
     monthIndex: number
-  ): '' | ShiftType {
-    // Filter attendance records for the current month and employee
+  ): '' | any {
     const attendanceRecordsForMonth = employee.attendanceRecord.filter(
       (record) => {
         const recordDate = new Date(record.date);
@@ -75,16 +74,12 @@ export class UpdateAttendanceComponent implements OnInit {
       }
     );
 
-    // Get the shift type for the filtered attendance record
     const attendanceRecordForDay =
       attendanceRecordsForMonth.length > 0
         ? attendanceRecordsForMonth[0].shiftType
         : '';
 
-    // Ensure that an empty string is converted to ShiftType if necessary
-    return attendanceRecordForDay !== ''
-      ? attendanceRecordForDay
-      : ShiftType.FULL_DAY;
+    return attendanceRecordForDay !== '' ? attendanceRecordForDay : null;
   }
 
   generateMonthData(date: Date) {
@@ -111,7 +106,6 @@ export class UpdateAttendanceComponent implements OnInit {
 
     this.currentMonthYear = `${monthNames[month]} ${year}`;
 
-    // Creating month data structure
     const monthData: MonthData = {
       monthName: this.currentMonthYear,
       monthIndex: month,

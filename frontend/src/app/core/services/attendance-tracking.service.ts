@@ -1,9 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, catchError, tap } from 'rxjs';
-import { AttendanceRecord } from '../models/attendanceRecord';
+import { AttendanceRecord, ShiftType } from '../models/attendanceRecord';
 import { Employee } from '../models/emloyee';
-import { CreateAttendanceTrackingDto } from '../models/Dto/CreateAttendanceTrackingDto';
+import {
+  CreateAttendanceTrackingDto,
+  Status,
+} from '../models/Dto/CreateAttendanceTrackingDto';
 
 @Injectable({
   providedIn: 'root',
@@ -44,11 +47,18 @@ export class AttendanceTrackingService {
     id: string,
     updateAttendanceTrackingDto: CreateAttendanceTrackingDto
   ): Observable<any> {
-    return this.http.patch(
-      `${this.URL}/${id}`,
+    return this.http.put(
+      `${this.URL}/updateAttendance/${id}`,
       updateAttendanceTrackingDto,
       this.httpOptions
     );
+  }
+  updateEmployeeAndAttendance(
+    employeeId: string,
+    updateEmployeeDto: Employee
+  ): Observable<Employee> {
+    const url = `${this.URL}/updateEmployee/${employeeId}`;
+    return this.http.put<Employee>(url, updateEmployeeDto);
   }
 
   remove(id: string): Observable<boolean> {
@@ -61,7 +71,13 @@ export class AttendanceTrackingService {
       this.httpOptions
     );
   }
-
+  updateAttendanceRecord(
+    id: string,
+    updateDto: CreateAttendanceTrackingDto
+  ): Observable<AttendanceRecord> {
+    const url = `${this.URL}/${id}`;
+    return this.http.put<AttendanceRecord>(url, updateDto, this.httpOptions);
+  }
   findAllEmployees(): Observable<Employee[]> {
     return this.http
       .get<Employee[]>(`${this.URL}/employers`, this.httpOptions)
@@ -78,8 +94,11 @@ export class AttendanceTrackingService {
   findAllEmployeesWithAttendance(): Observable<Employee[]> {
     return this.http.get<Employee[]>(`${this.URL}/with-attendance`);
   }
-  findEmployeesAttendance(month: number, year: number): Observable<Employee[]> {
-    const url = `${this.URL}/${month}/${year}`;
-    return this.http.get<Employee[]>(url);
+  getAttendanceByEmployeeIdAndDate(
+    id: string,
+    date: string
+  ): Observable<AttendanceRecord | null> {
+    const url = `${this.URL}/${id}?date=${date}`;
+    return this.http.get<AttendanceRecord | null>(url);
   }
 }

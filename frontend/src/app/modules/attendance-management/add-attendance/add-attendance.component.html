@@ -1,134 +1,191 @@
 <div class="pcoded-main-container">
   <div class="pcoded-wrapper">
     <div class="pcoded-content">
-      <div class="calendar">
-        <h2>{{ currentMonthYear }}</h2>
+      <div class="calendar-container">
+        <div class="month-nav">
+          <button (click)="switchMonth(-1)" class="nav-button">
+            <span class="bi bi-arrow-left"></span>
+          </button>
+          <h2>{{ currentMonthYear }}</h2>
+          <button (click)="switchMonth(1)" class="nav-button">
+            <span class="bi bi-arrow-right"></span>
+          </button>
+        </div>
         <div class="table-responsive">
-          <table class="table table-bordered">
+          <table class="table table-bordered" style="font-size: 12px">
             <thead>
               <tr>
-                <th>Name</th>
-                <th *ngFor="let day of daysInMonth">{{ day }}</th>
+                <th style="padding: 5px">Name</th>
+
+                <th *ngFor="let day of daysInMonth" style="padding: 5px">
+                  {{ day }}
+                </th>
               </tr>
             </thead>
             <tbody>
               <ng-container *ngFor="let employee of employees">
                 <tr>
-                  <td class="employee-column">{{ employee.name }}</td>
+                  <td class="employee-column" style="padding: 5px">
+                    {{ employee.name }}
+                  </td>
 
-                  <td *ngFor="let day of daysInMonth">
-                    <div class="form-check form-check-inline">
-                      <input
-                        class="form-check-input"
-                        type="checkbox"
-                        id="{{ employee.id }}-{{ day }}-present"
-                        (change)="showShiftOptions($event, employee.id, day)"
+                  <td *ngFor="let day of daysInMonth" style="padding: 5px">
+                    <div>
+                      <button
+                        class="btn btn-primary"
                         data-bs-toggle="modal"
-                        data-bs-target="#exampleModal"
-                      />
-                      <label
-                        class="form-check-label"
-                        for="{{ employee.id }}-{{ day }}-present"
-                        >P</label
+                        data-bs-target="#myModal"
+                        style="
+                          background-color: blue;
+                          border-color: blue;
+                          padding: 5px 5px;
+                        "
                       >
+                        P
+                      </button>
                     </div>
                     <br />
-                    <div class="form-check form-check-inline">
-                      <input
-                        class="form-check-input"
-                        type="checkbox"
-                        id="{{ employee.id }}-{{ day }}-absent"
-                      />
-                      <label
-                        class="form-check-label"
-                        for="{{ employee.id }}-{{ day }}-absent"
-                        >A</label
-                      >
-                    </div>
-                    <!-- Modal -->
-                    <div
-                      class="modal fade"
-                      id="exampleModal"
-                      tabindex="-1"
-                      aria-labelledby="exampleModalLabel"
-                      aria-hidden="true"
-                    >
-                      <div class="modal-dialog">
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">
-                              Modal title
-                            </h5>
-                            <button
-                              type="button"
-                              class="btn-close"
-                              data-bs-dismiss="modal"
-                              aria-label="Close"
-                            ></button>
-                          </div>
-                          <div class="modal-body">
-                            <div class="form-check">
-                              <input
-                                class="form-check-input"
-                                type="radio"
-                                name="shiftOptions"
-                                id="halfDay"
-                                value="HALF_DAY"
-                              />
-                              <label class="form-check-label" for="halfDay">
-                                Half Day
-                              </label>
+                    <div>
+                      <div>
+                        <button
+                          class="btn btn-primary"
+                          data-bs-toggle="modal"
+                          data-bs-target="#myModal2"
+                          style="
+                            background-color: red;
+                            border-color: red;
+                            padding: 5px 5px;
+                          "
+                          (click)="
+                            openUpdateModal(employee, day, absenceReason)
+                          "
+                        >
+                          A
+                        </button>
+
+                        <div class="modal fade" id="myModal2">
+                          <div class="modal-dialog">
+                            <div class="modal-content">
+                              <!-- Modal Header -->
+                              <div class="modal-header">
+                                <h4 class="modal-title">Modal Heading</h4>
+                                <button
+                                  type="button"
+                                  class="btn-close"
+                                  data-bs-dismiss="modal"
+                                ></button>
+                              </div>
+
+                              <!-- Modal body -->
+                              <div class="modal-body">
+                                <div class="mb-3">
+                                  <label for="absenceReason" class="form-label"
+                                    >Reason for Absence:</label
+                                  >
+                                  <input
+                                    type="text"
+                                    class="form-control"
+                                    id="absenceReason"
+                                    name="absenceReason"
+                                    [(ngModel)]="absenceReason"
+                                  />
+                                </div>
+                              </div>
+
+                              <!-- Modal footer -->
+                              <div class="modal-footer">
+                                <button
+                                  type="button"
+                                  class="btn btn-danger"
+                                  data-bs-dismiss="modal"
+                                >
+                                  Close
+                                </button>
+                                <button
+                                  type="button"
+                                  class="btn btn-primary"
+                                  (click)="
+                                    updateAttendance(
+                                      employee,
+                                      day,
+                                      absenceReason
+                                    )
+                                  "
+                                >
+                                  Update
+                                </button>
+                              </div>
                             </div>
-                            <div class="form-check">
-                              <input
-                                class="form-check-input"
-                                type="radio"
-                                name="shiftOptions"
-                                id="fullDay"
-                                value="FULL_DAY"
-                              />
-                              <label class="form-check-label" for="fullDay">
-                                Full Day
-                              </label>
-                            </div>
-                            <div class="form-check">
-                              <input
-                                class="form-check-input"
-                                type="radio"
-                                name="shiftOptions"
-                                id="quarterShift"
-                                value="QUARTER_SHIFT"
-                              />
-                              <label
-                                class="form-check-label"
-                                for="quarterShift"
-                              >
-                                Quarter Shift
-                              </label>
-                            </div>
-                          </div>
-                          <div class="modal-footer">
-                            <button
-                              type="button"
-                              class="btn btn-secondary"
-                              data-bs-dismiss="modal"
-                            >
-                              Close
-                            </button>
-                            <button type="button" class="btn btn-primary">
-                              Save changes
-                            </button>
                           </div>
                         </div>
                       </div>
                     </div>
-                    <!-- End Modal -->
                   </td>
                 </tr>
               </ng-container>
             </tbody>
           </table>
         </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="myModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Modal Heading</h4>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+        ></button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <p>Select duration:</p>
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="radio"
+            name="durationRadio"
+            id="fullDayRadio"
+            value="FULL_DAY"
+          />
+          <label class="form-check-label" for="fullDayRadio"> Full Day </label>
+        </div>
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="radio"
+            name="durationRadio"
+            id="halfDayRadio"
+            value="HALF_DAY"
+          />
+          <label class="form-check-label" for="halfDayRadio"> Half Day </label>
+        </div>
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="radio"
+            name="durationRadio"
+            id="quarterDayRadio"
+            value="QUARTER_DAY"
+          />
+          <label class="form-check-label" for="quarterDayRadio">
+            Quarter Day
+          </label>
+        </div>
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+          Close
+        </button>
+        <button type="button" class="btn btn-primary">Update</button>
       </div>
     </div>
   </div>
