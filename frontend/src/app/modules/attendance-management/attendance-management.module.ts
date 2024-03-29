@@ -10,12 +10,15 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { CreateAttendanceComponent } from './create-attendance/create-attendance.component';
+import { AttendanceTrackingService } from '../../core/services/attendance-tracking.service';
 
 @NgModule({
   declarations: [
     AddAttendanceComponent,
     UpdateAttendanceComponent,
     ListAttendanceComponent,
+    CreateAttendanceComponent,
   ],
   imports: [
     CommonModule,
@@ -24,5 +27,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     FormsModule,
     ReactiveFormsModule,
   ],
+  providers: [AttendanceTrackingService],
 })
 export class AttendanceManagementModule {}

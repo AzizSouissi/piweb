@@ -3,7 +3,7 @@ import { Employee } from './emloyee';
 export class AttendanceRecord {
   id!: string;
   date!: string;
-  shiftType!: ShiftType | null;
+  shiftType!: ShiftType | string;
   status!: Status;
   absent_reason?: string | null;
 

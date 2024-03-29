@@ -1,0 +1,56 @@
+<div class="pcoded-main-container">
+  <div class="pcoded-wrapper">
+    <div class="pcoded-content">
+      <div class="card form-card">
+        <div class="card-body">
+          <form (ngSubmit)="submitForm()" class="animated-form">
+            <div>
+              <p class="form-header">Current Date: {{ dateStr }}</p>
+              <label>Status:</label>
+              <select
+                [(ngModel)]="selectedStatus"
+                name="status"
+                class="form-control"
+              >
+                <option value="PRESENT">Present</option>
+                <option value="ABSENT">Absent</option>
+              </select>
+
+              <div
+                *ngIf="selectedStatus === 'PRESENT'"
+                class="animated-form-group"
+              >
+                <label>Shift Type:</label>
+                <select
+                  [(ngModel)]="selectedShiftType"
+                  name="shiftType"
+                  class="form-control"
+                >
+                  <option value="QUARTER_SHIFT">Quarter Shift</option>
+                  <option value="HALF_DAY">Half Day</option>
+                  <option value="FULL_DAY">Full Day</option>
+                </select>
+              </div>
+
+              <div
+                *ngIf="selectedStatus === 'ABSENT'"
+                class="animated-form-group"
+              >
+                <label>Absent Reason:</label>
+                <input
+                  type="text"
+                  [(ngModel)]="absentReason"
+                  name="absentReason"
+                  class="form-control"
+                />
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary submit-btn">
+              Create Attendance
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

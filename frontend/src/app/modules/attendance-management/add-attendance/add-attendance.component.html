@@ -43,6 +43,79 @@
                       >
                         P
                       </button>
+                      <div class="modal fade" id="myModal">
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                            <!-- Modal Header -->
+                            <div class="modal-header">
+                              <h4 class="modal-title">
+                                <br />
+                                Select Shift type please :
+                              </h4>
+                              <button
+                                type="button"
+                                class="btn-close"
+                                data-bs-dismiss="modal"
+                              ></button>
+                            </div>
+                            <!-- Modal body -->
+
+                            <div>
+                              <input
+                                type="radio"
+                                id="halfDayRadio"
+                                name="durationRadio"
+                                [(ngModel)]="selectedDuration"
+                                value="HALF_DAY"
+                                [checked]="selectedDuration === 'HALF_DAY'"
+                              />
+                              <label for="halfDayRadio">Half Day</label>
+                            </div>
+
+                            <div>
+                              <input
+                                type="radio"
+                                id="quarterDayRadio"
+                                name="durationRadio"
+                                [(ngModel)]="selectedDuration"
+                                value="QUARTER_DAY"
+                                [checked]="selectedDuration === 'QUARTER_DAY'"
+                              />
+                              <label for="quarterDayRadio">Quarter Day</label>
+                            </div>
+
+                            <div>
+                              <input
+                                type="radio"
+                                id="fullDayRadio"
+                                name="durationRadio"
+                                [(ngModel)]="selectedDuration"
+                                value="FULL_DAY"
+                                [checked]="selectedDuration === 'FULL_DAY'"
+                              />
+                              <label for="fullDayRadio">Full Day</label>
+                            </div>
+
+                            <!-- Modal footer -->
+                            <div class="modal-footer">
+                              <button
+                                type="button"
+                                class="btn btn-danger"
+                                data-bs-dismiss="modal"
+                              >
+                                Close
+                              </button>
+                              <button
+                                type="button"
+                                class="btn btn-primary"
+                                (click)="handleUpdate(employee, day)"
+                              >
+                                Update
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                     <br />
                     <div>
@@ -68,7 +141,7 @@
                             <div class="modal-content">
                               <!-- Modal Header -->
                               <div class="modal-header">
-                                <h4 class="modal-title">Modal Heading</h4>
+                                <h4 class="modal-title">Reason for Absence:</h4>
                                 <button
                                   type="button"
                                   class="btn-close"
@@ -79,15 +152,23 @@
                               <!-- Modal body -->
                               <div class="modal-body">
                                 <div class="mb-3">
-                                  <label for="absenceReason" class="form-label"
-                                    >Reason for Absence:</label
-                                  >
+                                  <label
+                                    for="absenceReason"
+                                    class="form-label"
+                                  ></label>
                                   <input
                                     type="text"
                                     class="form-control"
                                     id="absenceReason"
                                     name="absenceReason"
                                     [(ngModel)]="absenceReason"
+                                    (click)="
+                                      openUpdateModal(
+                                        employee,
+                                        day,
+                                        absenceReason
+                                      )
+                                    "
                                   />
                                 </div>
                               </div>
@@ -126,66 +207,6 @@
             </tbody>
           </table>
         </div>
-      </div>
-    </div>
-  </div>
-</div>
-<div class="modal fade" id="myModal">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <!-- Modal Header -->
-      <div class="modal-header">
-        <h4 class="modal-title">Modal Heading</h4>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-        ></button>
-      </div>
-
-      <!-- Modal body -->
-      <div class="modal-body">
-        <p>Select duration:</p>
-        <div class="form-check">
-          <input
-            class="form-check-input"
-            type="radio"
-            name="durationRadio"
-            id="fullDayRadio"
-            value="FULL_DAY"
-          />
-          <label class="form-check-label" for="fullDayRadio"> Full Day </label>
-        </div>
-        <div class="form-check">
-          <input
-            class="form-check-input"
-            type="radio"
-            name="durationRadio"
-            id="halfDayRadio"
-            value="HALF_DAY"
-          />
-          <label class="form-check-label" for="halfDayRadio"> Half Day </label>
-        </div>
-        <div class="form-check">
-          <input
-            class="form-check-input"
-            type="radio"
-            name="durationRadio"
-            id="quarterDayRadio"
-            value="QUARTER_DAY"
-          />
-          <label class="form-check-label" for="quarterDayRadio">
-            Quarter Day
-          </label>
-        </div>
-      </div>
-
-      <!-- Modal footer -->
-      <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
-          Close
-        </button>
-        <button type="button" class="btn btn-primary">Update</button>
       </div>
     </div>
   </div>

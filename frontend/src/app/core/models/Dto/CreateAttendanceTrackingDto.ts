@@ -8,7 +8,7 @@ export enum Status {
 
 export class CreateAttendanceTrackingDto {
   date!: string;
-  shiftType!: ShiftType | null;
+  shiftType!: ShiftType | string | null;
   status!: Status;
   absent_reason?: string | null;
   employeeId!: string;
