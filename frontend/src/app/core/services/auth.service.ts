@@ -6,7 +6,7 @@ import { AuthenticationResponse } from "../models/AuthentificationResponse";
     providedIn: 'root'
   })
   export class AuthService {
-    URL = 'http://localhost:3000/auth'
+    URL = 'http://localhost:3000/auth/local/signin'
     
     constructor(private _http:HttpClient) { }
 

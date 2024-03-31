@@ -5,14 +5,16 @@ import { Injectable } from "@angular/core";
     providedIn: 'root'
   })
   export class UserService {
-    URL = "http://localhost:8080/users" 
-    URL2="http://localhost:8080/authenticate/register"
+  
+    URL = `http://localhost:3000/users` 
+   
 
     constructor(private _http: HttpClient) { }
 
-    getUser(email: any)
+   getUser(email: any)
     {
-    return this._http.get<any>(this.URL+"/email/"+email)
+      
+    return this._http.get<any>(this.URL+"/UserPrivilegesByEmail/"+email)
     }
 
   getAllUsers():any
@@ -23,6 +25,11 @@ import { Injectable } from "@angular/core";
 
   addUser(user:any)
   {
-    return this._http.post(this.URL2,user);
+    return this._http.post(this.URL,user);
+  }
+
+  deleteUser(id : string)
+  {
+     return this._http.delete(this.URL+`/${id}`);
   }
   }

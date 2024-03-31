@@ -8,6 +8,9 @@ const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'home', component: HomeComponent},
 
+
+  {path: 'users',loadChildren:() =>
+  import('./modules/user/user.module').then(m=>m.UserModule) },
   {path: 'roles',loadChildren:() =>
     import('./modules/role/role.module').then(m=>m.RoleModule) },
 ];

@@ -6,7 +6,7 @@ import { Role } from "../models/Role";
     providedIn: 'root'
   })
   export class RoleService {
-    URL= "http://localhost:8080/roles"
+    URL= "http://localhost:3000/roles"
     constructor(private _http: HttpClient){}
 
     getRoles() {

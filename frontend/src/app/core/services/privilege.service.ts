@@ -5,7 +5,7 @@ import { Injectable } from "@angular/core";
     providedIn: 'root'
   })
   export class PrivilegeService {
-    URL= "http://localhost:8080/privileges"
+    URL= "http://localhost:3000/privileges"
     constructor(private _http: HttpClient){}
 
     getPrivileges(): any 

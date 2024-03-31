@@ -3,13 +3,15 @@ import { BrowserModule, provideClientHydration } from '@angular/platform-browser
 
 import { AppRoutingModule } from './app-routing.module';
 import { LoginComponent } from './modules/login/login.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RoleModule } from './modules/role/role.module';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './modules/home/home.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { UserModule } from './modules/user/user.module';
+import { TokenInterceptor } from './core/interceptor/token-inter.interceptor';
 
 @NgModule({
   declarations: [
@@ -24,11 +26,17 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
-    RoleModule
+    RoleModule,
+    UserModule
   ],
   providers: [
     provideClientHydration(),
-    provideAnimationsAsync()
+    provideAnimationsAsync(),
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })
