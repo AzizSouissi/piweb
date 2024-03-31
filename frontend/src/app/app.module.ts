@@ -12,13 +12,19 @@ import { HomeComponent } from './modules/home/home.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { UserModule } from './modules/user/user.module';
 import { TokenInterceptor } from './core/interceptor/token-inter.interceptor';
+import { ResetpasswordComponent } from './modules/resetpassword-component/resetpassword.component';
+import { NewpasswordComponent } from './modules/newpassword/newpassword.component';
+import { EmailsendedComponent } from './modules/emailsended/emailsended.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     
-    HomeComponent
+    HomeComponent,
+    ResetpasswordComponent,
+    NewpasswordComponent,
+    EmailsendedComponent
   ],
   imports: [
     BrowserModule,

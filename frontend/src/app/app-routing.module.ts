@@ -2,12 +2,25 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './modules/login/login.component';
 import { HomeComponent } from './modules/home/home.component';
+import { ResetpasswordComponent } from './modules/resetpassword-component/resetpassword.component';
+import { NewpasswordComponent } from './modules/newpassword/newpassword.component';
+import { EmailsendedComponent } from './modules/emailsended/emailsended.component';
 
 const routes: Routes = [
   {path: '', component: LoginComponent},
   {path: 'login', component: LoginComponent},
   {path: 'home', component: HomeComponent},
-
+  {
+    path: 'resetpassword',
+    component: ResetpasswordComponent
+  }, 
+  {
+    path : 'newpassword',
+    component : NewpasswordComponent
+  },
+  {
+    path : 'emailsended', component : EmailsendedComponent
+  },
 
   {path: 'users',loadChildren:() =>
   import('./modules/user/user.module').then(m=>m.UserModule) },
