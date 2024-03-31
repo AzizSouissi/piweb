@@ -1,5 +1,5 @@
 import { ShiftType } from '../attendanceRecord';
-import { Employee } from '../emloyee';
+import { User } from '../user';
 
 export enum Status {
   PRESENT = 'PRESENT',
@@ -11,5 +11,5 @@ export class CreateAttendanceTrackingDto {
   shiftType!: ShiftType | null;
   status!: Status;
   absent_reason?: string;
-  employeeId!: string;
+  userId!: string;
 }

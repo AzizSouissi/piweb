@@ -5,7 +5,7 @@ import {
   Status,
 } from '../../../core/models/attendanceRecord';
 import { AttendanceTrackingService } from '../../../core/services/attendance-tracking.service';
-import { Employee } from '../../../core/models/emloyee';
+import { User } from '../../../core/models/user';
 
 @Component({
   selector: 'app-create-attendance',
@@ -19,12 +19,12 @@ export class CreateAttendanceComponent implements OnInit {
   absentReason!: string;
   id: string = '65f3d38056ca42723ee7fe4b';
   dateStr!: string;
-  employee!: Employee;
+  user!: User;
 
   constructor(private attendanceService: AttendanceTrackingService) {}
 
   ngOnInit(): void {
-    localStorage.setItem('employee', this.id);
+    localStorage.setItem('user', this.id);
 
     const currentDate = new Date();
     const year = currentDate.getFullYear();
@@ -35,7 +35,7 @@ export class CreateAttendanceComponent implements OnInit {
     this.dateStr = `${year}-${formattedMonth}-${formattedDay}`;
   }
   submitForm(): void {
-    employee: this.attendanceService
+    user: this.attendanceService
       .find(this.id)
       .subscribe((data) => console.log(data));
     const selectedDuration: ShiftType = this.selectedShiftType as ShiftType;
@@ -48,7 +48,7 @@ export class CreateAttendanceComponent implements OnInit {
       absent_reason: this.absentReason,
       id: '',
       date: this.dateStr,
-      employeeId: this.id,
+      userId: this.id,
     };
     console.log('zzzz', formData);
     this.attendanceService.create(this.id, formData).subscribe(

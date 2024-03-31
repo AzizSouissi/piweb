@@ -68,7 +68,7 @@
                 </thead>
                 <tbody class="list" id="bulk-select-body">
                   <!-- Your data goes here -->
-                  @for(employee of employees;track employees ){ @for (record of
+                  @for(employee of users;track users ){ @for (record of
                   employee.attendanceRecord; track record) {
                   <tr>
                     <td class="fs--1 align-middle">
@@ -81,8 +81,8 @@
                       </div>
                     </td>
 
-                    <td class="align-middle name">{{ employee?.name }}</td>
-                    <td class="align-middle job">{{ employee?.job }}</td>
+                    <td class="align-middle name">{{ employee?.firstName }}</td>
+                    <td class="align-middle job">{{ employee?.lastName }}</td>
                     <td class="align-middle date">{{ record.date }}</td>
                     <td class="align-middle status">{{ record.status }}</td>
                     <td class="align-middle reason">

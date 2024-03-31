@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, catchError, tap } from 'rxjs';
 import { AttendanceRecord, ShiftType } from '../models/attendanceRecord';
-import { Employee } from '../models/emloyee';
+import { User } from '../models/user';
 import {
   CreateAttendanceTrackingDto,
   Status,
@@ -53,23 +53,20 @@ export class AttendanceTrackingService {
       this.httpOptions
     );
   }
-  updateEmployeeAndAttendance(
-    employeeId: string,
-    updateEmployeeDto: Employee
-  ): Observable<Employee> {
-    const url = `${this.URL}/updateEmployee/${employeeId}`;
-    return this.http.put<Employee>(url, updateEmployeeDto);
+  updateUserAndAttendance(
+    userId: string,
+    updateUserDto: User
+  ): Observable<User> {
+    const url = `${this.URL}/updateUser/${userId}`;
+    return this.http.put<User>(url, updateUserDto);
   }
 
   remove(id: string): Observable<boolean> {
     return this.http.delete<boolean>(`${this.URL}/${id}`, this.httpOptions);
   }
 
-  find(id: string): Observable<Employee> {
-    return this.http.get<Employee>(
-      `${this.URL}/getEmploye/${id}`,
-      this.httpOptions
-    );
+  find(id: string): Observable<User> {
+    return this.http.get<User>(`${this.URL}/getUser/${id}`, this.httpOptions);
   }
   updateAttendanceRecord(
     id: string,
@@ -78,23 +75,19 @@ export class AttendanceTrackingService {
     const url = `${this.URL}/${id}`;
     return this.http.put<AttendanceRecord>(url, updateDto, this.httpOptions);
   }
-  findAllEmployees(): Observable<Employee[]> {
-    return this.http
-      .get<Employee[]>(`${this.URL}/employers`, this.httpOptions)
-      .pipe(
-        tap((data: Employee[]) =>
-          console.log('Response from findAllEmployees():', data)
-        ),
-        catchError((error) => {
-          console.error('Error in findAllEmployees():', error);
-          throw error;
-        })
-      );
+  findAllUsers(): Observable<User[]> {
+    return this.http.get<User[]>(`${this.URL}/users`, this.httpOptions).pipe(
+      tap((data: User[]) => console.log('Response from findAllUsers():', data)),
+      catchError((error) => {
+        console.error('Error in findAllUsers():', error);
+        throw error;
+      })
+    );
   }
-  findAllEmployeesWithAttendance(): Observable<Employee[]> {
-    return this.http.get<Employee[]>(`${this.URL}/with-attendance`);
+  findAllUsersWithAttendance(): Observable<User[]> {
+    return this.http.get<User[]>(`${this.URL}/with-attendance`);
   }
-  getAttendanceByEmployeeIdAndDate(
+  getAttendanceByUserIdAndDate(
     id: string,
     date: string
   ): Observable<AttendanceRecord | null> {

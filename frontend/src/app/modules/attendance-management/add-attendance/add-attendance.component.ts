@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Employee } from '../../../core/models/emloyee';
+import { User } from '../../../core/models/user';
 import { AttendanceTrackingService } from '../../../core/services/attendance-tracking.service';
 import { ShiftType } from '../../../core/models/attendanceRecord';
 import {
@@ -15,8 +15,8 @@ import { AttendanceRecord } from '../../../core/models/attendanceRecord';
 })
 export class AddAttendanceComponent implements OnInit {
   monthData: MonthData[] = [];
-  employees: Employee[] = [];
-  employee!: Employee;
+  users: User[] = [];
+  user!: User;
   daysInMonth: number[] = [];
   currentMonthYear: string = '';
   selectedDate: Date = new Date();
@@ -27,10 +27,10 @@ export class AddAttendanceComponent implements OnInit {
   constructor(private attendanceService: AttendanceTrackingService) {}
   ngOnInit(): void {
     this.generateMonthData(new Date());
-    this.attendanceService.findAllEmployees().subscribe({
-      next: (data: Employee[]) => {
+    this.attendanceService.findAllUsers().subscribe({
+      next: (data: User[]) => {
         console.log(data);
-        this.employees = data;
+        this.users = data;
       },
       error: (error) => {
         console.error('There was an error!', error);
@@ -76,7 +76,7 @@ export class AddAttendanceComponent implements OnInit {
       monthName: this.currentMonthYear,
       monthIndex: month,
       days: this.daysInMonth,
-      employees: this.employees,
+      users: this.users,
     };
 
     this.monthData.push(monthData);
@@ -87,7 +87,7 @@ export class AddAttendanceComponent implements OnInit {
     this.selectedDate.setMonth(this.selectedDate.getMonth() + delta);
     this.generateMonthData(this.selectedDate);
   }
-  updateAttendance(employee: Employee, day: number, absenceReason: string) {
+  updateAttendance(user: User, day: number, absenceReason: string) {
     console.log('Clicked day:', day);
     const year = this.selectedDate.getFullYear();
     const month = this.selectedDate.getMonth() + 1; // Adding 1 because months are zero-indexed
@@ -95,10 +95,10 @@ export class AddAttendanceComponent implements OnInit {
     const dateStr = `${year}-${month < 10 ? '0' : ''}${month}-${formattedDay}`; // Construct date string
 
     this.attendanceService
-      .getAttendanceByEmployeeIdAndDate(employee.id, dateStr)
+      .getAttendanceByUserIdAndDate(user.id, dateStr)
       .subscribe(
         (attendanceRecord: AttendanceRecord | null) => {
-          console.log(employee.id);
+          console.log(user.id);
 
           console.log(dateStr); // Log the constructed date string
           if (attendanceRecord) {
@@ -108,8 +108,8 @@ export class AddAttendanceComponent implements OnInit {
               shiftType: null,
               status: Status.ABSENT,
               absent_reason: this.absenceReason,
-              employeeId: employee.id, // Assign the employee's ID
-              // Optionally, you can also assign the employee object
+              userId: user.id, // Assign the user's ID
+              // Optionally, you can also assign the user object
             };
 
             this.attendanceService
@@ -125,7 +125,7 @@ export class AddAttendanceComponent implements OnInit {
               );
           } else {
             console.error(
-              'Attendance record not found for the selected day and employee.'
+              'Attendance record not found for the selected day and user.'
             );
           }
         },
@@ -134,16 +134,12 @@ export class AddAttendanceComponent implements OnInit {
         }
       );
   }
-  openUpdateModal(
-    employee: Employee,
-    day: number,
-    absenceReason: string
-  ): void {
-    this.employee = employee; // Assuming you have a property named employeeId in your component
+  openUpdateModal(user: User, day: number, absenceReason: string): void {
+    this.user = user; // Assuming you have a property named userId in your component
     // Assuming you have a property named selectedDay in your component
     this.absenceReason = absenceReason; // Assuming you have a property named absenceReason in your component
   }
-  handleUpdate(employee: Employee, day: number) {
+  handleUpdate(user: User, day: number) {
     console.log('Clicked day:', day);
     const year = this.selectedDate.getFullYear();
     const month = this.selectedDate.getMonth() + 1; // Adding 1 because months are zero-indexed
@@ -151,10 +147,10 @@ export class AddAttendanceComponent implements OnInit {
     const dateStr = `${year}-${month < 10 ? '0' : ''}${month}-${formattedDay}`; // Construct date string
 
     this.attendanceService
-      .getAttendanceByEmployeeIdAndDate(employee.id, dateStr)
+      .getAttendanceByUserIdAndDate(user.id, dateStr)
       .subscribe(
         (attendanceRecord: AttendanceRecord | null) => {
-          console.log(employee.id);
+          console.log(user.id);
 
           console.log(dateStr); // Log the constructed date string
           if (attendanceRecord) {
@@ -171,8 +167,8 @@ export class AddAttendanceComponent implements OnInit {
                   date: dateStr,
                   shiftType: selectedDuration,
                   status: Status.PRESENT,
-                  employeeId: employee.id, // Assign the employee's ID
-                  // Optionally, you can also assign the employee object
+                  userId: user.id, // Assign the user's ID
+                  // Optionally, you can also assign the user object
                 };
 
                 this.attendanceService
@@ -190,11 +186,11 @@ export class AddAttendanceComponent implements OnInit {
                 console.log('Invalid shift type.');
               }
             } else {
-              console.log('Employee is not present, no update needed.');
+              console.log('User is not present, no update needed.');
             }
           } else {
             console.error(
-              'Attendance record not found for the selected day and employee.'
+              'Attendance record not found for the selected day and user.'
             );
           }
         },
@@ -209,5 +205,5 @@ interface MonthData {
   monthName: string;
   monthIndex: number;
   days: number[];
-  employees: Employee[];
+  users: User[];
 }

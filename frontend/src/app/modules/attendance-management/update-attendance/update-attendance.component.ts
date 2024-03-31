@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AttendanceTrackingService } from '../../../core/services/attendance-tracking.service';
-import { Employee } from '../../../core/models/emloyee';
+import { User } from '../../../core/models/user';
 import {
   AttendanceRecord,
   ShiftType,
@@ -13,7 +13,7 @@ import {
 })
 export class UpdateAttendanceComponent implements OnInit {
   monthData: MonthData[] = [];
-  employees: Employee[] = [];
+  users: User[] = [];
   daysInMonth: number[] = [];
   currentMonthYear: string = '';
   selectedDate: Date = new Date();
@@ -22,10 +22,10 @@ export class UpdateAttendanceComponent implements OnInit {
 
   ngOnInit() {
     this.generateMonthData(this.selectedDate);
-    this.attendanceService.findAllEmployees().subscribe({
-      next: (data: Employee[]) => {
+    this.attendanceService.findAllUsers().subscribe({
+      next: (data: User[]) => {
         console.log(data);
-        this.employees = data;
+        this.users = data;
       },
       error: (error) => {
         console.error('There was an error!', error);
@@ -33,16 +33,14 @@ export class UpdateAttendanceComponent implements OnInit {
     });
   }
 
-  getStatusForDay(employee: Employee, day: number, monthIndex: number): string {
-    // Filter attendance records for the current month and employee
-    const attendanceRecordsForMonth = employee.attendanceRecord.filter(
-      (record) => {
-        const recordDate = new Date(record.date);
-        return (
-          recordDate.getMonth() === monthIndex && recordDate.getDate() === day
-        );
-      }
-    );
+  getStatusForDay(user: User, day: number, monthIndex: number): string {
+    // Filter attendance records for the current month and user
+    const attendanceRecordsForMonth = user.attendanceRecord.filter((record) => {
+      const recordDate = new Date(record.date);
+      return (
+        recordDate.getMonth() === monthIndex && recordDate.getDate() === day
+      );
+    });
 
     // Get the status for the filtered attendance record
     const attendanceRecordForDay =
@@ -60,19 +58,13 @@ export class UpdateAttendanceComponent implements OnInit {
     const dayOfWeek = date.getDay();
     return dayOfWeek === 0 || dayOfWeek === 6; // 0 is Sunday, 6 is Saturday
   }
-  getShiftTypeForDay(
-    employee: Employee,
-    day: number,
-    monthIndex: number
-  ): '' | any {
-    const attendanceRecordsForMonth = employee.attendanceRecord.filter(
-      (record) => {
-        const recordDate = new Date(record.date);
-        return (
-          recordDate.getMonth() === monthIndex && recordDate.getDate() === day
-        );
-      }
-    );
+  getShiftTypeForDay(user: User, day: number, monthIndex: number): '' | any {
+    const attendanceRecordsForMonth = user.attendanceRecord.filter((record) => {
+      const recordDate = new Date(record.date);
+      return (
+        recordDate.getMonth() === monthIndex && recordDate.getDate() === day
+      );
+    });
 
     const attendanceRecordForDay =
       attendanceRecordsForMonth.length > 0
@@ -110,7 +102,7 @@ export class UpdateAttendanceComponent implements OnInit {
       monthName: this.currentMonthYear,
       monthIndex: month,
       days: this.daysInMonth,
-      employees: this.employees,
+      users: this.users,
     };
 
     this.monthData.push(monthData);
@@ -127,5 +119,5 @@ interface MonthData {
   monthName: string;
   monthIndex: number;
   days: number[];
-  employees: Employee[];
+  users: User[];
 }

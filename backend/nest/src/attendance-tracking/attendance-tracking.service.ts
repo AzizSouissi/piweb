@@ -4,7 +4,6 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { CreateAttendanceTrackingDto } from './dto/create-attendance-tracking.dto';
-import { UpdateAttendanceTrackingDto } from './dto/update-attendance-tracking.dto';
 import { AttendanceRecord, User, PrismaClient, Status } from '@prisma/client';
 import { type Prisma } from '@prisma/client';
 import { PrismaService } from 'src/prisma.service';
@@ -70,7 +69,7 @@ export class AttendanceTrackingService {
       select: {
         id: true,
         firstName: true,
-        LastName: true,
+        lastName: true,
         attendanceRecord: true,
       },
     });
@@ -166,7 +165,7 @@ export class AttendanceTrackingService {
           acc[user.id] = {
             UserId: user.id,
             firstName: user.firstName,
-            lastName: user.LastName,
+            lastName: user.lastName,
             attendanceRecord: [record],
           };
         } else {

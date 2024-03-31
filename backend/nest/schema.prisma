@@ -13,7 +13,7 @@ generator client {
 model User {
     id               String             @id @default(auto()) @map("_id") @db.ObjectId
     firstName        String
-    LastName         String
+    lastName         String
     attendanceRecord AttendanceRecord[]
 }
 
@@ -39,5 +39,3 @@ enum ShiftType {
     HALF_DAY
     QUARTER_SHIFT
 }
-
-

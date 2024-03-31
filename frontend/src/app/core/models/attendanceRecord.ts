@@ -1,4 +1,4 @@
-import { Employee } from './emloyee';
+import { User } from './user';
 
 export class AttendanceRecord {
   id!: string;
@@ -6,8 +6,7 @@ export class AttendanceRecord {
   shiftType!: ShiftType | string;
   status!: Status;
   absent_reason?: string | null;
-
-  employeeId!: string;
+  userId!: string;
 }
 
 export enum Status {
