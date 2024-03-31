@@ -12,7 +12,7 @@ import {
 } from '@nestjs/common';
 import { AttendanceTrackingService } from './attendance-tracking.service';
 import { UpdateAttendanceTrackingDto } from './dto/update-attendance-tracking.dto';
-import { AttendanceRecord, Employee } from '@prisma/client';
+import { AttendanceRecord, User } from '@prisma/client';
 import { CreateAttendanceTrackingDto } from './dto/create-attendance-tracking.dto';
 import { PrismaService } from 'src/prisma.service';
 
@@ -55,12 +55,12 @@ export class AttendanceTrackingController {
     return this.attendanceTrackingService.remove(id);
   }
   @Get('/getEmploye/:id')
-  find(@Param('id') id: string): Promise<Employee> {
+  find(@Param('id') id: string): Promise<User> {
     return this.attendanceTrackingService.find(id);
   }
-  @Get('/employers')
-  findAllEmployees(): Promise<Employee> {
-    return this.attendanceTrackingService.findAllEmployees();
+  @Get('/users')
+  findAllUsers(): Promise<User> {
+    return this.attendanceTrackingService.findAllUsers();
   }
 
   @Put('/updateAttendance/:id')
@@ -76,7 +76,7 @@ export class AttendanceTrackingController {
           shiftType: updateAttendanceTrackingDto.shiftType,
           status: updateAttendanceTrackingDto.status,
           absent_reason: updateAttendanceTrackingDto.absent_reason,
-          employeeId: updateAttendanceTrackingDto.employeeId,
+          userId: updateAttendanceTrackingDto.userId,
         },
         select: {
           id: true,
@@ -84,7 +84,7 @@ export class AttendanceTrackingController {
           shiftType: true,
           status: true,
           absent_reason: true,
-          employeeId: true,
+          userId: true,
         },
       });
       return updatedRecord;
@@ -137,26 +137,26 @@ export class AttendanceTrackingController {
   }*/
   @Get('with-attendance')
   async findAllWithAttendance(): Promise<any[]> {
-    return this.prisma.employee.findMany({
+    return this.prisma.user.findMany({
       include: {
         attendanceRecord: true,
       },
     });
   }
   @Get(':month/:year')
-  findEmployeesAttendance(
+  findUsersAttendance(
     @Param('month') month: number,
     @Param('year') year: number,
   ): Promise<any[]> {
-    return this.attendanceTrackingService.findEmployeesAttendance(month, year);
+    return this.attendanceTrackingService.findUsersAttendance(month, year);
   }
-  @Get('/:employeeId')
+  @Get('/:userId')
   async getAttendanceByEmployeeIdAndDate(
-    @Param('employeeId') employeeId: string,
+    @Param('userId') userId: string,
     @Query('date') date: string,
   ): Promise<AttendanceRecord | null> {
-    return this.attendanceTrackingService.getAttendanceByEmployeeIdAndDate(
-      employeeId,
+    return this.attendanceTrackingService.getAttendanceByUserIdAndDate(
+      userId,
       date,
     );
   }

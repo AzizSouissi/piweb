@@ -24,7 +24,7 @@ export class AttendanceTrackingService {
   create(
     id: string,
     createAttendanceTrackingDto: CreateAttendanceTrackingDto
-  ): Observable<AttendanceRecord> {
+  ): Observable<AttendanceRecord | any> {
     return this.http.post<AttendanceRecord>(
       `${this.URL}/${id}`,
       createAttendanceTrackingDto,

@@ -5,12 +5,7 @@ import {
 } from '@nestjs/common';
 import { CreateAttendanceTrackingDto } from './dto/create-attendance-tracking.dto';
 import { UpdateAttendanceTrackingDto } from './dto/update-attendance-tracking.dto';
-import {
-  AttendanceRecord,
-  Employee,
-  PrismaClient,
-  Status,
-} from '@prisma/client';
+import { AttendanceRecord, User, PrismaClient, Status } from '@prisma/client';
 import { type Prisma } from '@prisma/client';
 import { PrismaService } from 'src/prisma.service';
 
@@ -19,10 +14,10 @@ export class AttendanceTrackingService {
   constructor(private readonly prisma: PrismaService) {
     let includePosts: boolean = false;
     let attendanceRecord: Prisma.AttendanceRecordCreateInput;
-    let employe: Prisma.EmployeeCreateInput;
+    let employe: Prisma.UserCreateInput;
   }
   async create(
-    employeeId: string,
+    userId: string,
     createAttendanceTrackingDto: CreateAttendanceTrackingDto,
   ): Promise<AttendanceRecord | any> {
     try {
@@ -31,7 +26,7 @@ export class AttendanceTrackingService {
       const existingRecord = await this.prisma.attendanceRecord.findFirst({
         where: {
           date: currentDate,
-          employeeId: employeeId,
+          userId: userId,
         },
       });
 
@@ -48,8 +43,8 @@ export class AttendanceTrackingService {
           shiftType: createAttendanceTrackingDto.shiftType,
           status: createAttendanceTrackingDto.status,
           absent_reason: createAttendanceTrackingDto.absent_reason,
-          employee: {
-            connect: { id: employeeId },
+          user: {
+            connect: { id: userId },
           },
         },
         select: {
@@ -67,44 +62,39 @@ export class AttendanceTrackingService {
     }
   }
 
-  find(id: string): Promise<Employee> {
-    return this.prisma.employee.findUnique({
+  find(id: string): Promise<User> {
+    return this.prisma.user.findUnique({
       where: {
         id: id,
       },
       select: {
         id: true,
-        employee_id: true,
-        name: true,
-        job: true,
+        firstName: true,
+        LastName: true,
         attendanceRecord: true,
       },
     });
   }
-  async updateEmployeeWithAttendance(
-    id: string,
-    employeeData: Employee,
-  ): Promise<Employee> {
+  async updateUserWithAttendance(id: string, UserData: User): Promise<User> {
     try {
-      // Find the employee by ID
-      const existingEmployee = await this.prisma.employee.findUnique({
+      // Find the User by ID
+      const existingUser = await this.prisma.user.findUnique({
         where: { id },
-        include: { attendanceRecord: true }, // Include the associated attendance records
+        include: { attendanceRecord: true },
       });
 
-      if (!existingEmployee) {
-        throw new Error(`Employee with ID ${id} not found`);
+      if (!existingUser) {
+        throw new Error(`User with ID ${id} not found`);
       }
 
-      // Update employee details
-      const updatedEmployee = await this.prisma.employee.update({
+      const updatedUser = await this.prisma.user.update({
         where: { id },
-        data: employeeData,
+        data: UserData,
       });
 
       // Update attendance records
       await Promise.all(
-        existingEmployee.attendanceRecord.map(async (record) => {
+        existingUser.attendanceRecord.map(async (record) => {
           await this.prisma.attendanceRecord.update({
             where: { id: record.id },
             data: {},
@@ -112,10 +102,10 @@ export class AttendanceTrackingService {
         }),
       );
 
-      return updatedEmployee;
+      return updatedUser;
     } catch (error) {
-      console.error('Error updating employee with attendance:', error);
-      throw new Error('Failed to update employee with attendance');
+      console.error('Error updating User with attendance:', error);
+      throw new Error('Failed to update User with attendance');
     }
   }
 
@@ -123,19 +113,19 @@ export class AttendanceTrackingService {
     return this.prisma.attendanceRecord.findMany();
   }
 
-  async findAllEmployees(): Promise<
-    (Employee & { attendanceRecords: AttendanceRecord[] })[] | any
+  async findAllUsers(): Promise<
+    (User & { attendanceRecords: AttendanceRecord[] })[] | any
   > {
     try {
-      const employees = await this.prisma.employee.findMany({
+      const Users = await this.prisma.user.findMany({
         include: {
           attendanceRecord: true,
         },
       });
-      return employees;
+      return Users;
     } catch (error) {
-      console.error('Error fetching employees:', error);
-      return 'Error fetching employees';
+      console.error('Error fetching Users:', error);
+      return 'Error fetching Users';
     }
   }
 
@@ -154,7 +144,7 @@ export class AttendanceTrackingService {
       throw new Error('Failed to delete attendance record');
     }
   }
-  async findEmployeesAttendance(month: number, year: number) {
+  async findUsersAttendance(month: number, year: number) {
     try {
       const startDate = new Date(`${year}-${month}-01`);
       const endDate = new Date(year, month, 0);
@@ -166,40 +156,40 @@ export class AttendanceTrackingService {
           ],
         },
         include: {
-          employee: true,
+          user: true,
         },
       });
 
-      const employeesAttendance = attendanceRecords.reduce((acc, record) => {
-        const { employee } = record;
-        if (!acc[employee.id]) {
-          acc[employee.id] = {
-            employeeId: employee.id,
-            name: employee.name,
-            job: employee.job,
+      const UsersAttendance = attendanceRecords.reduce((acc, record) => {
+        const { user } = record;
+        if (!acc[user.id]) {
+          acc[user.id] = {
+            UserId: user.id,
+            firstName: user.firstName,
+            lastName: user.LastName,
             attendanceRecord: [record],
           };
         } else {
-          acc[employee.id].attendanceRecord.push(record);
+          acc[user.id].attendanceRecord.push(record);
         }
         return acc;
       }, {});
 
-      const result = Object.values(employeesAttendance);
+      const result = Object.values(UsersAttendance);
 
       return result;
     } catch (error) {
-      throw new Error(`Failed to fetch employees attendance: ${error.message}`);
+      throw new Error(`Failed to fetch Users attendance: ${error.message}`);
     }
   }
-  async getAttendanceByEmployeeIdAndDate(
-    employeeId: string,
+  async getAttendanceByUserIdAndDate(
+    UserId: string,
     date: string,
   ): Promise<AttendanceRecord | null> {
     try {
       const attendanceRecord = await this.prisma.attendanceRecord.findFirst({
         where: {
-          employeeId: employeeId,
+          userId: UserId,
           date: date,
         },
       });

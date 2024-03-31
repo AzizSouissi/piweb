@@ -10,5 +10,5 @@ export class CreateAttendanceTrackingDto {
   shiftType: ShiftType | null;
   status: Status;
   absent_reason?: string | null;
-  employeeId: string;
+  userId: string;
 }

@@ -53,10 +53,10 @@ export class CreateAttendanceComponent implements OnInit {
     console.log('zzzz', formData);
     this.attendanceService.create(this.id, formData).subscribe(
       (response) => {
-        console.log('Attendance submitted successfully!', response);
+        alert(response['message']);
       },
       (error) => {
-        console.error('Error submitting attendance:', error);
+        console.error('You have already :', error);
       }
     );
   }
