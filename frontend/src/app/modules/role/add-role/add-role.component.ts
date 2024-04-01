@@ -59,12 +59,11 @@ export class AddRoleComponent implements OnInit {
    
 
     onSubmit() {
-        const roleTitle = this.myForm.get('roleTitle')?.value;
-
-       
+        const roleTitle = this.myForm.get('roleTitle')?.value;   
+        const selectedPrivilegesIds = this.selectedPrivileges.map(privilege => privilege.id);
         const role = {
             name: roleTitle,
-            privileges :this.selectedPrivileges
+            privileges :selectedPrivilegesIds
         };
 
        

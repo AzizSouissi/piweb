@@ -39,13 +39,11 @@
                                         </div>
 
                                         <div *ngFor="let privilege of privileges; let i = index">
-                                             <h4 *ngIf="i === 0 && i !== privileges.length - 1">{{ privilege.name.split(' ')[1].toUpperCase() }}</h4>
+                                            
                                             <label class="checkbox-label">
                                               <input class="styled-checkbox" type="checkbox" (change)="onprivilegeSelect(privilege, $event)"> {{ privilege.name }} 
                                             </label>
-                                            <!-- Insert <hr> every 3 privileges -->
-                                            <hr *ngIf="(i + 1) % 3 === 0 && i !== privileges.length - 1">
-                                            <h4 *ngIf="(i + 1) % 3 === 0 && i !== privileges.length - 1">{{ privilege.name.split(' ')[1].toUpperCase() }}</h4>
+        
                                           </div>
                                           
 

@@ -20,19 +20,19 @@ export class SidebarComponent  implements OnInit{
   ngOnInit(): void {
     const authoritiesCrypted =localStorage.getItem('authorities') 
     const authorities =this.encryptionService.decrypt(authoritiesCrypted!,"2f7a9c81b0d4")
-    if(authorities.includes("view roles" ))
+    if(authorities.includes("READ::ROLE" ))
     {
       this.displayRoleList=true
     }
-    if(authorities.includes("add roles" ))
+    if(authorities.includes("ADD::ROLE" ))
     {
       this.displayRoleAdd=true
     }
-    if(authorities.includes("view users" ))
+    if(authorities.includes("READ::USER" ))
     {
       this.displayUserList=true
     }
-    if(authorities.includes("add users" ))
+    if(authorities.includes("ADD::USER" ))
     {
       this.displayUserAdd=true
     }
