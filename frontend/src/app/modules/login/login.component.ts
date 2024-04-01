@@ -37,7 +37,7 @@ export class LoginComponent {
               
               const user = {
                 firstname : userData.firstname,
-                lastanme : userData.lastname,
+                lastname : userData.lastname,
                 email : userData.email
               }
                
