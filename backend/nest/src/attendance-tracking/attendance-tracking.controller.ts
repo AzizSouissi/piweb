@@ -54,7 +54,7 @@ export class AttendanceTrackingController {
   remove(@Param('id') id: string): Promise<boolean> {
     return this.attendanceTrackingService.remove(id);
   }
-  @Get('/getEmploye/:id')
+  @Get('/getUser/:id')
   find(@Param('id') id: string): Promise<User> {
     return this.attendanceTrackingService.find(id);
   }
