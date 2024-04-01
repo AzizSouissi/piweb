@@ -7,6 +7,7 @@ import { AuthenticationResponse } from "../models/AuthentificationResponse";
   })
   export class AuthService {
     URL = 'http://localhost:3000/auth/local/signin'
+    LOGOUT_URL ='http://localhost:3000/auth/logout'
     
     constructor(private _http:HttpClient) { }
 
@@ -21,5 +22,9 @@ import { AuthenticationResponse } from "../models/AuthentificationResponse";
         return !!localStorage.getItem('token');
     }
 
+    logout()
+    {
+      return this._http.post<any>(this.LOGOUT_URL, {});
+    }
 
   }
