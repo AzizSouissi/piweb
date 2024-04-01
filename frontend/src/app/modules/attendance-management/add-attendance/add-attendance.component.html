@@ -16,13 +16,11 @@
             <thead>
               <tr>
                 <th style="padding: 5px">Name</th>
-
-                <th
-                  *ngFor="let day of daysInMonth;"
-                  style="padding: 5px"
-                >
+                @for(day of daysInMonth; track day){ @if(!isWeekend(day)){
+                <th style="padding: 5px">
                   {{ day }}
                 </th>
+                } }
               </tr>
             </thead>
             <tbody>
@@ -32,9 +30,8 @@
                     {{ employee.firstName }}
                     {{ employee.lastName }}
                   </td>
-
-                  <td *ngFor="let day of daysInMonth" style="padding: 5px">
-                    @if(!isWeekend(day)){
+                  @for(day of daysInMonth; track day){ @if(!isWeekend(day)){
+                  <td style="padding: 5px">
                     <div>
                       <button
                         class="btn btn-primary"
@@ -206,8 +203,8 @@
                         </div>
                       </div>
                     </div>
-                    }
                   </td>
+                  } }
                 </tr>
               </ng-container>
             </tbody>
