@@ -49,6 +49,16 @@ model Deductions {
   insurance Int
 }
 
+model Notification {
+  id          String    @id
+  recipientId String
+  content     String
+  category    String
+  readAt      DateTime?
+  canceledAt  DateTime?
+  createdAt   DateTime  @default(now())
+}
+
 model AttendanceRecord {
   id           String    @id @default(auto()) @map("_id") @db.ObjectId
   date         DateTime
