@@ -50,7 +50,7 @@ model Deductions {
 }
 
 model Notification {
-  id          String    @id
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId
   recipientId String
   content     String
   category    String
