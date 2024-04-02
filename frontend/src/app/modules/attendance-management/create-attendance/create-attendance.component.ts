@@ -14,10 +14,10 @@ import { User } from '../../../core/models/user';
 })
 export class CreateAttendanceComponent implements OnInit {
   currentDate!: Date;
-  selectedStatus!: Status.PRESENT | Status.ABSENT;
+  selectedStatus!: Status.PRESENT | Status.ABSENT; // Default to 'present'
   selectedShiftType!: ShiftType;
   absentReason!: string;
-  id: string = '6608bb56d0d49ebe44c0999f';
+  id: string = '65f3d38056ca42723ee7fe4b';
   dateStr!: string;
   user!: User;
 
@@ -53,15 +53,10 @@ export class CreateAttendanceComponent implements OnInit {
     console.log('zzzz', formData);
     this.attendanceService.create(this.id, formData).subscribe(
       (response) => {
-        if (response.hasOwnProperty('message')) {
-          alert(response['message']);
-        } else {
-          alert('You have successfully added attendance.');
-        }
+        alert(response['message']);
       },
       (error) => {
-        console.error('Error:', error);
-        alert('Failed to add attendance. Please try again.');
+        console.error('You have already :', error);
       }
     );
   }

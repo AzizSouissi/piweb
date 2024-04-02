@@ -108,7 +108,7 @@ export class AddAttendanceComponent implements OnInit {
               shiftType: null,
               status: Status.ABSENT,
               absent_reason: this.absenceReason,
-              userId: '', // Assign the user's ID
+              userId: user.id, // Assign the user's ID
               // Optionally, you can also assign the user object
             };
 

@@ -136,6 +136,7 @@ export class AttendanceTrackingService {
         },
       });
 
+      // If a record is returned, deletion was successful
       return true;
     } catch (error) {
       console.error('Error deleting attendance record:', error);
