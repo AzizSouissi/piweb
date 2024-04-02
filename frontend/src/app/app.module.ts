@@ -6,9 +6,7 @@ import { LoginComponent } from './modules/login/login.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RoleModule } from './modules/role/role.module';
-
 import { AppComponent } from './app.component';
-import { HomeComponent } from './modules/home/home.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { UserModule } from './modules/user/user.module';
 import { TokenInterceptor } from './core/interceptor/token-inter.interceptor';
@@ -21,7 +19,6 @@ import { EmailsendedComponent } from './modules/emailsended/emailsended.componen
     AppComponent,
     LoginComponent,
     
-    HomeComponent,
     ResetpasswordComponent,
     NewpasswordComponent,
     EmailsendedComponent

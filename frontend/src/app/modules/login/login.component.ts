@@ -44,7 +44,7 @@ export class LoginComponent {
              const authorities =this.encryptionService.encrypt(JSON.stringify(userData.authorities),"2f7a9c81b0d4")
              localStorage.setItem('authorities',authorities)
              localStorage.setItem('user',JSON.stringify(user));
-            
+             this.router.navigate(['/home']);
 
              },error: (err: any) => {
                console.error(err);}
