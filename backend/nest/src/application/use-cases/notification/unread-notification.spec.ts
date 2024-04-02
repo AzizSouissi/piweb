@@ -1,6 +1,6 @@
 import { NotificationFactory } from '@test/factories/NotificationFactory';
 import { InMemoryNotificationsRepository } from '@test/repositories/in-memory-notifications-repository';
-import { randomUUID } from 'crypto';
+import generate from 'bson-objectid';
 import { NotificationNotFoundException } from './exceptions/notification-not-found';
 import { UnreadNotification } from './unread-notification';
 
@@ -14,7 +14,7 @@ describe('Read Notification', () => {
   });
 
   it('should be able to unread a notification', async () => {
-    const notificationId = randomUUID();
+    const notificationId = generate().toHexString();
     await repository.create(
       NotificationFactory.make({ id: notificationId, readAt: new Date() }),
     );
@@ -26,7 +26,7 @@ describe('Read Notification', () => {
   });
 
   it('should not be able to unread a non-existing notification', async () => {
-    const notificationId = randomUUID();
+    const notificationId = generate().toHexString();
 
     expect(() => {
       return instance.execute({ notificationId });
