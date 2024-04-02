@@ -15,6 +15,10 @@ model User {
     firstName        String
     lastName         String
     attendanceRecord AttendanceRecord[]
+
+    projectId String?  @db.ObjectId
+    Project   Project? @relation(fields: [projectId], references: [id])
+    Projects  Project? @relation(fields: [projectId1], references: [id])
 }
 
 model AttendanceRecord {
@@ -27,15 +31,33 @@ model AttendanceRecord {
     userId        String     @db.ObjectId
 }
 
-// Define enum for status
 enum Status {
     PRESENT
     ABSENT
 }
 
-// Define enum for shift type
 enum ShiftType {
     FULL_DAY
     HALF_DAY
     QUARTER_SHIFT
+}
+
+model Project {
+    id            String        @id @default(auto()) @map("_id") @db.ObjectId
+    name          String
+    description   String
+    leader        User          @relation(fields: [leaderId], references: [id])
+    leaderId      Int
+    members       User[]        @relation("ProjectMembers")
+    projectStatus ProjectStatus
+    startDate     String
+    endDate       String
+}
+
+enum ProjectStatus {
+    PENDING
+    IN_PROGRESS
+    COMPLETED
+    ON_HOLD
+    CANCELLED
 }

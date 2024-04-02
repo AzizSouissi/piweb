@@ -16,11 +16,10 @@
             <thead>
               <tr>
                 <th style="padding: 5px">Name</th>
-                @for(day of daysInMonth; track day){ @if(!isWeekend(day)){
-                <th style="padding: 5px">
+
+                <th *ngFor="let day of daysInMonth" style="padding: 5px">
                   {{ day }}
                 </th>
-                } }
               </tr>
             </thead>
             <tbody>
@@ -30,8 +29,9 @@
                     {{ employee.firstName }}
                     {{ employee.lastName }}
                   </td>
-                  @for(day of daysInMonth; track day){ @if(!isWeekend(day)){
-                  <td style="padding: 5px">
+
+                  <td *ngFor="let day of daysInMonth" style="padding: 5px">
+                    @if(!isWeekend(day)){
                     <div>
                       <button
                         class="btn btn-primary"
@@ -80,8 +80,8 @@
                                 id="quarterDayRadio"
                                 name="durationRadio"
                                 [(ngModel)]="selectedDuration"
-                                value="QUARTER_SHIFT"
-                                [checked]="selectedDuration === 'QUARTER_SHIFT'"
+                                value="QUARTER_DAY"
+                                [checked]="selectedDuration === 'QUARTER_DAY'"
                               />
                               <label for="quarterDayRadio">Quarter Day</label>
                             </div>
@@ -203,8 +203,8 @@
                         </div>
                       </div>
                     </div>
+                    }
                   </td>
-                  } }
                 </tr>
               </ng-container>
             </tbody>

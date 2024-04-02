@@ -7,7 +7,6 @@ import {
   Status,
 } from '../../../core/models/Dto/CreateAttendanceTrackingDto';
 import { AttendanceRecord } from '../../../core/models/attendanceRecord';
-import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-attendance',
@@ -25,11 +24,7 @@ export class AddAttendanceComponent implements OnInit {
   attendanceRecordId!: string;
   selectedDuration: any;
 
-  constructor(
-    private attendanceService: AttendanceTrackingService,
-    private r: Router,
-    private route: ActivatedRoute
-  ) {}
+  constructor(private attendanceService: AttendanceTrackingService) {}
   ngOnInit(): void {
     this.generateMonthData(new Date());
     this.attendanceService.findAllUsers().subscribe({
@@ -113,14 +108,16 @@ export class AddAttendanceComponent implements OnInit {
               shiftType: null,
               status: Status.ABSENT,
               absent_reason: this.absenceReason,
-              userId: user.id,
+              userId: '', // Assign the user's ID
+              // Optionally, you can also assign the user object
             };
 
             this.attendanceService
               .update(attendanceRecord.id, updateDto)
               .subscribe(
                 (response) => {
-                  this.r.navigate(['attendance/updateAttendance']);
+                  alert('Updated Succesfully !!');
+                  // Optionally, perform any other actions upon successful update
                 },
                 (error) => {
                   console.error('Error updating attendance record:', error);
@@ -158,28 +155,38 @@ export class AddAttendanceComponent implements OnInit {
           console.log(dateStr); // Log the constructed date string
           if (attendanceRecord) {
             console.log(attendanceRecord.id);
-            const selectedDuration: ShiftType = this
-              .selectedDuration as ShiftType;
-            if (Object.values(ShiftType).includes(selectedDuration)) {
-              const updateDto: CreateAttendanceTrackingDto = {
-                date: dateStr,
-                shiftType: selectedDuration,
-                status: Status.PRESENT,
-                userId: user.id,
-              };
-              this.attendanceService
-                .update(attendanceRecord.id, updateDto)
-                .subscribe(
-                  (response) => {
-                    alert('Updated Successfully !!');
-                    this.r.navigate(['attendance/addAttendance']);
-                  },
-                  (error) => {
-                    console.error('Error updating attendance record:', error);
-                  }
-                );
+
+            // Check if status is "present"
+            if (attendanceRecord.status === Status.PRESENT) {
+              // Ensure selectedDuration is one of the enum values
+              const selectedDuration: ShiftType = this
+                .selectedDuration as ShiftType;
+              if (Object.values(ShiftType).includes(selectedDuration)) {
+                // Update shift type
+                const updateDto: CreateAttendanceTrackingDto = {
+                  date: dateStr,
+                  shiftType: selectedDuration,
+                  status: Status.PRESENT,
+                  userId: user.id, // Assign the user's ID
+                  // Optionally, you can also assign the user object
+                };
+
+                this.attendanceService
+                  .update(attendanceRecord.id, updateDto)
+                  .subscribe(
+                    (response) => {
+                      alert('Updated Successfully !!');
+                      // Optionally, perform any other actions upon successful update
+                    },
+                    (error) => {
+                      console.error('Error updating attendance record:', error);
+                    }
+                  );
+              } else {
+                console.log('Invalid shift type.');
+              }
             } else {
-              console.log('Invalid shift type.');
+              console.log('User is not present, no update needed.');
             }
           } else {
             console.error(

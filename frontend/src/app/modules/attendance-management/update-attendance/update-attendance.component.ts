@@ -34,7 +34,6 @@ export class UpdateAttendanceComponent implements OnInit {
   }
 
   getStatusForDay(user: User, day: number, monthIndex: number): string {
-    // Filter attendance records for the current month and user
     const attendanceRecordsForMonth = user.attendanceRecord.filter((record) => {
       const recordDate = new Date(record.date);
       return (
@@ -42,7 +41,6 @@ export class UpdateAttendanceComponent implements OnInit {
       );
     });
 
-    // Get the status for the filtered attendance record
     const attendanceRecordForDay =
       attendanceRecordsForMonth.length > 0
         ? attendanceRecordsForMonth[0].status
@@ -56,7 +54,7 @@ export class UpdateAttendanceComponent implements OnInit {
       day
     );
     const dayOfWeek = date.getDay();
-    return dayOfWeek === 0 || dayOfWeek === 6; // 0 is Sunday, 6 is Saturday
+    return dayOfWeek === 0 || dayOfWeek === 6;
   }
   getShiftTypeForDay(user: User, day: number, monthIndex: number): '' | any {
     const attendanceRecordsForMonth = user.attendanceRecord.filter((record) => {

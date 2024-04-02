@@ -14,10 +14,10 @@ import { User } from '../../../core/models/user';
 })
 export class CreateAttendanceComponent implements OnInit {
   currentDate!: Date;
-  selectedStatus!: Status.PRESENT | Status.ABSENT; // Default to 'present'
+  selectedStatus!: Status.PRESENT | Status.ABSENT;
   selectedShiftType!: ShiftType;
   absentReason!: string;
-  id: string = '6608ebfbd0d49ebe44c099a8';
+  id: string = '6608bb56d0d49ebe44c0999f';
   dateStr!: string;
   user!: User;
 
