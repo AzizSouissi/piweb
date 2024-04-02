@@ -16,11 +16,10 @@
             <thead>
               <tr>
                 <th style="padding: 5px">Name</th>
-                @for(day of daysInMonth; track day){ @if(!isWeekend(day)){
-                <th style="padding: 5px">
+
+                <th *ngFor="let day of daysInMonth" style="padding: 5px">
                   {{ day }}
                 </th>
-                } }
               </tr>
             </thead>
             <tbody>
@@ -28,10 +27,9 @@
                 <tr>
                   <td class="employee-column" style="padding: 5px">
                     {{ employee.firstName }}
-                    {{ employee.lastName }}
                   </td>
-                  @for(day of daysInMonth; track day){ @if(!isWeekend(day)){
-                  <td style="padding: 5px">
+
+                  <td *ngFor="let day of daysInMonth" style="padding: 5px">
                     <div>
                       <button
                         class="btn btn-primary"
@@ -42,6 +40,7 @@
                           border-color: blue;
                           padding: 5px 5px;
                         "
+                        (click)="openModal(employee, day)"
                       >
                         P
                       </button>
@@ -50,10 +49,7 @@
                           <div class="modal-content">
                             <!-- Modal Header -->
                             <div class="modal-header">
-                              <h4 class="modal-title">
-                                <br />
-                                Select Shift type please :
-                              </h4>
+                              <h4 class="modal-title">Modal Heading</h4>
                               <button
                                 type="button"
                                 class="btn-close"
@@ -61,7 +57,7 @@
                               ></button>
                             </div>
                             <!-- Modal body -->
-
+                            <p>Select Shift type please :</p>
                             <div>
                               <input
                                 type="radio"
@@ -69,7 +65,6 @@
                                 name="durationRadio"
                                 [(ngModel)]="selectedDuration"
                                 value="HALF_DAY"
-                                [checked]="selectedDuration === 'HALF_DAY'"
                               />
                               <label for="halfDayRadio">Half Day</label>
                             </div>
@@ -80,8 +75,7 @@
                                 id="quarterDayRadio"
                                 name="durationRadio"
                                 [(ngModel)]="selectedDuration"
-                                value="QUARTER_DAY"
-                                [checked]="selectedDuration === 'QUARTER_DAY'"
+                                value="QUARTER_SHIFT"
                               />
                               <label for="quarterDayRadio">Quarter Day</label>
                             </div>
@@ -110,7 +104,7 @@
                               <button
                                 type="button"
                                 class="btn btn-primary"
-                                (click)="handleUpdate(employee, day)"
+                                (click)="handleUpdate()"
                               >
                                 Update
                               </button>
@@ -131,9 +125,7 @@
                             border-color: red;
                             padding: 5px 5px;
                           "
-                          (click)="
-                            openUpdateModal(employee, day, absenceReason)
-                          "
+                          (click)="openModal(employee, day)"
                         >
                           A
                         </button>
@@ -143,7 +135,7 @@
                             <div class="modal-content">
                               <!-- Modal Header -->
                               <div class="modal-header">
-                                <h4 class="modal-title">Reason for Absence:</h4>
+                                <h4 class="modal-title">Modal Heading</h4>
                                 <button
                                   type="button"
                                   class="btn-close"
@@ -154,23 +146,15 @@
                               <!-- Modal body -->
                               <div class="modal-body">
                                 <div class="mb-3">
-                                  <label
-                                    for="absenceReason"
-                                    class="form-label"
-                                  ></label>
+                                  <label for="absenceReason" class="form-label"
+                                    >Reason for Absence:</label
+                                  >
                                   <input
                                     type="text"
                                     class="form-control"
                                     id="absenceReason"
                                     name="absenceReason"
                                     [(ngModel)]="absenceReason"
-                                    (click)="
-                                      openUpdateModal(
-                                        employee,
-                                        day,
-                                        absenceReason
-                                      )
-                                    "
                                   />
                                 </div>
                               </div>
@@ -187,13 +171,7 @@
                                 <button
                                   type="button"
                                   class="btn btn-primary"
-                                  (click)="
-                                    updateAttendance(
-                                      employee,
-                                      day,
-                                      absenceReason
-                                    )
-                                  "
+                                  (click)="updateAttendanceRecord()"
                                 >
                                   Update
                                 </button>
@@ -204,7 +182,6 @@
                       </div>
                     </div>
                   </td>
-                  } }
                 </tr>
               </ng-container>
             </tbody>

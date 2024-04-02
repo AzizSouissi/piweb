@@ -11,7 +11,7 @@ import { AttendanceRecord } from '../../../core/models/attendanceRecord';
 @Component({
   selector: 'app-add-attendance',
   templateUrl: './add-attendance.component.html',
-  styleUrl: './add-attendance.component.css',
+  styleUrls: ['./add-attendance.component.css'],
 })
 export class AddAttendanceComponent implements OnInit {
   monthData: MonthData[] = [];
@@ -22,9 +22,13 @@ export class AddAttendanceComponent implements OnInit {
   selectedDate: Date = new Date();
   absenceReason: string = '';
   attendanceRecordId!: string;
-  selectedDuration: any;
+  selectedDuration!: ShiftType;
+  userid!: string;
+  day!: number;
+  isModalOpened: boolean = false; // Flag to track if the modal is open
 
   constructor(private attendanceService: AttendanceTrackingService) {}
+
   ngOnInit(): void {
     this.generateMonthData(new Date());
     this.attendanceService.findAllUsers().subscribe({
@@ -36,6 +40,64 @@ export class AddAttendanceComponent implements OnInit {
         console.error('There was an error!', error);
       },
     });
+  }
+
+  openModal(user: User, day: number) {
+    console.log(user, day);
+    this.user = user;
+    this.day = day;
+    this.isModalOpened = true;
+  }
+
+  handleUpdate() {
+    console.log('User:', this.user);
+    console.log('Day:', this.day);
+    const year = this.selectedDate.getFullYear();
+    const month = this.selectedDate.getMonth() + 1; // Adding 1 because months are zero-indexed
+    const formattedDay = this.day < 10 ? `0${this.day}` : this.day; // Ensure day has leading zero if needed
+    const dateStr = `${year}-${month < 10 ? '0' : ''}${month}-${formattedDay}`; // Construct date string
+
+    this.attendanceService
+      .getAttendanceByUserIdAndDate(this.user.id, dateStr)
+      .subscribe(
+        (attendanceRecord: AttendanceRecord | null) => {
+          console.log(this.user.id);
+          console.log(dateStr); // Log the constructed date string
+          if (attendanceRecord) {
+            console.log(attendanceRecord.id);
+
+            // Check if status is "present"
+
+            // Ensure selectedDuration is one of the enum values
+
+            console.log('kkk', this.selectedDuration);
+
+            const updateDto: CreateAttendanceTrackingDto = {
+              date: dateStr,
+              absent_reason: null,
+              shiftType: this.selectedDuration,
+              status: Status.PRESENT,
+              userId: this.user.id, // Assign the employee's ID
+              // Optionally, you can also assign the employee object
+            };
+
+            this.attendanceService
+              .update(attendanceRecord.id, updateDto)
+              .subscribe(
+                (response) => {
+                  console.log(this.user, 'succesfully');
+                  // Optionally, perform any other actions upon successful update
+                },
+                (error) => {
+                  console.error('Error updating attendance record:', error);
+                }
+              );
+          }
+        },
+        (error) => {
+          console.error('Error fetching attendance record:', error);
+        }
+      );
   }
 
   isWeekend(day: number): boolean {
@@ -87,36 +149,36 @@ export class AddAttendanceComponent implements OnInit {
     this.selectedDate.setMonth(this.selectedDate.getMonth() + delta);
     this.generateMonthData(this.selectedDate);
   }
-  updateAttendance(user: User, day: number, absenceReason: string) {
-    console.log('Clicked day:', day);
+
+  updateAttendanceRecord(): void {
     const year = this.selectedDate.getFullYear();
     const month = this.selectedDate.getMonth() + 1; // Adding 1 because months are zero-indexed
-    const formattedDay = day < 10 ? `0${day}` : day; // Ensure day has leading zero if needed
+    const formattedDay = this.day < 10 ? `0${this.day}` : this.day; // Ensure day has leading zero if needed
     const dateStr = `${year}-${month < 10 ? '0' : ''}${month}-${formattedDay}`; // Construct date string
 
     this.attendanceService
-      .getAttendanceByUserIdAndDate(user.id, dateStr)
+      .getAttendanceByUserIdAndDate(this.user.id, dateStr)
       .subscribe(
         (attendanceRecord: AttendanceRecord | null) => {
-          console.log(user.id);
-
-          console.log(dateStr); // Log the constructed date string
+          console.log(this.user.id);
+          console.log(dateStr);
           if (attendanceRecord) {
-            console.log(attendanceRecord.id);
             const updateDto: CreateAttendanceTrackingDto = {
-              date: dateStr,
+              date: this.selectedDate.toISOString().slice(0, 10),
               shiftType: null,
               status: Status.ABSENT,
               absent_reason: this.absenceReason,
-              userId: user.id, // Assign the user's ID
-              // Optionally, you can also assign the user object
+              userId: this.user.id,
             };
 
             this.attendanceService
               .update(attendanceRecord.id, updateDto)
               .subscribe(
                 (response) => {
-                  alert('Updated Succesfully !!');
+                  console.log(
+                    'Attendance record updated successfully:',
+                    response
+                  );
                   // Optionally, perform any other actions upon successful update
                 },
                 (error) => {
@@ -125,7 +187,7 @@ export class AddAttendanceComponent implements OnInit {
               );
           } else {
             console.error(
-              'Attendance record not found for the selected day and user.'
+              'Attendance record not found for the selected day and employee.'
             );
           }
         },
@@ -134,70 +196,15 @@ export class AddAttendanceComponent implements OnInit {
         }
       );
   }
-  openUpdateModal(user: User, day: number, absenceReason: string): void {
-    this.user = user; // Assuming you have a property named userId in your component
+
+  openUpdateModal(
+    employeeId: string,
+    day: number,
+    absenceReason: string
+  ): void {
+    this.user.id = employeeId; // Assuming you have a property named employeeId in your component
     // Assuming you have a property named selectedDay in your component
     this.absenceReason = absenceReason; // Assuming you have a property named absenceReason in your component
-  }
-  handleUpdate(user: User, day: number) {
-    console.log('Clicked day:', day);
-    const year = this.selectedDate.getFullYear();
-    const month = this.selectedDate.getMonth() + 1; // Adding 1 because months are zero-indexed
-    const formattedDay = day < 10 ? `0${day}` : day; // Ensure day has leading zero if needed
-    const dateStr = `${year}-${month < 10 ? '0' : ''}${month}-${formattedDay}`; // Construct date string
-
-    this.attendanceService
-      .getAttendanceByUserIdAndDate(user.id, dateStr)
-      .subscribe(
-        (attendanceRecord: AttendanceRecord | null) => {
-          console.log(user.id);
-
-          console.log(dateStr); // Log the constructed date string
-          if (attendanceRecord) {
-            console.log(attendanceRecord.id);
-
-            // Check if status is "present"
-            if (attendanceRecord.status === Status.PRESENT) {
-              // Ensure selectedDuration is one of the enum values
-              const selectedDuration: ShiftType = this
-                .selectedDuration as ShiftType;
-              if (Object.values(ShiftType).includes(selectedDuration)) {
-                // Update shift type
-                const updateDto: CreateAttendanceTrackingDto = {
-                  date: dateStr,
-                  shiftType: selectedDuration,
-                  status: Status.PRESENT,
-                  userId: user.id, // Assign the user's ID
-                  // Optionally, you can also assign the user object
-                };
-
-                this.attendanceService
-                  .update(attendanceRecord.id, updateDto)
-                  .subscribe(
-                    (response) => {
-                      alert('Updated Successfully !!');
-                      // Optionally, perform any other actions upon successful update
-                    },
-                    (error) => {
-                      console.error('Error updating attendance record:', error);
-                    }
-                  );
-              } else {
-                console.log('Invalid shift type.');
-              }
-            } else {
-              console.log('User is not present, no update needed.');
-            }
-          } else {
-            console.error(
-              'Attendance record not found for the selected day and user.'
-            );
-          }
-        },
-        (error) => {
-          console.error('Error fetching attendance record:', error);
-        }
-      );
   }
 }
 
