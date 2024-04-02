@@ -1,5 +1,5 @@
-import { Notification } from '@application/entities/notification';
-import { InMemoryNotificationsRepository } from '@test/repositories/in-memory-notifications-repository';
+import { Notification } from './../../../application/entities/notification';
+import { InMemoryNotificationsRepository } from './../../../../test/repositories/in-memory-notifications-repository';
 import { CreateNotification } from './create-notification';
 
 describe('Create Notification', () => {

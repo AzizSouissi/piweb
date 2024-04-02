@@ -1,5 +1,5 @@
-import { NotificationFactory } from '@test/factories/NotificationFactory';
-import { InMemoryNotificationsRepository } from '@test/repositories/in-memory-notifications-repository';
+import { NotificationFactory } from './../../../../test/factories/NotificationFactory';
+import { InMemoryNotificationsRepository } from './../../../../test/repositories/in-memory-notifications-repository';
 import { GetRecipientNotifications } from './get-recipient-notifications';
 
 describe('Get Recipient Notifications', () => {

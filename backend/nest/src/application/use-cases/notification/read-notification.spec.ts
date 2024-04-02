@@ -1,5 +1,5 @@
-import { NotificationFactory } from '@test/factories/NotificationFactory';
-import { InMemoryNotificationsRepository } from '@test/repositories/in-memory-notifications-repository';
+import { NotificationFactory } from './../../../../test/factories/NotificationFactory';
+import { InMemoryNotificationsRepository } from './../../../../test/repositories/in-memory-notifications-repository';
 import generate from 'bson-objectid';
 import { NotificationNotFoundException } from './exceptions/notification-not-found';
 import { ReadNotification } from './read-notification';

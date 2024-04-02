@@ -1,4 +1,4 @@
-import { NotificationsRepository } from '@application/repositories/notifications-repository';
+import { NotificationsRepository } from './../../../application/repositories/notifications-repository';
 import { Injectable } from '@nestjs/common';
 import { NotificationNotFoundException } from './exceptions/notification-not-found';
 
