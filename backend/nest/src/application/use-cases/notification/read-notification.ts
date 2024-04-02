@@ -15,9 +15,8 @@ export class ReadNotification {
   async execute(input: ReadNotificationInput): Promise<ReadNotificationOutput> {
     const { notificationId } = input;
 
-    const notification = await this.notificationsRepository.findById(
-      notificationId,
-    );
+    const notification =
+      await this.notificationsRepository.findById(notificationId);
 
     if (!notification) {
       throw new NotificationNotFoundException();
