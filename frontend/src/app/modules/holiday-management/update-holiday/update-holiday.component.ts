@@ -21,27 +21,32 @@ id !:string|null
     private formB: FormBuilder,
   private holidayService:HolidayService,
     
-    ) { }
+    ) {
+     
+     }
 
   ngOnInit() {
    if( this.route.paramMap.subscribe((paramMap) => {this.id= paramMap.get('id')})){
     if(this.id==null){
-      console.log("dzelkn")
 return
     }
       this.holidayService.getHolidayById(this.id).subscribe(
-        (data: Holiday|string) => {
-          console.log(data);
-          if(data instanceof Holiday){
+        (data: Holiday|String) => {
+          
+          if('name' in data){
+            
+            console.log(data);
 
             this.holiday = data;
             this.updateForm = this.formB.group({
-              Name: [data.name],
-              Date: [data.date],
-              Duration:[data.duration],
-              Shift :[data.shift]
+              name: [''],
+              date: [''],
+              duration:[''],
+              shift :['']
             });
+           
             this.updateForm.patchValue(data);
+            
           }
         }
        
