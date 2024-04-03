@@ -1,4 +1,4 @@
-import { ConfigRepository } from '@application/repositories/config-repository';
+import { ConfigsRepository } from '@application/repositories/configs-repository';
 import { Injectable } from '@nestjs/common';
 
 interface DeleteConfigInput {
@@ -7,7 +7,7 @@ interface DeleteConfigInput {
 
 @Injectable()
 export class DeleteConfig {
-  constructor(private configRepository: ConfigRepository) {}
+  constructor(private configRepository: ConfigsRepository) {}
 
   async execute(input: DeleteConfigInput): Promise<void> {
     const { configId } = input;

@@ -1,4 +1,4 @@
-import { ConfigRepository } from '@application/repositories/config-repository';
+import { ConfigRepository } from '@application/repositories/configs-repository';
 import { DeleteConfig } from './delete-config';
 
 describe('DeleteConfig', () => {

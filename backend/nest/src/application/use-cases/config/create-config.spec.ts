@@ -1,6 +1,6 @@
 import { Config } from '../../entities/config';
 import { InMemoryConfigsRepository } from '../../../../test/repositories/in-memory-configs-repository';
-import { CreateConfig } from './get-config';
+import { CreateConfig } from './create-config';
 
 describe('Create Config', () => {
   let repository: InMemoryConfigsRepository;

@@ -80,6 +80,15 @@ model Ticket {
   employeeId  String       @db.ObjectId
 }
 
+model Config {
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  companyName  String
+  cnssrib      String
+  payDay       DateTime
+  delayPayment Int
+  cssrate      Int
+}
+
 model Project {
   id          String        @id @default(auto()) @map("_id") @db.ObjectId
   name        String

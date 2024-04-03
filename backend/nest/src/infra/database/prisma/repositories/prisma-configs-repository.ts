@@ -14,34 +14,24 @@ export class PrismaConfigsRepository implements ConfigsRepository {
     });
   }
 
-  async findById(configId: string): Promise<Config | null> {
-    const config = await this.prisma.config.findUnique({
-      where: {
-        id: configId,
-      },
-    });
-
+  async getConfig(): Promise<Config | null> {
+    const config = await this.prisma.config.findFirst();
     if (!config) {
       return null;
     }
-
     return PrismaConfigMapper.toDomain(config);
   }
 
-  async update(config: Config): Promise<void> {
+  async updateConfig(config: Config): Promise<void> {
     await this.prisma.config.update({
-      where: {
-        id: config.id,
-      },
+      where: { id: config.id },
       data: PrismaConfigMapper.toPrisma(config),
     });
   }
 
   async delete(configId: string): Promise<void> {
     await this.prisma.config.delete({
-      where: {
-        id: configId,
-      },
+      where: { id: configId },
     });
   }
 }

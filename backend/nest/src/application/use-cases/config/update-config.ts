@@ -1,32 +1,44 @@
-import { Notification } from './../../../application/entities/notification';
-import { NotificationsRepository } from './../../../application/repositories/notifications-repository';
+import { ConfigsRepository } from '@application/repositories/configs-repository';
 import { Injectable } from '@nestjs/common';
 
-interface CreateNotificationInput {
-  recipientId: string;
-  content: string;
-  category: string;
-}
-
-interface CreateNotificationOutput {
-  notification: Notification;
+interface UpdateConfigInput {
+  companyName?: string;
+  cnssrib?: string;
+  payDay?: Date;
+  delayPayment?: number;
+  cssrate?: number;
 }
 
 @Injectable()
-export class CreateNotification {
-  constructor(private notificationsRepository: NotificationsRepository) {}
+export class UpdateConfig {
+  constructor(private configsRepository: ConfigsRepository) {}
 
-  async execute(
-    input: CreateNotificationInput,
-  ): Promise<CreateNotificationOutput> {
-    const notification = new Notification({
-      recipientId: input.recipientId,
-      content: input.content,
-      category: input.category,
-    });
+  async execute(input: UpdateConfigInput): Promise<void> {
+    const config = await this.configsRepository.getConfig();
+    if (!config) {
+      throw new Error('Configuration not found');
+    }
 
-    await this.notificationsRepository.create(notification);
+    if (input.companyName !== undefined) {
+      config.companyName = input.companyName;
+    }
 
-    return { notification };
+    if (input.cnssrib !== undefined) {
+      config.cnssrib = input.cnssrib;
+    }
+
+    if (input.payDay !== undefined) {
+      config.payDay = input.payDay;
+    }
+
+    if (input.delayPayment !== undefined) {
+      config.delayPayment = input.delayPayment;
+    }
+
+    if (input.cssrate !== undefined) {
+      config.cssrate = input.cssrate;
+    }
+
+    await this.configsRepository.updateConfig(config);
   }
 }
