@@ -6,6 +6,7 @@ import { NewpasswordComponent } from './modules/newpassword/newpassword.componen
 import { EmailsendedComponent } from './modules/emailsended/emailsended.component';
 import { RoleGuard } from './core/guards/role-guard.guard';
 import { NotFoundComponent } from './modules/not-found/not-found.component';
+import { HomeGuard } from './core/guards/home-guard.guard';
 
 const routes: Routes = [
   {path: '', component: LoginComponent},
@@ -26,7 +27,7 @@ const routes: Routes = [
   },
 
   {path: 'home',loadChildren:() =>
-  import('./modules/home/home.module').then(m=>m.HomeModule) },
+  import('./modules/home/home.module').then(m=>m.HomeModule), canActivate: [HomeGuard] },
 
   {path: 'users',loadChildren:() =>
   import('./modules/user/user.module').then(m=>m.UserModule) },
