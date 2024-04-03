@@ -19,9 +19,6 @@ RUN npm ci
 # Copy the rest of the application code
 COPY --chown=node:node . .
 
-# Generate Prisma client
-RUN npx prisma generate
-
 # Switch to the node user
 USER node
 
