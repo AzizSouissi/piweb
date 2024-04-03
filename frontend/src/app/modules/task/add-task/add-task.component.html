@@ -1,0 +1,108 @@
+<div class="pcoded-main-container">
+    <div class="pcoded-wrapper">
+      <div class="pcoded-content">
+        <div class="calendar-container">
+          <div class="month-nav">
+            <button (click)="switchMonth(-1)" class="nav-button">
+              <span class="bi bi-arrow-left"></span>
+            </button>
+            <h2>{{ currentMonthYear }}</h2>
+            <button (click)="switchMonth(1)" class="nav-button">
+              <span class="bi bi-arrow-right"></span>
+            </button>
+          </div>
+          <div class="table-responsive">
+            <table class="table table-bordered" style="font-size: 12px">
+              <thead>
+                <tr>
+                  <th style="padding: 5px">Title</th>
+                  <!-- Add more headers if needed based on Task entity attributes -->
+  
+                  <th *ngFor="let day of daysInMonth" style="padding: 5px">
+                    {{ day }}
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <ng-container *ngFor="let task of tasks">
+                  <tr>
+                    <td class="task-column" style="padding: 5px">
+                      {{ task.title }}
+                      <!-- Display other task attributes as needed -->
+                    </td>
+  
+                    <td *ngFor="let day of daysInMonth" style="padding: 5px">
+                      <div>
+                        <!-- Add button to open modal for updating task status -->
+                        <button
+                          class="btn btn-primary"
+                          data-bs-toggle="modal"
+                          data-bs-target="#myModal"
+                          style="
+                            background-color: blue;
+                            border-color: blue;
+                            padding: 5px 5px;
+                          "
+                          (click)="openUpdateModal(task, day)"
+                        >
+                          Update
+                        </button>
+                        <!-- Add modal for updating task status -->
+                        <div class="modal fade" id="myModal">
+                          <div class="modal-dialog">
+                            <div class="modal-content">
+                              <!-- Modal Header -->
+                              <div class="modal-header">
+                                <h4 class="modal-title">Update Task Status</h4>
+                                <button
+                                  type="button"
+                                  class="btn-close"
+                                  data-bs-dismiss="modal"
+                                ></button>
+                              </div>
+                              <!-- Modal body -->
+                              <div class="modal-body">
+                                <!-- Add form elements to update task status -->
+                                <!-- For example, dropdown for status -->
+                                <select
+                                  class="form-select"
+                                  [(ngModel)]="selectedStatus"
+                                  name="status"
+                                >
+                                  <option value="PENDING">Pending</option>
+                                  <option value="IN_PROGRESS">In Progress</option>
+                                  <option value="COMPLETED">Completed</option>
+                                </select>
+                              </div>
+                              <!-- Modal footer -->
+                              <div class="modal-footer">
+                                <button
+                                  type="button"
+                                  class="btn btn-danger"
+                                  data-bs-dismiss="modal"
+                                >
+                                  Close
+                                </button>
+                                <button
+                                  type="button"
+                                  class="btn btn-primary"
+                                  (click)="updateTaskStatus(task, day)"
+                                >
+                                  Update
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                </ng-container>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
