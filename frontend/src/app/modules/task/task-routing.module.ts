@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { UpdateTaskComponent } from '../../../../../piweb-attendanceRecord-Management/frontend/src/app/modules/task/update-task/update-task.component';
-import { AddTaskComponent } from '../../../../../piweb-attendanceRecord-Management/frontend/src/app/modules/task/add-task/add-task.component';
-import { ListTaskComponent } from '../../../../../piweb-attendanceRecord-Management/frontend/src/app/modules/task/list-task/list-task.component';
-import { CreateTaskComponent } from '../../../../../piweb-attendanceRecord-Management/frontend/src/app/modules/task/create-task/create-task.component';
+import { ListTaskComponent } from './list-task/list-task.component';
+import { AddTaskComponent } from './add-task/add-task.component';
+import { UpdateTaskComponent } from './update-task/update-task.component';
+import { CreateTaskComponent } from './create-task/create-task.component';
 
 const routes: Routes = [
   { path: 'listTasks', component: ListTaskComponent },

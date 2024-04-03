@@ -11,7 +11,7 @@ export class ListTaskComponent implements OnInit {
   tasks: Task[] = []; // Initialize as empty array
 
   constructor(private taskService: TaskService) {}
-
+  
   ngOnInit(): void {
     // Call the service method to fetch all tasks
     this.taskService.findAllTasks().subscribe(
@@ -24,4 +24,6 @@ export class ListTaskComponent implements OnInit {
       }
     );
   }
+
+ 
 }
