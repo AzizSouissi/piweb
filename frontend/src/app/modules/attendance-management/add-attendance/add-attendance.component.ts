@@ -196,16 +196,6 @@ export class AddAttendanceComponent implements OnInit {
         }
       );
   }
-
-  openUpdateModal(
-    employeeId: string,
-    day: number,
-    absenceReason: string
-  ): void {
-    this.user.id = employeeId; // Assuming you have a property named employeeId in your component
-    // Assuming you have a property named selectedDay in your component
-    this.absenceReason = absenceReason; // Assuming you have a property named absenceReason in your component
-  }
 }
 
 interface MonthData {

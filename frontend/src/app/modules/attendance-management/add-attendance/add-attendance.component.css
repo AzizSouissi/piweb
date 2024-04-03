@@ -1,3 +1,4 @@
+
 table {
   width: 100%;
   border-collapse: collapse;
@@ -18,7 +19,7 @@ tr:nth-child(even) {
 }
 
 tr:hover {
-  background-color: #ddd;
+  background-color: black;
 }
 .month-nav {
   display: flex;
@@ -57,4 +58,10 @@ th, td {
 .status-container {
   display: flex;
   align-items: center;
+}
+.disabled {
+  background-color: #f2f2f2; /* Grey background */
+  color: #999; /* Lighter text color */
+  pointer-events: none; /* Disable pointer events */
+  width: 0.5px;
 }

@@ -1,6 +1,3 @@
-// schema.prisma
-
-// Define the data model
 datasource db {
     provider = "mongodb"
     url      = env("DATABASE_URL")
@@ -15,6 +12,8 @@ model User {
     firstName        String
     lastName         String
     attendanceRecord AttendanceRecord[]
+    projectIds       String[]           @db.ObjectId
+    projects         Project[]          @relation(fields: [projectIds], references: [id])
 }
 
 model AttendanceRecord {
@@ -33,9 +32,24 @@ enum Status {
     ABSENT
 }
 
-// Define enum for shift type
 enum ShiftType {
     FULL_DAY
     HALF_DAY
     QUARTER_SHIFT
+}
+
+model Project {
+    id            String        @id @default(auto()) @map("_id") @db.ObjectId
+    usersIds      String[]      @db.ObjectId
+    users         User[]        @relation(fields: [usersIds], references: [id])
+    leader        String
+    startDate     String
+    endDate       String
+    projectStatus ProjectStatus
+}
+
+enum ProjectStatus {
+    PENDING
+    ON_HOLD
+    COMPLETED
 }
