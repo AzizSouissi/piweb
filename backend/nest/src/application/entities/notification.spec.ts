@@ -1,10 +1,10 @@
-import { randomUUID } from 'crypto';
+import generate from 'bson-objectid';
 import { Notification } from './notification';
 
 describe('Notification', () => {
   it('should create a notification', () => {
     const notification = new Notification({
-      recipientId: randomUUID(),
+      recipientId: generate().toHexString(),
       content: 'New notification!',
       category: 'social',
     });
@@ -14,8 +14,8 @@ describe('Notification', () => {
 
   it('should create a notification with all props', () => {
     const data = {
-      id: randomUUID(),
-      recipientId: randomUUID(),
+      id: generate().toHexString(),
+      recipientId: generate().toHexString(),
       content: 'New notification!',
       category: 'social',
       readAt: null,
@@ -36,7 +36,7 @@ describe('Notification', () => {
 
   it('can read a notification', () => {
     const notification = new Notification({
-      recipientId: randomUUID(),
+      recipientId: generate().toHexString(),
       content: 'New notification!',
       category: 'social',
     });
@@ -50,7 +50,7 @@ describe('Notification', () => {
 
   it('can cancel a notification', () => {
     const notification = new Notification({
-      recipientId: randomUUID(),
+      recipientId: generate().toHexString(),
       content: 'New notification!',
       category: 'social',
     });
