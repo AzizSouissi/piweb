@@ -6,7 +6,7 @@ import {
 import { CreateAttendanceTrackingDto } from './dto/create-attendance-tracking.dto';
 import { AttendanceRecord, User, PrismaClient, Status } from '@prisma/client';
 import { type Prisma } from '@prisma/client';
-import { PrismaService } from 'src/prisma.service';
+import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class AttendanceTrackingService {
@@ -61,15 +61,15 @@ export class AttendanceTrackingService {
     }
   }
 
-  find(id: string): Promise<User> {
+  find(id: string): Promise<any> {
     return this.prisma.user.findUnique({
       where: {
         id: id,
       },
       select: {
         id: true,
-        firstName: true,
-        lastName: true,
+        firstname: true,
+        lastname: true,
         attendanceRecord: true,
       },
     });
@@ -164,8 +164,8 @@ export class AttendanceTrackingService {
         if (!acc[user.id]) {
           acc[user.id] = {
             UserId: user.id,
-            firstName: user.firstName,
-            lastName: user.lastName,
+            firstName: user.firstname,
+            lastName: user.lastname,
             attendanceRecord: [record],
           };
         } else {

@@ -12,9 +12,10 @@ import {
 } from '@nestjs/common';
 import { AttendanceTrackingService } from './attendance-tracking.service';
 import { UpdateAttendanceTrackingDto } from './dto/update-attendance-tracking.dto';
+
+import { PrismaService } from 'src/prisma/prisma.service';
 import { AttendanceRecord, User } from '@prisma/client';
 import { CreateAttendanceTrackingDto } from './dto/create-attendance-tracking.dto';
-import { PrismaService } from 'src/prisma.service';
 
 @Controller('attendance-tracking')
 export class AttendanceTrackingController {
@@ -66,7 +67,7 @@ export class AttendanceTrackingController {
   @Put('/updateAttendance/:id')
   async updateAttendance(
     @Param('id') id: string,
-    @Body() updateAttendanceTrackingDto: UpdateAttendanceTrackingDto,
+    @Body() updateAttendanceTrackingDto: AttendanceRecord,
   ): Promise<AttendanceRecord | any> {
     try {
       const updatedRecord = await this.prisma.attendanceRecord.update({

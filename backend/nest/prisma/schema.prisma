@@ -14,22 +14,22 @@ datasource db {
 }
 
 model User {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  email     String   @unique
-  firstname String?
-  lastname  String?
-  address   String?
-  birthday  String?
-  degree    String?
-  number    Int?
-  hash      String
-  hashedAt  String?
-  hashedRt  String?
-
-  roleId String[] @db.ObjectId
-  roles  Role[]   @relation(fields: [roleId], references: [id])
+  id               String             @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
+  email            String             @unique
+  firstname        String?
+  lastname         String?
+  address          String?
+  birthday         String?
+  degree           String?
+  number           Int?
+  hash             String
+  hashedAt         String?
+  hashedRt         String?
+  attendanceRecord AttendanceRecord[]
+  roleId           String[]           @db.ObjectId
+  roles            Role[]             @relation(fields: [roleId], references: [id])
 
   @@map("users")
 }
@@ -60,4 +60,27 @@ model PasswordResetToken {
   token      String
   email      String
   expiryDate String
+}
+
+model AttendanceRecord {
+  id            String     @id @default(auto()) @map("_id") @db.ObjectId
+  date          String
+  shiftType     ShiftType?
+  status        Status
+  absent_reason String?
+  user          User       @relation(fields: [userId], references: [id])
+  userId        String     @db.ObjectId
+}
+
+// Define enum for status
+enum Status {
+  PRESENT
+  ABSENT
+}
+
+// Define enum for shift type
+enum ShiftType {
+  FULL_DAY
+  HALF_DAY
+  QUARTER_SHIFT
 }
