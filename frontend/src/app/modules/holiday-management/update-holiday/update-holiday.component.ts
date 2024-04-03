@@ -58,7 +58,25 @@ return
    }
   }
   
+  updateholiday(){
+ 
+    this.holiday.date=this.updateForm.value.date;
+    this.holiday.duration=this.updateForm.value.duration;
+    this.holiday.shift=this.updateForm.value.shift;
+    this.holiday.name=this.updateForm.value.name;
 
+    this.holidayService.updateHoliday(this.holiday.id,this.holiday).subscribe(
+    (response) => {
+      alert('User Updated Successfully!');
+      console.log(this.holiday)
+
+
+    },
+    (error) => {
+      console.error('Update failed:', error);
+    }
+  );
+  }
   
 
 }

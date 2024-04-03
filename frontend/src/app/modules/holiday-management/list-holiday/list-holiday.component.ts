@@ -9,6 +9,10 @@ import { ActivatedRoute, Route, Router } from '@angular/router';
   styleUrl: './list-holiday.component.css'
 })
 export class ListHolidayComponent implements OnInit {
+onDelete(id:string) {
+this.holidayService.deleteHoliday(id).subscribe((next)=>{this.ngOnInit()
+})
+}
 navigateToUpdate(id:string) {
   console.log(id)
   this.router.navigateByUrl('UpdateHoliday/'+id)

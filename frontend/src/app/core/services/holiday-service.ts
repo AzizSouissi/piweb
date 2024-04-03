@@ -50,7 +50,7 @@ export class HolidayService {
   updateHoliday(    id: string,
     updateHolidayDto:Holiday
     ) : Observable<any> {
-    return this.http.patch(
+    return this.http.put(
       `${this.URL}/${id}`,
       updateHolidayDto,
       this.httpOtions
