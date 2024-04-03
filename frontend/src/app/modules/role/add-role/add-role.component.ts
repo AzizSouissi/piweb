@@ -4,6 +4,7 @@ import { RoleService } from '../../../core/services/role.service';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Privilege } from '../../../core/models/Privilege';
 import { Router } from '@angular/router';
+import { EncryptionService } from '../../../core/services/encryption.service';
 
 @Component({
     selector: 'app-add-role',
@@ -20,7 +21,8 @@ export class AddRoleComponent implements OnInit {
         private privilegeService: PrivilegeService,
         private roleService: RoleService,
         private formBuilder: FormBuilder,
-        private router: Router
+        private router: Router,
+        private encryptionService : EncryptionService
     ) {
         this.myForm = this.formBuilder.group({
             roleTitle: ['',[Validators.pattern('[A-Z]+'), Validators.required]]
@@ -70,8 +72,10 @@ export class AddRoleComponent implements OnInit {
 
         this.roleService.addRole(role).subscribe(
             (res: any) => {
-              this.router.navigate(['/roles']);
-             
+                const authoritiesCrypted =localStorage.getItem('authorities') 
+                const authorities =this.encryptionService.decrypt(authoritiesCrypted!,"2f7")
+                if(authorities.includes("READ::ROLE")) this.router.navigate(['/roles']);
+                else this.router.navigate(['/home'])
             },
             (err: any) => {
                 console.error('Error adding role:', err);

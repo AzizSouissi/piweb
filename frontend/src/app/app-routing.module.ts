@@ -34,6 +34,7 @@ const routes: Routes = [
 
   {path: 'roles',loadChildren:() =>
     import('./modules/role/role.module').then(m=>m.RoleModule) },
+    { path: '**', component: NotFoundComponent }
 ];
 
 @NgModule({

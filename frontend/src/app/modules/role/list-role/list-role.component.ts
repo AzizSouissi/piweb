@@ -5,6 +5,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
+import { EncryptionService } from '../../../core/services/encryption.service';
 
 
 @Component({
@@ -15,15 +16,29 @@ import { Router } from '@angular/router';
 export class ListRoleComponent implements OnInit{
   displayedColumns: string[] = ['Role', 'Privileges' ,'Actions'];
   dataSource!: MatTableDataSource<any>;
+   authorities = ""
+   updateRole =false
+   deleteRole =false
 
   
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   
   ngOnInit(): void {
+    const authoritiesCrypted =localStorage.getItem('authorities') 
+     this.authorities = this.encryptionService.decrypt(authoritiesCrypted!,"2f7")
+     console.log(this.authorities)
+     if(this.authorities.includes("EDIT::ROLE")){
+      this.updateRole = true
+     }
+     if(this.authorities.includes("DELETE::ROLE"))
+     {
+      this.deleteRole =true
+
+     }
     this.getRoles();
   }
- constructor(private router:Router,private roleService: RoleService){}
+ constructor(private router:Router,private roleService: RoleService,private encryptionService:EncryptionService){}
 
  applyFilter(event: Event) {
   const filterValue = (event.target as HTMLInputElement).value;

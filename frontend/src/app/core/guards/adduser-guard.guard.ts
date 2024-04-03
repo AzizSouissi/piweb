@@ -6,7 +6,7 @@ import { EncryptionService } from '../services/encryption.service';
 @Injectable({
   providedIn: 'root'
 })
-export class HomeGuard implements CanActivate {
+export class AddUserGuard implements CanActivate {
 
   constructor(private encryptionService : EncryptionService,private router:Router) {}
 
@@ -15,11 +15,13 @@ export class HomeGuard implements CanActivate {
     state: RouterStateSnapshot
   ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     
-    if (!!localStorage.getItem('token')) {
+    const authoritiesCrypted =localStorage.getItem('authorities') 
+    const authorities =this.encryptionService.decrypt(authoritiesCrypted!,"2f7")
+    
+    if (authorities.includes("ADD::USER")) {
       return true;
     } else {
-      localStorage.clear() 
-      this.router.navigate(['/login']);
+      this.router.navigate(['/notfound']);
       return false;
     }
   }

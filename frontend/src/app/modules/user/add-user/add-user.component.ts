@@ -4,6 +4,7 @@ import { UserService } from '../../../core/services/user.service';
 import { Router } from '@angular/router';
 import { RoleService } from '../../../core/services/role.service';
 import { Role } from '../../../core/models/Role';
+import { EncryptionService } from '../../../core/services/encryption.service';
 
 @Component({
   selector: 'app-add-user',
@@ -28,7 +29,14 @@ export class AddUserComponent {
   }
 
 
-  constructor(private fb: FormBuilder,private userService: UserService,private router: Router,private roleService : RoleService) {
+  constructor(
+    private fb: FormBuilder,
+    private userService: UserService,
+    private router: Router,
+    private roleService : RoleService,
+    private encryptionService : EncryptionService) {
+
+      
     this.getRoles();
     this.myForm = this.fb.group({
      
@@ -83,7 +91,10 @@ console.log(transformedRoles);
     this.userService.addUser(user)
       .subscribe(response => {
         
-        this.router.navigate(['/users']);
+        const authoritiesCrypted =localStorage.getItem('authorities') 
+        const authorities =this.encryptionService.decrypt(authoritiesCrypted!,"2f7")
+        if(authorities.includes("READ::USER")) this.router.navigate(['/users']);
+        else this.router.navigate(['/home'])
       }, error => {
         console.error('Error', error);
       });

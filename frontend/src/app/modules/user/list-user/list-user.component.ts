@@ -4,6 +4,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { UserService } from '../../../core/services/user.service';
 import { Router } from '@angular/router';
+import { EncryptionService } from '../../../core/services/encryption.service';
 
 @Component({
   selector: 'app-list-user',
@@ -13,17 +14,44 @@ import { Router } from '@angular/router';
 export class ListUserComponent {
   displayedColumns: string[] = ['firstname', 'lastname' ,'email','address','birthday','degree','Actions'];
   dataSource!: MatTableDataSource<any>;
+  authorities = ""
+  updateUser =true
+  deleteUser =true
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
   
-  ngOnInit(): void {
-    this.getUsers();
-    console.log(this.getUsers())
-  }
+   ngOnInit(): void {
 
-  constructor(private router:Router,private usersService: UserService){}
+     this.getAuthorities()
+     console.log("authortiesssssss")
+     console.log(this.authorities)
+     if(this.authorities.includes("EDIT::USER")){
+      this.updateUser = true
+     }
+     if(this.authorities.includes("DELETE::USER"))
+     {
+      this.deleteUser =true
+
+     }
+    this.getUsers();
+    
+  }
+  async getAuthorities() {
+    try {
+        const authoritiesCrypted =  localStorage.getItem('authorities');
+        this.authorities = await this.encryptionService.decrypt(authoritiesCrypted!, "2f7");
+       
+    } catch (error) {
+        console.error("Error retrieving or decrypting authorities:", error);
+    }
+}
+
+
+  constructor(private router:Router,
+    private usersService: UserService,
+    private encryptionService : EncryptionService  ){}
 
 
   applyFilter(event: Event) {
