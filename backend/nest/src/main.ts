@@ -1,13 +1,14 @@
-import { NestFactory } from '@nestjs/core';
+import { NestFactory, Reflector } from '@nestjs/core';
 import { AppModule } from './app.module';
+import { ValidationPipe } from '@nestjs/common';
+import { AtGuard } from './auth/common/guards';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  app.enableCors({
-    origin: 'http://localhost:4200', // Angular app's origin
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE', // Allowed HTTP Methods
-    allowedHeaders: 'Content-Type, Accept', // Allowed HTTP Headers
-  });
+  app.useGlobalPipes(new ValidationPipe());
+  const reflector = new Reflector();
+  app.useGlobalGuards(new AtGuard(reflector));
+  app.enableCors();
   await app.listen(3000);
 }
 bootstrap();

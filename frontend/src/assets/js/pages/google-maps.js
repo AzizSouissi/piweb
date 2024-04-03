@@ -20,7 +20,7 @@ $(document).ready(function () {
     title: "Marker with InfoWindow",
     infoWindow: {
       content:
-        '<p><Phoenicoded></Phoenicoded> <br/>  Now at <a href=""></a></p>',
+        '<p><Phoenicoded></Phoenicoded> <br/> Buy Now at <a href="">Themeforest</a></p>',
     },
   });
   var mapOverlay;
