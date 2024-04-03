@@ -16,6 +16,7 @@ import { AttendanceManagementModule } from './modules/attendance-management/atte
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { DatePipe } from '@angular/common';
+import { ProjectManagementModule } from './modules/project-management/project-management.module';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { DatePipe } from '@angular/common';
     ReactiveFormsModule,
     FormsModule,
     AttendanceManagementModule,
+    ProjectManagementModule,
     MatDatepickerModule,
     MatNativeDateModule,
   ],

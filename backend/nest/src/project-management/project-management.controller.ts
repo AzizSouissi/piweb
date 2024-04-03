@@ -11,8 +11,6 @@ import {
 import { ProjectManagementService } from './project-management.service';
 import { CreateProjectManagementDto } from './dto/create-project-management.dto';
 import { UpdateProjectManagementDto } from './dto/update-project-management.dto';
-import { Project, type Prisma } from '@prisma/client';
-import { PrismaService } from 'src/prisma.service';
 
 @Controller('project-management')
 export class ProjectManagementController {

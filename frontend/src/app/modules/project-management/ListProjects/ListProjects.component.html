@@ -1,0 +1,64 @@
+<div class="pcoded-main-container">
+  <div class="pcoded-wrapper">
+    <div class="pcoded-content">
+      <div class="calendar-container" style="display: flex">
+        <mat-card class="example-card" style="margin-right: 10px">
+          <mat-card-content>
+            <div cdkDropListGroup style="display: flex">
+              <div class="example-container">
+                <h2>ON_HOLD</h2>
+                <div
+                  cdkDropList
+                  [cdkDropListData]="done"
+                  class="example-list"
+                  (cdkDropListDropped)="drop($event)"
+                >
+                  @for (project of projects; track project) {
+                  @if(project.projectStatus==='ON_HOLD'){
+                  <div class="example-box" cdkDrag>
+                    <app-projectCard [project]="project"></app-projectCard>
+                  </div>
+                  } }
+                </div>
+              </div>
+
+              <div class="example-container">
+                <h2>RUNNING</h2>
+                <div
+                  cdkDropList
+                  [cdkDropListData]="done"
+                  class="example-list"
+                  (cdkDropListDropped)="drop($event)"
+                >
+                  @for (project of projects; track project) {
+                  @if(project.projectStatus==='RUNNING'){
+                  <div class="example-box" cdkDrag>
+                    <app-projectCard [project]="project"></app-projectCard>
+                  </div>
+                  } }
+                </div>
+              </div>
+
+              <div class="example-container">
+                <h2>Completed</h2>
+                <div
+                  cdkDropList
+                  [cdkDropListData]="done"
+                  class="example-list"
+                  (cdkDropListDropped)="drop($event)"
+                >
+                  @for (project of projects; track project) {
+                  @if(project.projectStatus==='FINISHED'){
+                  <div class="example-box" cdkDrag>
+                    <app-projectCard [project]="project"></app-projectCard>
+                  </div>
+                  } }
+                </div>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</div>

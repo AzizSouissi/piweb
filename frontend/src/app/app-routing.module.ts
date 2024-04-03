@@ -12,6 +12,13 @@ const routes: Routes = [
         './modules/attendance-management/attendance-management.module'
       ).then((m) => m.AttendanceManagementModule),
   },
+  {
+    path: 'projects',
+    loadChildren: () =>
+      import('./modules/project-management/project-management.module').then(
+        (m) => m.ProjectManagementModule
+      ),
+  },
 ];
 
 @NgModule({
