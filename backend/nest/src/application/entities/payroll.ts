@@ -8,7 +8,7 @@ export interface PayrollProps {
   userId: string;
   month: Date;
   basicSalary: number;
-  cnssdeduction: number;
+  cnssDeduction: number;
   taxableSalary: number;
   irpp: number;
   css: number;
@@ -61,12 +61,12 @@ export class Payroll {
     this.props.basicSalary = basicSalary;
   }
 
-  public get cnssdeduction() {
-    return this.props.cnssdeduction;
+  public get cnssDeduction() {
+    return this.props.cnssDeduction;
   }
 
-  public set cnssdeduction(cnssdeduction: number) {
-    this.props.cnssdeduction = cnssdeduction;
+  public set cnssDeduction(cnssDeduction: number) {
+    this.props.cnssDeduction = cnssDeduction;
   }
 
   public get taxableSalary() {

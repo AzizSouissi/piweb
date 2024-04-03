@@ -8,6 +8,8 @@ import { AllowancesRepository } from '@application/repositories/allowances-repos
 import { PrismaAllowancesRepository } from './prisma/repositories/prisma-allowances-repository';
 import { DeductionsRepository } from '@application/repositories/deductions-repository';
 import { PrismaDeductionsRepository } from './prisma/repositories/prisma-deductions-repository';
+import { PayrollsRepository } from '@application/repositories/payrolls-repository';
+import { PrismaPayrollsRepository } from './prisma/repositories/prisma-payrolls-repository';
 
 @Module({
   providers: [
@@ -21,19 +23,24 @@ import { PrismaDeductionsRepository } from './prisma/repositories/prisma-deducti
       useClass: PrismaConfigsRepository,
     },
     {
+      provide: DeductionsRepository,
+      useClass: PrismaDeductionsRepository,
+    },
+    {
       provide: AllowancesRepository,
       useClass: PrismaAllowancesRepository,
     },
     {
-      provide: DeductionsRepository,
-      useClass: PrismaDeductionsRepository,
+      provide: PayrollsRepository,
+      useClass: PrismaPayrollsRepository,
     },
   ],
   exports: [
     NotificationsRepository,
     ConfigsRepository,
-    AllowancesRepository,
     DeductionsRepository,
+    AllowancesRepository,
+    PayrollsRepository,
   ],
 })
 export class DatabaseModule {}

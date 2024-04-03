@@ -22,6 +22,9 @@ import { FindAllByPayrollIdDeduction } from '@application/use-cases/deduction/fi
 import { FindByIdDeduction } from '@application/use-cases/deduction/findbyid-deduction';
 import { UpdateDeduction } from '@application/use-cases/deduction/update-deduction';
 import { DeleteDeduction } from '@application/use-cases/deduction/delete-deduction';
+import { CreatePayroll } from '@application/use-cases/payroll/create-payroll';
+import { DeductionsController } from './controllers/deductions.controller';
+import { PayrollsController } from './controllers/payrolls.controller';
 
 @Module({
   imports: [DatabaseModule],
@@ -29,6 +32,8 @@ import { DeleteDeduction } from '@application/use-cases/deduction/delete-deducti
     NotificationsController,
     ConfigsController,
     AllowancesController,
+    DeductionsController,
+    PayrollsController,
   ],
   providers: [
     CreateNotification,
@@ -50,6 +55,7 @@ import { DeleteDeduction } from '@application/use-cases/deduction/delete-deducti
     FindByIdDeduction,
     UpdateDeduction,
     DeleteDeduction,
+    CreatePayroll,
   ],
 })
 export class HttpModule {}
