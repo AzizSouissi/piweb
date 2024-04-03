@@ -69,7 +69,7 @@ return
     (response) => {
       alert('User Updated Successfully!');
       console.log(this.holiday)
-
+      this.router.navigate(['holiday/']);
 
     },
     (error) => {
