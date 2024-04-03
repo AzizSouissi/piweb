@@ -53,7 +53,15 @@ const routes: Routes = [
     loadChildren: () =>
       import('./modules/role/role.module').then((m) => m.RoleModule),
   },
+  {
+    path: 'config',
+    loadChildren: () =>
+      import(
+        './../app/modules/config-management/config-management.module'
+      ).then((m) => m.ConfigManagementModule),
+  },
   { path: '**', component: NotFoundComponent },
+  
 ];
 
 @NgModule({

@@ -11,7 +11,6 @@ export class SidebarComponent implements OnInit {
   displayRoleAdd = false;
   displayUserList = false;
   displayUserAdd = false;
-  
 
   addRole = false;
 

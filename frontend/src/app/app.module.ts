@@ -21,6 +21,8 @@ import { AttendanceManagementModule } from './modules/attendance-management/atte
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { DatePipe } from '@angular/common';
+import { ConfigManagementModule } from './modules/config-management/config-management.module';
+
 
 @NgModule({
   declarations: [
@@ -43,6 +45,7 @@ import { DatePipe } from '@angular/common';
     AttendanceManagementModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    ConfigManagementModule,
   ],
   providers: [
     provideClientHydration(),
