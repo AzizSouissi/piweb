@@ -19,7 +19,7 @@ export class SidebarComponent  implements OnInit{
 
   ngOnInit(): void {
     const authoritiesCrypted =localStorage.getItem('authorities') 
-    const authorities =this.encryptionService.decrypt(authoritiesCrypted!,"2f7a9c81b0d4")
+    const authorities =this.encryptionService.decrypt(authoritiesCrypted!,"2f7")
     if(authorities.includes("READ::ROLE" ))
     {
       this.displayRoleList=true

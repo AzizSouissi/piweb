@@ -13,6 +13,7 @@ import { TokenInterceptor } from './core/interceptor/token-inter.interceptor';
 import { ResetpasswordComponent } from './modules/resetpassword-component/resetpassword.component';
 import { NewpasswordComponent } from './modules/newpassword/newpassword.component';
 import { EmailsendedComponent } from './modules/emailsended/emailsended.component';
+import { NotFoundComponent } from './modules/not-found/not-found.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { EmailsendedComponent } from './modules/emailsended/emailsended.componen
     
     ResetpasswordComponent,
     NewpasswordComponent,
-    EmailsendedComponent
+    EmailsendedComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,
