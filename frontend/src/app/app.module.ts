@@ -22,6 +22,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { DatePipe } from '@angular/common';
 import { ConfigManagementModule } from './modules/config-management/config-management.module';
+import { HolidayManagementModule } from './modules/holiday-management/holiday-management.module';
 
 
 @NgModule({
@@ -46,6 +47,7 @@ import { ConfigManagementModule } from './modules/config-management/config-manag
     MatDatepickerModule,
     MatNativeDateModule,
     ConfigManagementModule,
+    HolidayManagementModule
   ],
   providers: [
     provideClientHydration(),

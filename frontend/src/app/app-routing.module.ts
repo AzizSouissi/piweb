@@ -60,6 +60,13 @@ const routes: Routes = [
         './../app/modules/config-management/config-management.module'
       ).then((m) => m.ConfigManagementModule),
   },
+  {
+    path: 'holiday',
+    loadChildren: () =>
+      import(
+        './modules/holiday-management/holiday-management.module'
+      ).then((m) => m.HolidayManagementModule),
+  },
   { path: '**', component: NotFoundComponent },
   
 ];

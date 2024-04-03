@@ -9,6 +9,8 @@ import { PasswordresetModule } from './passwordreset/passwordreset.module';
 import { AttendanceTrackingModule } from './attendance-tracking/attendance-tracking.module';
 import { HttpModule } from '@infra/http/http.module';
 import { DatabaseModule } from '@infra/database/database.module';
+import { HolidayManagementModule } from './holiday-management/holiday-management.module';
+
 @Module({
   imports: [
     AttendanceTrackingModule,
@@ -17,7 +19,8 @@ import { DatabaseModule } from '@infra/database/database.module';
     RolesModule,
     UsersModule,
     PasswordresetModule,
-    HttpModule, DatabaseModule
+    HttpModule, DatabaseModule,
+    HolidayManagementModule
   ],
   controllers: [AppController],
   providers: [AppService],

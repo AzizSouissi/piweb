@@ -140,3 +140,17 @@ enum ShiftType {
   HALF_DAY
   QUARTER_SHIFT
 }
+model Holiday {
+  id       String   @id @default(auto()) @map("_id") @db.ObjectId
+  name     String
+  date     String
+  duration String
+  shift     Shift
+}
+
+// Define an enum for the shift types
+enum Shift {
+  DAY_ONLY
+  NIGHT_ONLY
+  BOTH_SHIFTS
+}
