@@ -15,6 +15,7 @@ export class CreateTaskComponent implements OnInit {
   priorities = Object.values(TaskPriority);
   statuses = Object.values(TaskStatus);
   name: string = ''; // Default employee name
+  description: string='';
 
   constructor(private fb: FormBuilder, private taskService: TaskService) {
     this.taskForm = this.fb.group({
