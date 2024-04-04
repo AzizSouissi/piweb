@@ -5,30 +5,16 @@ import { UpdateRoleComponent } from './update-role/update-role.component';
 import { ListRoleComponent } from './list-role/list-role.component';
 import { RoleRoutingModule } from './role-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {MatTableModule} from '@angular/material/table'; 
-import {MatPaginatorModule} from '@angular/material/paginator'; 
-import {MatSortModule} from '@angular/material/sort'; 
-import {MatInputModule} from '@angular/material/input'; 
-import {MatIconModule} from '@angular/material/icon'; 
-import {MatFormFieldModule} from '@angular/material/form-field'; 
-import {MatButtonModule} from '@angular/material/button'; 
-import { NavbarComponent } from '../navbar/navbar.component';
-import { SidebarComponent } from '../sidebar/sidebar.component';
-import { SharedModule } from '../../shared/shared.module';
-
-
-
-
-
-
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
+import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
-  declarations: [
-    AddRoleComponent,
-    UpdateRoleComponent,
-    ListRoleComponent,
-   
-  ],
+  declarations: [AddRoleComponent, UpdateRoleComponent, ListRoleComponent],
   imports: [
     CommonModule,
     RoleRoutingModule,
@@ -41,7 +27,6 @@ import { SharedModule } from '../../shared/shared.module';
     MatIconModule,
     MatFormFieldModule,
     MatButtonModule,
-    SharedModule
-  ]
+  ],
 })
-export class RoleModule { }
+export class RoleModule {}

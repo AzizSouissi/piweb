@@ -30,13 +30,13 @@ model User {
   attendanceRecord                AttendanceRecord[]
   roleId                          String[]           @db.ObjectId
   roles                           Role[]             @relation(fields: [roleId], references: [id])
-  basicSalary                     Int
-  offDays                         Int
+  basicSalary                     Int?
+  offDays                         Int?
   payrolls                        Payroll[]
-  familySituation                 String
-  childrenUnder20Number           Int
-  universityStudentChildrenNumber Int
-  crippledChildrenNumber          Int
+  familySituation                 String?
+  childrenUnder20Number           Int?
+  universityStudentChildrenNumber Int?
+  crippledChildrenNumber          Int?
 
   @@map("users")
 }
@@ -140,12 +140,13 @@ enum ShiftType {
   HALF_DAY
   QUARTER_SHIFT
 }
+
 model Holiday {
-  id       String   @id @default(auto()) @map("_id") @db.ObjectId
+  id       String @id @default(auto()) @map("_id") @db.ObjectId
   name     String
   date     String
   duration String
-  shift     Shift
+  shift    Shift
 }
 
 // Define an enum for the shift types

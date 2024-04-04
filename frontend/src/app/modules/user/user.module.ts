@@ -12,7 +12,6 @@ import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
-import { SharedModule } from '../../shared/shared.module';
 
 
 
@@ -34,7 +33,6 @@ import { SharedModule } from '../../shared/shared.module';
     MatIconModule,
     MatFormFieldModule,
     MatButtonModule,
-    SharedModule
   ]
 })
 export class UserModule { }

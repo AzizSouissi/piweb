@@ -8,7 +8,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { LoginComponent } from './modules/login/login.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { RoleModule } from './modules/role/role.module';
 import { AppComponent } from './app.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { UserModule } from './modules/user/user.module';
@@ -23,13 +22,18 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { DatePipe } from '@angular/common';
 import { ConfigManagementModule } from './modules/config-management/config-management.module';
 import { HolidayManagementModule } from './modules/holiday-management/holiday-management.module';
-
+import { SidebarComponent } from './modules/sidebar/sidebar.component';
+import { HomeComponent } from './modules/home/home.component';
+import { NavbarComponent } from './modules/navbar/navbar.component';
+import { RoleModule } from './modules/role/role.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-
+    HomeComponent,
+    SidebarComponent,
+    NavbarComponent,
     ResetpasswordComponent,
     NewpasswordComponent,
     EmailsendedComponent,
@@ -47,7 +51,7 @@ import { HolidayManagementModule } from './modules/holiday-management/holiday-ma
     MatDatepickerModule,
     MatNativeDateModule,
     ConfigManagementModule,
-    HolidayManagementModule
+    HolidayManagementModule,
   ],
   providers: [
     provideClientHydration(),

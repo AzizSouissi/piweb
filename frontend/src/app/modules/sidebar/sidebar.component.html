@@ -24,7 +24,7 @@
         class="navbar-content scroll-div"
         style="overflow: hidden; width: 100%; height: calc(-70px + 100vh)"
       >
-        < class="nav pcoded-inner-navbar">
+        <ul class="nav pcoded-inner-navbar">
           <li class="nav-item pcoded-menu-caption">
             <label>Navigation</label>
           </li>
@@ -34,7 +34,7 @@
             data-username="Table bootstrap datatable footable"
             class="nav-item"
           >
-            <a href="/roles" class="nav-link">
+            <a routerLink="roles" class="nav-link">
               <span class="pcoded-micon"
                 ><i class="feather icon-server"></i
               ></span>
@@ -46,7 +46,7 @@
             data-username="Table bootstrap datatable footable"
             class="nav-item"
           >
-            <a href="/roles/add" class="nav-link">
+            <a routerLink="roles/add" class="nav-link">
               <span class="pcoded-micon"
                 ><i class="feather icon-server"></i
               ></span>
@@ -59,7 +59,7 @@
             data-username="Table bootstrap datatable footable"
             class="nav-item"
           >
-            <a href="/users" class="nav-link">
+            <a routerLink="users" class="nav-link">
               <span class="pcoded-micon"
                 ><i class="feather icon-server"></i
               ></span>
@@ -71,7 +71,7 @@
             data-username="Table bootstrap datatable footable"
             class="nav-item"
           >
-            <a href="/users/add" class="nav-link">
+            <a routerLink="users/add" class="nav-link">
               <span class="pcoded-micon"
                 ><i class="feather icon-server"></i
               ></span>
@@ -90,36 +90,56 @@
             >
             <ul class="pcoded-submenu">
               <li class="">
-                <a routerLink="attendance/addAttendance" class=""
+                <a href="attendance/addAttendance" class=""
                   >Update Attendance</a
                 >
               </li>
               <li class="">
-                <a routerLink="attendance/ListAttendance" class=""
-                  >Attendance List</a
-                >
+                <a href="attendance/ListAttendance" class="">Attendance List</a>
               </li>
               <li class="">
-                <a routerLink="attendance/updateAttendance" class=""
+                <a href="attendance/updateAttendance" class=""
                   >Attendance Sheet</a
                 >
               </li>
             </ul>
           </li>
-            
+          <li
+            data-username="basic components Button Alert Badges breadcrumb Paggination progress Tooltip popovers Carousel Cards Collapse Tabs pills Modal Grid System Typography Extra Shadows Embeds"
+            class="nav-item pcoded-hasmenu"
+          >
+            <a href="javascript:" class="nav-link"
+              ><span class="pcoded-micon"><i class="feather icon-box"></i></span
+              ><span class="pcoded-mtext">Components</span></a
+            >
             <ul class="pcoded-submenu">
+              <li class=""><a href="bc_button.html" class="">Button</a></li>
+              <li class=""><a href="bc_badges.html" class="">Badges</a></li>
               <li class="">
-                <a routerLink="holiday/">Holiday</a>
-                
+                <a href="bc_breadcrumb-pagination.html" class=""
+                  >Breadcrumb & paggination</a
+                >
               </li>
-             
+              <li class="">
+                <a href="bc_collapse.html" class="">Collapse</a>
+              </li>
+              <li class="">
+                <a href="bc_tabs.html" class="">Tabs & pills</a>
+              </li>
+              <li class="">
+                <a href="bc_typography.html" class="">Typography</a>
+              </li>
+
+              <li class="">
+                <a href="icon-feather.html" class=""
+                  >Feather<span class="pcoded-badge label label-danger"
+                    >NEW</span
+                  ></a
+                >
+              </li>
             </ul>
-        
-      
-       
-    
-  
-      
+          </li>
+        </ul>
       </div>
       <div
         class="slimScrollBar"
@@ -154,3 +174,4 @@
     </div>
   </div>
 </nav>
+<router-outlet></router-outlet>
