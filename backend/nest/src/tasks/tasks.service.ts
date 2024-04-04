@@ -1,14 +1,14 @@
 import { Injectable } from '@nestjs/common';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
-import { PrismaService } from 'src/prisma.service';
 import { Task, Prisma } from '@prisma/client';
+import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class TasksService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async createTask(createTaskDto: CreateTaskDto): Promise<Task> {
+  async createTask(createTaskDto: Task): Promise<Task> {
     const { title, description, priority, status, createBy } = createTaskDto;
     return this.prisma.task.create({
       data: {
@@ -17,7 +17,7 @@ export class TasksService {
         priority,
         status,
         createBy,
-      }
+      },
     });
   }
 
@@ -28,11 +28,11 @@ export class TasksService {
   async findOne(id: string): Promise<Task | string> {
     try {
       const record = await this.prisma.task.findUnique({
-        where: { taskId: id },
+        where: { id: id },
         include: { users: true }, // Include any related entities if necessary
       });
-        /*select: {
-          taskId: true,
+      /*select: {
+          id: true,
           title: true,
           description: true,
           priority: true,
@@ -42,20 +42,20 @@ export class TasksService {
       });*/
 
       if (!record) {
-        return "Task with this id : " +id+ " Not found";
+        return 'Task with this id : ' + id + ' Not found';
       }
 
       return record;
     } catch (error) {
-      console.error("Error fetching task:", error);
-      throw new Error("Failed to fetch task");
+      console.error('Error fetching task:', error);
+      throw new Error('Failed to fetch task');
     }
   }
 
-  async update(id: string, updateTaskDto: UpdateTaskDto): Promise<Task | any> {
+  async update(id: string, updateTaskDto: Task): Promise<Task | any> {
     try {
       const updatedTask = await this.prisma.task.update({
-        where: { taskId: id },
+        where: { id: id },
         data: {
           title: updateTaskDto.title,
           description: updateTaskDto.description,
@@ -64,48 +64,47 @@ export class TasksService {
           createBy: updateTaskDto.createBy,
         },
         select: {
-          taskId: true,
+          id: true,
           title: true,
           description: true,
           priority: true,
           status: true,
           createBy: true,
-        }
+        },
       });
       return updatedTask;
     } catch (error) {
-      console.error("Error updating task:", error);
-      throw new Error("Failed to update task");
+      console.error('Error updating task:', error);
+      throw new Error('Failed to update task');
     }
   }
 
   async remove(id: string): Promise<boolean> {
     try {
-      await this.prisma.task.delete({ where: { taskId: id } });
+      await this.prisma.task.delete({ where: { id: id } });
       return true;
     } catch (error) {
-      console.error("Error deleting task:", error);
-      throw new Error("Failed to delete task");
+      console.error('Error deleting task:', error);
+      throw new Error('Failed to delete task');
     }
   }
 
-
-  async assignTaskTo(taskId: string, userId: string): Promise<Task | null> {
+  async assignTaskTo(id: string, userId: string): Promise<Task | null> {
     // Vérifier si la tâche existe
     const task = await this.prisma.task.findUnique({
       where: {
-        taskId,
+        id,
       },
     });
 
     if (!task) {
-      throw new Error(`La tâche avec l'ID ${taskId} n'existe pas.`);
+      throw new Error(`La tâche avec l'ID ${id} n'existe pas.`);
     }
 
     // Vérifier si l'utilisateur existe
     const user = await this.prisma.user.findUnique({
       where: {
-        userId,
+        id,
       },
     });
 
@@ -116,17 +115,17 @@ export class TasksService {
     // Mettre à jour la tâche avec l'ID de l'utilisateur assigné
     const updatedTask = await this.prisma.task.update({
       where: {
-        taskId,
+        id,
       },
       data: {
         users: {
           connect: {
-            userId,
+            id,
           },
         },
       },
     });
-    
+
     return updatedTask;
   }
-  }
+}

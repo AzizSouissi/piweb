@@ -1,15 +1,23 @@
-import { Controller, Get, Post, Body, Put, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Put,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { TasksService } from './tasks.service';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
-import {Task} from '@prisma/client'; 
+import { Task } from '@prisma/client';
 
 @Controller('tasks')
 export class TasksController {
   constructor(private readonly tasksService: TasksService) {}
 
   @Post()
-  async createTask(@Body() createTaskDto: CreateTaskDto): Promise<Task> {
+  async createTask(@Body() createTaskDto: Task): Promise<Task> {
     return this.tasksService.createTask(createTaskDto);
   }
 
@@ -24,20 +32,17 @@ export class TasksController {
   }
 
   @Put(':id')
-  update(@Param('id') id: string, @Body() updateTaskDto: UpdateTaskDto) {
+  update(@Param('id') id: string, @Body() updateTaskDto: Task) {
     return this.tasksService.update(id, updateTaskDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.tasksService.remove(id);
-  } 
-
-  @Put(':idTask/:idUser')
-  assignTaskTo(@Param('idTask') id: string , @Param('idUser') id2: string){
-      return this.tasksService.assignTaskTo(id,id2);
   }
 
-
-
+  @Put(':idTask/:idUser')
+  assignTaskTo(@Param('idTask') id: string, @Param('idUser') id2: string) {
+    return this.tasksService.assignTaskTo(id, id2);
+  }
 }
