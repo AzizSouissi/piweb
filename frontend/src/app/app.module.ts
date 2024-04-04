@@ -27,6 +27,8 @@ import { HomeComponent } from './modules/home/home.component';
 import { NavbarComponent } from './modules/navbar/navbar.component';
 import { RoleModule } from './modules/role/role.module';
 import { TaskManagementModule } from './modules/task/task.module';
+import { ProjectManagementModule } from './modules/project-management/project-management.module';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 @NgModule({
   declarations: [
@@ -49,11 +51,13 @@ import { TaskManagementModule } from './modules/task/task.module';
     RoleModule,
     UserModule,
     AttendanceManagementModule,
+    ProjectManagementModule,
     MatDatepickerModule,
     MatNativeDateModule,
     ConfigManagementModule,
     HolidayManagementModule,
     TaskManagementModule,
+    DragDropModule
   ],
   providers: [
     provideClientHydration(),

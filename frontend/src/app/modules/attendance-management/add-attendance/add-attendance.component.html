@@ -3,43 +3,35 @@
     <div class="pcoded-content">
       <div class="calendar-container">
         <div class="month-nav">
-          <button (click)="switchMonth(-1)" class="nav-button">
+          <button (click)="switchMonth(-1)" class="btn nav-button">
             <span class="bi bi-arrow-left"></span>
           </button>
           <h2>{{ currentMonthYear }}</h2>
-          <button (click)="switchMonth(1)" class="nav-button">
+          <button (click)="switchMonth(1)" class="btn nav-button">
             <span class="bi bi-arrow-right"></span>
           </button>
         </div>
         <div class="table-responsive">
-          <table class="table table-bordered" style="font-size: 12px">
+          <table class="table table-bordered">
             <thead>
               <tr>
-                <th style="padding: 5px">Name</th>
-
-                <th *ngFor="let day of daysInMonth" style="padding: 5px">
-                  {{ day }}
-                </th>
+                <th>Name</th>
+                @for(day of daysInMonth;track day){
+                <th>{{ day }}</th>
+                }
               </tr>
             </thead>
             <tbody>
-              <ng-container *ngFor="let employee of users">
-                <tr>
-                  <td class="employee-column" style="padding: 5px">
-                    {{ employee.firstname }}
-                  </td>
-
-                  <td *ngFor="let day of daysInMonth" style="padding: 5px">
+              <ng-container *ngFor="let employee of users; let i = index">
+                <tr [class.even-row]="i % 2 !== 0">
+                  <td class="employee-column">{{ employee.firstname }}</td>
+                  @for(day of daysInMonth;track day){
+                  <td>
                     <div>
                       <button
                         class="btn btn-primary"
                         data-bs-toggle="modal"
                         data-bs-target="#myModal"
-                        style="
-                          background-color: blue;
-                          border-color: blue;
-                          padding: 5px 5px;
-                        "
                         (click)="openModal(employee, day)"
                       >
                         P
@@ -117,14 +109,9 @@
                     <div>
                       <div>
                         <button
-                          class="btn btn-primary"
+                          class="btn btn-danger"
                           data-bs-toggle="modal"
                           data-bs-target="#myModal2"
-                          style="
-                            background-color: red;
-                            border-color: red;
-                            padding: 5px 5px;
-                          "
                           (click)="openModal(employee, day)"
                         >
                           A
@@ -182,6 +169,7 @@
                       </div>
                     </div>
                   </td>
+                  }
                 </tr>
               </ng-container>
             </tbody>

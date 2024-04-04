@@ -11,6 +11,8 @@ import { HttpModule } from '@infra/http/http.module';
 import { DatabaseModule } from '@infra/database/database.module';
 import { HolidayManagementModule } from './holiday-management/holiday-management.module';
 import { TasksModule } from './tasks/tasks.module';
+import { ProjectManagementModule } from './project-management/project-management.module';
+
 
 @Module({
   imports: [
@@ -22,7 +24,8 @@ import { TasksModule } from './tasks/tasks.module';
     PasswordresetModule,
     HttpModule, DatabaseModule,
     HolidayManagementModule,
-    TasksModule
+    TasksModule,
+    ProjectManagementModule
   ],
   controllers: [AppController],
   providers: [AppService],

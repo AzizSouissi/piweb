@@ -17,7 +17,7 @@ export class CreateAttendanceComponent implements OnInit {
   selectedStatus!: Status.PRESENT | Status.ABSENT; // Default to 'present'
   selectedShiftType!: ShiftType;
   absentReason!: string;
-  id: string = '6608ebfbd0d49ebe44c099a8';
+  id: string = '6608bb56d0d49ebe44c0999f';
   dateStr!: string;
   user!: User;
 

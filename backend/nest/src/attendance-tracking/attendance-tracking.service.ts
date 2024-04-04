@@ -71,6 +71,7 @@ export class AttendanceTrackingService {
         firstname: true,
         lastname: true,
         attendanceRecord: true,
+        projectIds: true,
       },
     });
   }

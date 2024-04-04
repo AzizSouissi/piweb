@@ -70,6 +70,12 @@ const routes: Routes = [
             './modules/task/task.module'
           ).then((m) => m.TaskManagementModule),
       },
+      {path: 'projects',
+    loadChildren: () =>
+      import('./modules/project-management/project-management.module').then(
+        (m) => m.ProjectManagementModule
+      ),
+  },
     ],
   },
 
