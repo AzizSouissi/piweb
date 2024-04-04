@@ -1,27 +1,24 @@
-import { Employee } from '../emloyee';
+export class Task {
+    taskId !: string;
+    title !: string;
+    description!: string;
+    priority!: TaskPriority;
+    status!: TaskStatus;
+    createBy!: string;
+    createdAt!: Date;
+    updatedAt!: Date;
+    //usersIDs!: string[];
+    //users!: User[];
+}
 
 export enum TaskStatus {
-    PENDING = 'PENDING',
-    IN_PROGRESS = 'IN_PROGRESS',
-    COMPLETED = 'COMPLETED',
-  }
-  
-  export enum TaskPriority {
-    LOW = 'LOW',
-    MEDIUM = 'MEDIUM',
-    HIGH = 'HIGH',
-  }
+    PENDING = "PENDING",
+    IN_PROGRESS = "IN_PROGRESS",
+    COMPLETED = "COMPLETED",
+}
 
-export class CreateTaskDto {
-  title!: string;
-  description?: string;
-  priority!: TaskPriority;
-  status!: TaskStatus;
-  createdBy!: string;
- 
-  name?: string[]; 
-
-  constructor(init?: Partial<CreateTaskDto>) {
-    Object.assign(this, init);
-  }
+export enum TaskPriority {
+    LOW = "LOW",
+    MEDIUM = "MEDIUM",
+    HIGH = "HIGH",
 }

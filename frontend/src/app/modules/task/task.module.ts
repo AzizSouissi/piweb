@@ -1,30 +1,30 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CreateTaskComponent } from '../task/create-task/create-task.component';
-import { AddTaskComponent } from '../task/add-task/add-task.component';
-import { UpdateTaskComponent } from '../task/update-task/update-task.component';
-import { HttpClientModule } from '@angular/common/http';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { TaskComponent } from './task.component';
-import { TaskManagementRoutingModule } from './task-routing.module';
+import { RouterModule, Routes } from '@angular/router';
 import { ListTaskComponent } from './list-task/list-task.component';
+import { AddTaskComponent } from './add-task/add-task.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
+import { UpdateTaskComponent } from './update-task/update-task.component';
 
-
+const routes: Routes = [
+  { path: '', component: ListTaskComponent },
+  { path: 'AddTask', component: AddTaskComponent },
+  { path: 'UpdateTask/:id', component: UpdateTaskComponent }
+];
 
 @NgModule({
   declarations: [
-    CreateTaskComponent,
-    ListTaskComponent,
     AddTaskComponent,
-    UpdateTaskComponent,
-    TaskComponent
+    ListTaskComponent,
+    UpdateTaskComponent
   ],
   imports: [
     CommonModule,
-    TaskManagementRoutingModule,
-    HttpClientModule,
+    RouterModule.forChild(routes),
     FormsModule,
-    ReactiveFormsModule,
-  ]
+    ReactiveFormsModule
+  ],
+  exports: [RouterModule],
 })
-export class TaskModule { }
+export class TaskManagementModule { }

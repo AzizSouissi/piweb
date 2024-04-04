@@ -1,41 +1,36 @@
-import { NgModule } from "@angular/core";
-import { BrowserModule } from "@angular/platform-browser";
-import { provideClientHydration } from "@angular/platform-browser";
-import { AppComponent } from "./app.component";
-import { RouterModule, Routes } from '@angular/router';
+import { NgModule } from '@angular/core';
+import {
+  BrowserModule,
+  provideClientHydration,
+} from '@angular/platform-browser';
 
-
-import { AppRoutingModule } from "./app-routing.module";
-import { HttpClientModule } from "@angular/common/http";
-import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { TaskModule } from "./modules/task/task.module";
-//import {CanvasJSChart} from 'canvasjs';
-
-
-const routes: Routes = [
-];
+import { AppRoutingModule } from './app-routing.module';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NavbarComponent } from './modules/navbar/navbar.component';
+import { SidebarComponent } from './modules/sidebar/sidebar.component';
+import { AppComponent } from './app.component';
+import { HomeComponent } from './modules/home/home.component';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { HolidayManagementModule } from './modules/holiday-management/holiday-management.module';
+import { TaskManagementModule } from './modules/task/task.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-   // NavbarComponent,
-
-    //CanvasJSChart,
-  
-   // TaskComponent,
+    NavbarComponent,
+    SidebarComponent,
+    HomeComponent,
+    
   ],
   imports: [
-    BrowserModule, 
-    RouterModule.forRoot(routes),
+    BrowserModule,
     AppRoutingModule,
-    //CanvasJSChart,
-    HttpClientModule,
-    ReactiveFormsModule,
+HttpClientModule,    ReactiveFormsModule,
     FormsModule,
-    TaskModule
-  ],
-
-  providers: [provideClientHydration()],
+  HolidayManagementModule , 
+  TaskManagementModule],
+  providers: [provideClientHydration(), provideAnimationsAsync()],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

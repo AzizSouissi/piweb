@@ -1,29 +1,45 @@
 import { Component, OnInit } from '@angular/core';
-import { Task } from '../../../core/models/Task';
-import { TaskService } from '../../../core/services/tasks.service';
+import { TaskService } from '../../../core/services/task-service';
+import { Task } from '../../../core/models/task';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
-  selector: 'app-list-tasks',
-  templateUrl: './list-tasks.component.html',
-  styleUrls: ['./list-tasks.component.css']
+  selector: 'app-list-task',
+  templateUrl: './list-task.component.html',
+  styleUrls: ['./list-task.component.css']
 })
 export class ListTaskComponent implements OnInit {
-  tasks: Task[] = []; // Initialize as empty array
 
-  constructor(private taskService: TaskService) {}
-  
+  tasks: Task[] = [];
+
+  constructor(
+    private taskService: TaskService,
+    private router: Router
+  ) {}
+
   ngOnInit(): void {
-    // Call the service method to fetch all tasks
-    this.taskService.findAllTasks().subscribe(
-      (tasksData) => {
-        this.tasks = tasksData;
-        console.log(tasksData);
-      },
-      (error) => {
-        console.error('Error fetching tasks:', error);
-      }
-    );
+    this.loadTasks();
   }
 
- 
+  loadTasks(): void {
+    this.taskService.getAll().subscribe(data => {
+      console.log(data);
+      this.tasks = data;
+    });
+  }
+
+  onDelete(id: string): void {
+    this.taskService.deleteTask(id).subscribe(() => {
+      this.loadTasks();
+    });
+  }
+
+  navigateToUpdate(id: string): void {
+    console.log(id);
+    this.router.navigateByUrl('UpdateTask/' + id);
+  }
+
+  navigateToAdd(): void {
+    this.router.navigateByUrl('AddTask');
+  }
 }
