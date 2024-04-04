@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { AttendanceRecord } from '../../../core/models/attendanceRecord';
-import { User } from '../../../core/models/user';
+import { User } from '../../../core/models/User';
 import { AttendanceTrackingService } from '../../../core/services/attendance-tracking.service';
 
 @Component({

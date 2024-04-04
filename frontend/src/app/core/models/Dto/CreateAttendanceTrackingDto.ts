@@ -1,5 +1,5 @@
 import { ShiftType } from '../attendanceRecord';
-import { User } from '../user';
+import { User } from '../User';
 
 export enum Status {
   PRESENT = 'PRESENT',

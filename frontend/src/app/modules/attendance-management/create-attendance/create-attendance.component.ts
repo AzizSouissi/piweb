@@ -5,7 +5,7 @@ import {
   Status,
 } from '../../../core/models/attendanceRecord';
 import { AttendanceTrackingService } from '../../../core/services/attendance-tracking.service';
-import { User } from '../../../core/models/user';
+import { User } from '../../../core/models/User';
 
 @Component({
   selector: 'app-create-attendance',

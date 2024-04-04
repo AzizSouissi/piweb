@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from '../../../core/models/user';
+import { User } from '../../../core/models/User';
 import { AttendanceTrackingService } from '../../../core/services/attendance-tracking.service';
 import { ShiftType } from '../../../core/models/attendanceRecord';
 import {

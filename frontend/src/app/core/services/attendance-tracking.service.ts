@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, catchError, tap } from 'rxjs';
 import { AttendanceRecord, ShiftType } from '../models/attendanceRecord';
-import { User } from '../models/user';
+import { User } from '../models/User';
 import {
   CreateAttendanceTrackingDto,
   Status,
