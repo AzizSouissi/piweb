@@ -1,0 +1,64 @@
+<div class="pcoded-main-container">
+    <div class="pcoded-wrapper">
+        <div class="pcoded-content">
+            <div class="pcoded-inner-content">
+
+                <div class="main-body">
+                    <div class="page-wrapper">
+                        <!-- [ Main Content ] start -->
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h5>Payroll</h5>
+                                    </div>
+                                    <input type="month" (change)="getDataByDate($event)">
+                                    <div class="card-body">
+                                        <h5></h5>
+                                        <hr>
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">Month</th>
+                                                    <th scope="col">Basic Salary</th>
+                                                    <th scope="col">CNSS Deduction</th>
+                                                    <th scope="col">Taxable Salary</th>
+                                                    <th scope="col">IRPP</th>
+                                                    <th scope="col">CSS</th>
+                                                    <th scope="col">Net Salary</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let item of data; let i = index">
+                                                    <td>{{ item.month | date: 'MMM d, yyyy' }}</td>
+                                                    <td>{{ item.basicSalary }}</td>
+                                                    <td>{{ item.cnssdeduction }}</td>
+                                                    <td>{{ item.taxableSalary }}</td>
+                                                    <td>{{ item.irpp }}</td>
+                                                    <td>{{ item.css }}</td>
+                                                    <td>{{ item.netSalary }}</td>
+
+
+                                                </tr>
+
+                                            </tbody>
+                                        </table>
+                                        <hr>
+                                        <div class="modal fade" id="exampleModal" tabindex="-1"
+                                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        </div>
+
+
+
+                                    </div>
+                                </div>
+                                <!-- Input group -->
+                            </div>
+                        </div>
+                        <!-- [ Main Content ] end -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

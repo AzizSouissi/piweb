@@ -8,17 +8,17 @@ datasource db {
 }
 
 model User {
-  id                              String             @id @default(auto()) @map("_id") @db.ObjectId
-  firstName                       String
-  lastName                        String
-  basicSalary                     Int
-  offDays                         Int
-  payrolls                        Payroll[]
-  attendanceRecord                AttendanceRecord[]
-  familySituation                 String
-  childrenUnder20Number           Int
-  universityStudentChildrenNumber Int
-  crippledChildrenNumber          Int
+  id               String             @id @default(auto()) @map("_id") @db.ObjectId
+  firstName        String
+  lastName         String
+  basicSalary      Int
+  offDays          Int
+  payrolls         Payroll[]
+  attendanceRecord AttendanceRecord[]
+  familySituation  String
+  childrenNumber   Int
+  bankrib          String
+  numCnss          String
 }
 
 model Payroll {
@@ -74,12 +74,29 @@ model AttendanceRecord {
 }
 
 model Config {
-  id           String   @id @default(auto()) @map("_id") @db.ObjectId
-  companyName  String
-  cnssrib      String
-  payDay       DateTime
-  delayPayment Int
-  cssrate      Int
+  id                 String @id @default(auto()) @map("_id") @db.ObjectId
+  companyName        String
+  companyLogo        String
+  address            String
+  cnssAffiliation    String
+  payDay             String
+  delayBeforePayment Int
+  cnssrate           Float
+  cssrate            Float
+}
+
+model Holiday {
+  id       String @id @default(auto()) @map("_id") @db.ObjectId
+  name     String
+  date     String
+  duration String
+  shift    Shift
+}
+
+enum Shift {
+  DAY_ONLY
+  NIGHT_ONLY
+  BOTH_SHIFTS
 }
 
 enum Status {
