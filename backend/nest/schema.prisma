@@ -40,6 +40,8 @@ enum ShiftType {
 
 model Project {
     id            String        @id @default(auto()) @map("_id") @db.ObjectId
+    name          String
+    description   String
     usersIds      String[]      @db.ObjectId
     users         User[]        @relation(fields: [usersIds], references: [id])
     leader        String

@@ -2,6 +2,8 @@ import { User } from './user';
 
 export class Project {
   id?: string;
+  name!: string;
+  description!: string;
   usersIds!: String[];
   users?: User[];
   leader!: String;

@@ -164,7 +164,7 @@ export class AddAttendanceComponent implements OnInit {
           console.log(dateStr);
           if (attendanceRecord) {
             const updateDto: CreateAttendanceTrackingDto = {
-              date: this.selectedDate.toISOString().slice(0, 10),
+              date: dateStr,
               shiftType: null,
               status: Status.ABSENT,
               absent_reason: this.absenceReason,

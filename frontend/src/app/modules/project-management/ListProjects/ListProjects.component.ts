@@ -18,6 +18,9 @@ export class ListProjectsComponent implements OnInit {
   todo!: Project[];
   done!: Project[];
   finished!: Project[];
+  numProjectsTodo!: number;
+  numProjectsDone!: number;
+  numProjectsFinished!: number;
 
   constructor(private projectService: ProjectManagementService) {}
   ngOnInit(): void {
@@ -33,6 +36,9 @@ export class ListProjectsComponent implements OnInit {
         (project) => project.projectStatus === 'FINISHED'
       );
     });
+    this.numProjectsTodo = this.todo.length;
+    this.numProjectsDone = this.done.length;
+    this.numProjectsFinished = this.finished.length;
   }
   handleDrop(event: CdkDragDrop<Project[]>, newStatus: string) {
     const newK = this.stringToProjectStatus(newStatus);
@@ -65,6 +71,8 @@ export class ListProjectsComponent implements OnInit {
         console.log('id ta3 il project', movedProject.id);
         movedProject.projectStatus = newStatus;
         const updateDto: Project = {
+          name: movedProject.name,
+          description: movedProject.description,
           projectStatus: newStatus,
           usersIds: movedProject.usersIds,
           leader: movedProject.leader,

@@ -16,18 +16,16 @@
             <thead>
               <tr>
                 <th>Name</th>
-                @for(day of daysInMonth;track day){ @if(!isWeekend(day)){
+                @for(day of daysInMonth;track day){
                 <th>{{ day }}</th>
-                }@else{
-                <th>W</th>
-                } }
+                }
               </tr>
             </thead>
             <tbody>
               <ng-container *ngFor="let employee of users; let i = index">
                 <tr [class.even-row]="i % 2 !== 0">
-                  <td class="employee-column">{{ employee.firstName }}</td>
-                  @for(day of daysInMonth;track day){ @if(!isWeekend(day)){
+                  <td class="employee-column">{{ employee.firstname }}</td>
+                  @for(day of daysInMonth;track day){
                   <td>
                     <div>
                       <button
@@ -171,9 +169,7 @@
                       </div>
                     </div>
                   </td>
-                  }@else {
-                  <td class="disabled"></td>
-                  }}
+                  }
                 </tr>
               </ng-container>
             </tbody>
