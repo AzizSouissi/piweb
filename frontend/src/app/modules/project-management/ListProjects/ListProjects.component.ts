@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import {
   CdkDragDrop,
   moveItemInArray,
@@ -23,7 +23,7 @@ export class ListProjectsComponent implements OnInit {
   numProjectsFinished!: number;
 
   constructor(private projectService: ProjectManagementService) {}
-  ngOnInit(): void {
+  ngOnInit() {
     this.projectService.getAllProjects().subscribe((allProjects) => {
       this.projects = allProjects;
       this.todo = this.projects.filter(
@@ -35,10 +35,10 @@ export class ListProjectsComponent implements OnInit {
       this.finished = this.projects.filter(
         (project) => project.projectStatus === 'FINISHED'
       );
+      this.numProjectsTodo = this.todo.length;
+      this.numProjectsDone = this.done.length;
+      this.numProjectsFinished = this.finished.length;
     });
-    this.numProjectsTodo = this.todo.length;
-    this.numProjectsDone = this.done.length;
-    this.numProjectsFinished = this.finished.length;
   }
   handleDrop(event: CdkDragDrop<Project[]>, newStatus: string) {
     const newK = this.stringToProjectStatus(newStatus);
@@ -89,6 +89,7 @@ export class ListProjectsComponent implements OnInit {
               event.currentIndex
             );
             console.log('successfully');
+            this.ngOnInit();
           });
       } else {
         console.error('Error: Project or project id is undefined');
