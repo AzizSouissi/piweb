@@ -17,6 +17,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { DatePipe } from '@angular/common';
 import { ProjectManagementModule } from './modules/project-management/project-management.module';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { ProjectManagementModule } from './modules/project-management/project-ma
     ProjectManagementModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    DragDropModule,
   ],
   providers: [provideClientHydration(), provideAnimationsAsync()],
   bootstrap: [AppComponent],

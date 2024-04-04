@@ -12,7 +12,7 @@ export class ProjectManagementService {
     let project: Prisma.ProjectCreateInput;
   }
 
-  async create(createProjectDto: CreateProjectManagementDto) {
+  async create(createProjectDto: Project) {
     const { usersIds, ...rest } = createProjectDto;
 
     const usersConnect = usersIds
@@ -35,20 +35,17 @@ export class ProjectManagementService {
 
   async getAllProjects() {
     return await this.prisma.project.findMany();
-}
+  }
 
-async getProjectById(projectId: string) {
-  return await this.prisma.project.findUnique({
+  async getProjectById(projectId: string) {
+    return await this.prisma.project.findUnique({
       where: {
-          id: projectId,
+        id: projectId,
       },
-  });
-}
+    });
+  }
 
-  async update(
-    projectId: string,
-    updateProjectDto: UpdateProjectManagementDto,
-  ) {
+  async update(projectId: string, updateProjectDto: Project) {
     const { usersIds, ...rest } = updateProjectDto;
     console.log(usersIds);
 

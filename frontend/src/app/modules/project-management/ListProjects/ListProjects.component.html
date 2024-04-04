@@ -1,63 +1,58 @@
 <div class="pcoded-main-container">
   <div class="pcoded-wrapper">
     <div class="pcoded-content">
-      <div class="calendar-container" style="display: flex">
-        <mat-card class="example-card" style="margin-right: 10px">
-          <mat-card-content>
-            <div cdkDropListGroup style="display: flex">
-              <div class="example-container">
-                <h2>ON_HOLD</h2>
-                <div
-                  cdkDropList
-                  [cdkDropListData]="done"
-                  class="example-list"
-                  (cdkDropListDropped)="drop($event)"
-                >
-                  @for (project of projects; track project) {
-                  @if(project.projectStatus==='ON_HOLD'){
-                  <div class="example-box" cdkDrag>
-                    <app-projectCard [project]="project"></app-projectCard>
-                  </div>
-                  } }
-                </div>
-              </div>
+      <div class="calendar-container">
+        <div cdkDropListGroup>
+          <div class="example-container">
+            <h2>To do</h2>
 
-              <div class="example-container">
-                <h2>RUNNING</h2>
-                <div
-                  cdkDropList
-                  [cdkDropListData]="done"
-                  class="example-list"
-                  (cdkDropListDropped)="drop($event)"
-                >
-                  @for (project of projects; track project) {
-                  @if(project.projectStatus==='RUNNING'){
-                  <div class="example-box" cdkDrag>
-                    <app-projectCard [project]="project"></app-projectCard>
-                  </div>
-                  } }
-                </div>
+            <div
+              cdkDropList
+              [cdkDropListData]="todo"
+              class="example-list"
+              (cdkDropListDropped)="handleDrop($event, 'ON_HOLD')"
+            >
+              @for (project of todo; track project) {
+              <div class="example-box" cdkDrag>
+                <app-projectCard [project]="project"></app-projectCard>
               </div>
-
-              <div class="example-container">
-                <h2>Completed</h2>
-                <div
-                  cdkDropList
-                  [cdkDropListData]="done"
-                  class="example-list"
-                  (cdkDropListDropped)="drop($event)"
-                >
-                  @for (project of projects; track project) {
-                  @if(project.projectStatus==='FINISHED'){
-                  <div class="example-box" cdkDrag>
-                    <app-projectCard [project]="project"></app-projectCard>
-                  </div>
-                  } }
-                </div>
-              </div>
+              }
             </div>
-          </mat-card-content>
-        </mat-card>
+          </div>
+
+          <div class="example-container">
+            <h2>Done</h2>
+
+            <div
+              cdkDropList
+              [cdkDropListData]="done"
+              class="example-list"
+              (cdkDropListDropped)="handleDrop($event, 'RUNNING')"
+            >
+              @for (project of done; track project) {
+              <div class="example-box" cdkDrag>
+                <app-projectCard [project]="project"></app-projectCard>
+              </div>
+              }
+            </div>
+          </div>
+          <div class="example-container">
+            <h2>FINISHED</h2>
+
+            <div
+              cdkDropList
+              [cdkDropListData]="finished"
+              class="example-list"
+              (cdkDropListDropped)="handleDrop($event, 'FINISHED')"
+            >
+              @for (project of finished; track project) {
+              <div class="example-box" cdkDrag>
+                <app-projectCard [project]="project"></app-projectCard>
+              </div>
+              }
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

@@ -1,14 +1,12 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   CdkDragDrop,
-  CdkDrag,
-  CdkDropList,
-  CdkDropListGroup,
   moveItemInArray,
   transferArrayItem,
 } from '@angular/cdk/drag-drop';
-import { Project } from '../../../core/models/project';
-import { ProjectManagementService } from '../../../core/services/projectManagement.service';
+
+import { ProjectManagementService } from '../../../core/services/projectManagement.service'; // Assuming ProjectManagementService is imported
+import { Project, ProjectStatus } from '../../../core/models/project';
 
 @Component({
   selector: 'app-ListProjects',
@@ -17,21 +15,43 @@ import { ProjectManagementService } from '../../../core/services/projectManageme
 })
 export class ListProjectsComponent implements OnInit {
   projects!: Project[];
-  status = ['RUNNING', 'ON_HOLD', 'COMPLETED'];
+  todo!: Project[];
+  done!: Project[];
+  finished!: Project[];
 
   constructor(private projectService: ProjectManagementService) {}
-
-  ngOnInit() {
+  ngOnInit(): void {
     this.projectService.getAllProjects().subscribe((allProjects) => {
       this.projects = allProjects;
+      this.todo = this.projects.filter(
+        (project) => project.projectStatus === 'ON_HOLD'
+      );
+      this.done = this.projects.filter(
+        (project) => project.projectStatus === 'RUNNING'
+      );
+      this.finished = this.projects.filter(
+        (project) => project.projectStatus === 'FINISHED'
+      );
     });
   }
-
-  todo = [this.projects];
-
-  done = this.projects;
-
-  drop(event: CdkDragDrop<Project[]>) {
+  handleDrop(event: CdkDragDrop<Project[]>, newStatus: string) {
+    const newK = this.stringToProjectStatus(newStatus);
+    this.drop(event, newK);
+  }
+  stringToProjectStatus(statusString: string): ProjectStatus {
+    switch (statusString) {
+      case 'ON_HOLD':
+        return ProjectStatus.ON_HOLD;
+      case 'RUNNING':
+        return ProjectStatus.RUNNING;
+      case 'FINISHED':
+        return ProjectStatus.FINISHED;
+      default:
+        throw new Error(`Invalid project status: ${statusString}`);
+    }
+  }
+  drop(event: CdkDragDrop<Project[]>, newStatus: ProjectStatus) {
+    console.log('jjznakjznkajznza', newStatus);
     if (event.previousContainer === event.container) {
       moveItemInArray(
         event.container.data,
@@ -39,16 +59,32 @@ export class ListProjectsComponent implements OnInit {
         event.currentIndex
       );
     } else {
-      transferArrayItem(
-        event.previousContainer.data,
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex
-      );
+      const movedProject: Project =
+        event.previousContainer.data[event.previousIndex];
+      if (movedProject && movedProject.id) {
+        console.log('id ta3 il project', movedProject.id);
+        movedProject.projectStatus = newStatus;
+        const updateDto: Project = {
+          projectStatus: newStatus,
+          usersIds: movedProject.usersIds,
+          leader: movedProject.leader,
+          startDate: movedProject.startDate,
+          endDate: movedProject.endDate,
+        };
+        this.projectService
+          .updateProject(movedProject.id, updateDto)
+          .subscribe(() => {
+            transferArrayItem(
+              event.previousContainer.data,
+              event.container.data,
+              event.previousIndex,
+              event.currentIndex
+            );
+            console.log('successfully');
+          });
+      } else {
+        console.error('Error: Project or project id is undefined');
+      }
     }
-  }
-  onProjectsReady(projects: Project[]): void {
-    this.projects = projects;
-    console.log('Projects received in Component1:', this.projects);
   }
 }

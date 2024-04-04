@@ -66,7 +66,7 @@ export class AttendanceTrackingController {
   @Put('/updateAttendance/:id')
   async updateAttendance(
     @Param('id') id: string,
-    @Body() updateAttendanceTrackingDto: UpdateAttendanceTrackingDto,
+    @Body() updateAttendanceTrackingDto: AttendanceRecord,
   ): Promise<AttendanceRecord | any> {
     try {
       const updatedRecord = await this.prisma.attendanceRecord.update({

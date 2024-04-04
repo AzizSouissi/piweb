@@ -11,6 +11,7 @@ import {
 import { ProjectManagementService } from './project-management.service';
 import { CreateProjectManagementDto } from './dto/create-project-management.dto';
 import { UpdateProjectManagementDto } from './dto/update-project-management.dto';
+import { Project } from '@prisma/client';
 
 @Controller('project-management')
 export class ProjectManagementController {
@@ -19,7 +20,7 @@ export class ProjectManagementController {
   ) {}
 
   @Post()
-  create(@Body() createProjectManagementDto: CreateProjectManagementDto) {
+  create(@Body() createProjectManagementDto: Project) {
     return this.projectManagementService.create(createProjectManagementDto);
   }
 
@@ -34,10 +35,7 @@ export class ProjectManagementController {
   }
 
   @Put(':id')
-  update(
-    @Param('id') id: string,
-    @Body() updateProjectManagementDto: UpdateProjectManagementDto,
-  ) {
+  update(@Param('id') id: string, @Body() updateProjectManagementDto: Project) {
     return this.projectManagementService.update(id, updateProjectManagementDto);
   }
 

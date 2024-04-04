@@ -68,8 +68,8 @@ export class AttendanceTrackingService {
       },
       select: {
         id: true,
-        firstName: true,
-        lastName: true,
+        firstname: true,
+        lastname: true,
         attendanceRecord: true,
         projectIds: true,
       },
@@ -165,8 +165,8 @@ export class AttendanceTrackingService {
         if (!acc[user.id]) {
           acc[user.id] = {
             UserId: user.id,
-            firstName: user.firstName,
-            lastName: user.lastName,
+            firstName: user.firstname,
+            lastName: user.lastname,
             attendanceRecord: [record],
           };
         } else {

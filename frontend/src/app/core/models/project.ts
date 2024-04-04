@@ -1,9 +1,9 @@
 import { User } from './user';
 
 export class Project {
-  id!: String;
+  id?: string;
   usersIds!: String[];
-  users!: User[];
+  users?: User[];
   leader!: String;
   startDate!: String;
   endDate!: String;
