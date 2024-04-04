@@ -26,6 +26,7 @@ import { SidebarComponent } from './modules/sidebar/sidebar.component';
 import { HomeComponent } from './modules/home/home.component';
 import { NavbarComponent } from './modules/navbar/navbar.component';
 import { RoleModule } from './modules/role/role.module';
+import { TaskManagementModule } from './modules/task/task.module';
 
 @NgModule({
   declarations: [
@@ -52,6 +53,7 @@ import { RoleModule } from './modules/role/role.module';
     MatNativeDateModule,
     ConfigManagementModule,
     HolidayManagementModule,
+    TaskManagementModule,
   ],
   providers: [
     provideClientHydration(),

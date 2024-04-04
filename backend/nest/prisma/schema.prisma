@@ -155,3 +155,30 @@ enum Shift {
   NIGHT_ONLY
   BOTH_SHIFTS
 }
+
+
+model Task {
+  taskId      String    @id @default(auto()) @map("_id") @db.ObjectId
+  title       String  
+  description String?
+  priority    TaskPriority
+  status      TaskStatus
+  createBy    String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  //usersIDs String[] @db.ObjectId
+  //users User[]   @relation(fields: [usersIDs], references: [userId])
+}
+
+enum TaskStatus {
+  PENDING
+  IN_PROGRESS
+  COMPLETED
+}
+
+enum TaskPriority {
+  LOW
+  MEDIUM
+  HIGH
+}
+

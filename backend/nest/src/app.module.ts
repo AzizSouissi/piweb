@@ -10,6 +10,7 @@ import { AttendanceTrackingModule } from './attendance-tracking/attendance-track
 import { HttpModule } from '@infra/http/http.module';
 import { DatabaseModule } from '@infra/database/database.module';
 import { HolidayManagementModule } from './holiday-management/holiday-management.module';
+import { TasksModule } from './tasks/tasks.module';
 
 @Module({
   imports: [
@@ -20,7 +21,8 @@ import { HolidayManagementModule } from './holiday-management/holiday-management
     UsersModule,
     PasswordresetModule,
     HttpModule, DatabaseModule,
-    HolidayManagementModule
+    HolidayManagementModule,
+    TasksModule
   ],
   controllers: [AppController],
   providers: [AppService],

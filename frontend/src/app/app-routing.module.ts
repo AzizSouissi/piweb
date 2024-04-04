@@ -63,6 +63,13 @@ const routes: Routes = [
             './modules/attendance-management/attendance-management.module'
           ).then((m) => m.AttendanceManagementModule),
       },
+      {
+        path: 'task',
+        loadChildren: () =>
+          import(
+            './modules/task/task.module'
+          ).then((m) => m.TaskManagementModule),
+      },
     ],
   },
 
