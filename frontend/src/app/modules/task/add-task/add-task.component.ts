@@ -22,6 +22,8 @@ export class AddTaskComponent {
         createBy: form.value.createBy,
         createdAt: form.value.createdAt,
         updatedAt: form.value,
+        usersIDs: [],
+        users: [],
       };
       this.taskService.addTask(task).subscribe(
         () => {

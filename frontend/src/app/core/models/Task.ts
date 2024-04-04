@@ -9,8 +9,8 @@ export class Task {
   createBy!: string;
   createdAt!: Date;
   updatedAt!: Date;
-  //usersIDs!: string[];
-  //users!: User[];
+  usersIDs!: string[];
+  users!: User[];
 }
 
 enum TaskStatus {
