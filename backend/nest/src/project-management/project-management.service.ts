@@ -1,9 +1,9 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { Project, type Prisma } from '@prisma/client';
-import { PrismaService } from 'src/prisma.service';
 import { CreateProjectManagementDto } from './dto/create-project-management.dto';
 import { UpdateProjectManagementDto } from './dto/update-project-management.dto';
 import { log } from 'console';
+import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class ProjectManagementService {

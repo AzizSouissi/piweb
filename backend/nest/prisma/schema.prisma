@@ -37,8 +37,10 @@ model User {
   childrenUnder20Number           Int?
   universityStudentChildrenNumber Int?
   crippledChildrenNumber          Int?
-  Task                            Task[]            @relation(fields: [taskId], references: [id])
+  Task                            Task[]             @relation(fields: [taskId], references: [id])
   taskId                          String[]           @db.ObjectId
+  projectIds                      String[]           @db.ObjectId
+  projects                        Project[]          @relation(fields: [projectIds], references: [id])
 
   @@map("users")
 }
@@ -181,4 +183,23 @@ enum TaskPriority {
   LOW
   MEDIUM
   HIGH
+}
+
+model Project {
+  id            String        @id @default(auto()) @map("_id") @db.ObjectId
+  name          String
+  description   String
+  usersIds      String[]      @db.ObjectId
+  users         User[]        @relation(fields: [usersIds], references: [id])
+  leader        String
+  startDate     String
+  endDate       String
+  projectStatus ProjectStatus
+}
+
+enum ProjectStatus {
+  NEW
+  RUNNING
+  ON_HOLD
+  FINISHED
 }
