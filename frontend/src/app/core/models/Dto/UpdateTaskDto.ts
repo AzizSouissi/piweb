@@ -1,26 +1,20 @@
-import { User } from './User';
-
 export class Task {
-    taskId !: string;
-    title !: string;
+title !: string;
     description!: string;
     priority!: TaskPriority;
     status!: TaskStatus;
-    createBy!: string;
-    createdAt!: Date;
     updatedAt!: Date;
     //usersIDs!: string[];
     //users!: User[];
-  }
-  
-  enum TaskStatus {
+}
+ enum TaskStatus {
     PENDING = "PENDING",
     IN_PROGRESS = "IN_PROGRESS",
     COMPLETED = "COMPLETED",
-  }
-  
-   enum TaskPriority {
+}
+
+ enum TaskPriority {
     LOW = "LOW",
     MEDIUM = "MEDIUM",
     HIGH = "HIGH",
-  }
+}

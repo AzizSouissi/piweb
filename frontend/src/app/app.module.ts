@@ -12,7 +12,6 @@ import { SidebarComponent } from './modules/sidebar/sidebar.component';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './modules/home/home.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { HolidayManagementModule } from './modules/holiday-management/holiday-management.module';
 import { TaskManagementModule } from './modules/task/task.module';
 
 @NgModule({
@@ -28,7 +27,6 @@ import { TaskManagementModule } from './modules/task/task.module';
     AppRoutingModule,
 HttpClientModule,    ReactiveFormsModule,
     FormsModule,
-  HolidayManagementModule , 
   TaskManagementModule],
   providers: [provideClientHydration(), provideAnimationsAsync()],
   bootstrap: [AppComponent],

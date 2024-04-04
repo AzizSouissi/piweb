@@ -6,18 +6,17 @@ export class Task {
     status!: TaskStatus;
     createBy!: string;
     createdAt!: Date;
-    updatedAt!: Date;
     //usersIDs!: string[];
     //users!: User[];
 }
 
-export enum TaskStatus {
+ enum TaskStatus {
     PENDING = "PENDING",
     IN_PROGRESS = "IN_PROGRESS",
     COMPLETED = "COMPLETED",
 }
 
-export enum TaskPriority {
+ enum TaskPriority {
     LOW = "LOW",
     MEDIUM = "MEDIUM",
     HIGH = "HIGH",

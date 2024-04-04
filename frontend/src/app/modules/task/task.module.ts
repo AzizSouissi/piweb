@@ -17,7 +17,7 @@ const routes: Routes = [
   declarations: [
     AddTaskComponent,
     ListTaskComponent,
-    UpdateTaskComponent
+    UpdateTaskComponent,   
   ],
   imports: [
     CommonModule,

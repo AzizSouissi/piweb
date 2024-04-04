@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AddHolidayComponent } from './add-holiday.component';
+import { UpdateTaskComponent } from './update-task.component';
 
-describe('AddHolidayComponent', () => {
-  let component: AddHolidayComponent;
-  let fixture: ComponentFixture<AddHolidayComponent>;
+describe('UpdateTaskComponent', () => {
+  let component: UpdateTaskComponent;
+  let fixture: ComponentFixture<UpdateTaskComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [AddHolidayComponent]
+      declarations: [UpdateTaskComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(AddHolidayComponent);
+    fixture = TestBed.createComponent(UpdateTaskComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { Task } from '../../../core/models/Task';
 import { TaskService } from '../../../core/services/task-service';
 import { Router } from '@angular/router';
-import { Task } from '../../../core/models/Task';
-import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-add-task',
@@ -22,9 +22,7 @@ add(form: NgForm){
       status: form.value.status,
       createBy: form.value.createBy,
       createdAt: form.value.createdAt,
-      updatedAt: form.value.updatedAt,
-      //usersIDs: [],
-      //users: []
+      updatedAt: form.value
     }
     this.taskService.addTask(task).subscribe(
       () => {
