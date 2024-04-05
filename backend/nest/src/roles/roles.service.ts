@@ -9,6 +9,20 @@ export class RolesService {
         private prisma: PrismaService,
       ) {}
 
+     async updateRole(userId: string, updateRoleDto: any) {
+      return await this.prisma.role.update({
+        where : {
+          id : userId
+        },
+        data : {
+          name: updateRoleDto.name,
+          privilegeId : updateRoleDto.privilegeId
+        }
+        
+      })
+        
+    }
+
       deteteRole(id: string) {
        return this.prisma.role.deleteMany({
         where: {

@@ -43,6 +43,8 @@ export class AddUserComponent {
       firstname: ['', [Validators.pattern('[A-Za-z]+'), Validators.required]],
       lastname: ['', [Validators.pattern('[A-Za-z]+'), Validators.required]],
       email: ['', [Validators.email]],
+      job: ['', [Validators.pattern('[A-Za-z ]*')]], 
+      number: ['', [Validators.pattern('^[0-9]{8}$')]],
       address: ['',[ Validators.required]],
       birthday: ['', [this.dateNaissanceValidator(18)]],
       degree : ['',[Validators.required]]
@@ -81,10 +83,8 @@ export class AddUserComponent {
    const user = this.myForm.value
    const roles: Role[] = this.selectedRole;
 
-const transformedRoles = roles.map(role => ({ id: role.id, name: role.name }));
-
-console.log(transformedRoles);
-
+  const transformedRoles = roles.map(role => ({ id: role.id, name: role.name }));
+  console.log(transformedRoles);
    user.roles= this.selectedRole
    user.password ="password"
     console.log(user)
@@ -96,7 +96,7 @@ console.log(transformedRoles);
         if(authorities.includes("READ::USER")) this.router.navigate(['/users']);
         else this.router.navigate(['/home'])
       }, error => {
-        console.error('Error', error);
+        console.error('Error', error)
       });
 
     

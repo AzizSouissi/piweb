@@ -1,0 +1,53 @@
+<app-sidebar></app-sidebar>
+<app-navbar></app-navbar>
+<div class="pcoded-main-container">
+    <div class="pcoded-wrapper">
+      <div class="pcoded-content">
+        <div class="pcoded-inner-content">
+          <div class="main-body">
+            <div class="container mt-5">
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="card">
+                    <img src="../assets/images/profile.jpg" class="card-img-top" alt="Profile Picture">
+                    <div class="card-body">
+                      <h4 class="card-title">{{user.firstname}} {{user.lastname}}</h4>
+                     
+                      <p class="card-text">Occupation: {{user.job}}</p>
+                     
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-8">
+                  <div class="card">
+                    <div class="card-body">
+                      
+      
+                      <h3 class="card-title mt-3">Personal Information</h3>
+                      <hr>
+                      <ul class="list-group">
+                        <li class="list-group-item">Firstname: {{user.firstname}}</li>
+                        <li class="list-group-item">Lastname: {{user.lastname}}</li>
+                        <li class="list-group-item">Email: {{user.email}}</li>
+                        <li class="list-group-item">Phone: {{user.number}}</li>
+                        <li class="list-group-item">Address: {{user.address}}</li>
+                        <li class="list-group-item">Age: {{user.number}}</li>
+                        <li class="list-group-item">Degree: {{user.degree}}</li>
+                      </ul>
+                      <br>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- End of main-body -->
+        </div>
+        <!-- End of pcoded-inner-content -->
+      </div>
+      <!-- End of pcoded-content -->
+    </div>
+    <!-- End of pcoded-wrapper -->
+  </div>
+  <!-- End of pcoded-main-container -->
+  

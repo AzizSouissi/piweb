@@ -7,11 +7,13 @@ import { UserGuard } from "../../core/guards/user-guard.guard";
 import { AuthGuard } from "../../core/guards/auth-guard.guard";
 import { AddUserGuard } from "../../core/guards/adduser-guard.guard";
 import { UpdateUserGuard } from "../../core/guards/updateuser-guard.guard";
+import { ProfileComponent } from "./profile/profile.component";
 
 const routes: Routes = [
     { path: '', component: ListUserComponent , canActivate:[AuthGuard,UserGuard] },
     { path: 'add', component: AddUserComponent, canActivate: [AuthGuard,AddUserGuard] },
-    { path: 'update/:id', component: UpdateUserComponent, canActivate: [AuthGuard,UpdateUserGuard]}
+    { path: 'update/:id', component: UpdateUserComponent, canActivate: [AuthGuard,UpdateUserGuard]},
+    {path: 'profile',component : ProfileComponent}
   ];
   
   @NgModule({

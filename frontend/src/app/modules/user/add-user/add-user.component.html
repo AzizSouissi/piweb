@@ -38,6 +38,13 @@
                                                                         </div>
                                                                       </div>
                                                                     
+                                                                      <div class="form-group">
+                                                                        <label for="job">Job</label>
+                                                                        <input type="job" class="form-control" id="job" formControlName="job" placeholder="Ex. Software Developer">
+                                                                        <div *ngIf="myForm.get('job')?.invalid && (myForm.get('job')?.dirty || myForm.get('job')?.touched)">
+                                                                          <span class="error-message">Job must contain only upper and lower case letters and spaces</span>
+                                                                        </div>
+                                                                      </div>
                                                                       
                                                                     
                                                                       <div class="form-group">
@@ -45,6 +52,13 @@
                                                                         <input type="email" class="form-control" id="email" formControlName="email" placeholder="Ex. Alex.Alex@company.com">
                                                                         <div *ngIf="myForm.get('email')?.invalid && (myForm.get('email')?.dirty || myForm.get('email')?.touched)">
                                                                           <span class="error-message"> Email invalid .</span>
+                                                                        </div>
+                                                                      </div>
+                                                                      <div class="form-group">
+                                                                        <label for="number">Phone Number</label>
+                                                                        <input type="number" class="form-control" id="number" formControlName="number" placeholder="Ex. 90777777">
+                                                                        <div *ngIf="myForm.get('number')?.invalid && (myForm.get('number')?.dirty || myForm.get('number')?.touched)">
+                                                                          <span class="error-message">Number contain 8-digit positive</span>
                                                                         </div>
                                                                       </div>
                                                                     
@@ -81,8 +95,8 @@
                                                                      
                                                                       </div>
                                                                     
-                                                                      <button type="submit" class="btn btn-primary" [disabled]="myForm.invalid">Add</button>
-                                                                            </form>
+                                                                      <button type="submit" class="btn btn-primary" [disabled]="myForm.invalid || selectedRole.length === 0">Add</button>
+                                                                    </form>
                                                                   </div>
                                                               </div>
                                                 </div>

@@ -17,17 +17,23 @@ import { Role } from "../models/Role";
     {
        return this._http.get(this.URL+`/${id}`);
     }
+    
     addRole(role: any)
     {
       return this._http.post(this.URL,role);
     }
-    updateRole(role:any)
+
+    updateRole(id: string,role:any)
     {
-      return this._http.put(this.URL,role);
+      return this._http.patch(this.URL+`/${id}`,role);
     }
+
     deleteRole(id : string)
     {
        return this._http.delete(this.URL+`/${id}`);
     }
+
+ 
+
 
   }

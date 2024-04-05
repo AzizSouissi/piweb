@@ -23,7 +23,8 @@ import { NotFoundComponent } from './modules/not-found/not-found.component';
     ResetpasswordComponent,
     NewpasswordComponent,
     EmailsendedComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    
   ],
   imports: [
     BrowserModule,

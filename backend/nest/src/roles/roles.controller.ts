@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
 import { RolesService } from './roles.service';
 import { CreateRoleDto } from './dtos/CreateRole.dto';
 import { Public } from 'src/auth/common/decorators/public.decorator';
@@ -30,6 +30,13 @@ export class RolesController {
     getRoleById(@Param('id') id : string)
     {
         return this.rolesService.getRoleById(id);
+       
+    }
+
+    @Patch(':id')
+    async updateRole(@Param('id') userId : string, @Body() updateRoleDto : any)
+    {
+      return await this.rolesService.updateRole(userId, updateRoleDto);
     }
 
 

@@ -13,6 +13,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { SharedModule } from '../../shared/shared.module';
+import { ProfileComponent } from './profile/profile.component';
 
 
 
@@ -20,7 +21,8 @@ import { SharedModule } from '../../shared/shared.module';
   declarations: [
     ListUserComponent,
     AddUserComponent,
-    UpdateUserComponent
+    UpdateUserComponent,
+    ProfileComponent
   ],
   imports: [
     CommonModule,

@@ -3,14 +3,63 @@ import { PrismaService } from 'src/prisma/prisma.service';
 import { RegisterRequest } from './dtos/RegisterRequest.dto';
 import * as bcrypt from 'bcrypt';
 import { MailerService } from '@nestjs-modules/mailer';
+import { Observable } from 'rxjs';
+import { Userprofile } from './dtos/userprofile';
 
 @Injectable()
 export class UsersService {
-
     constructor(
         private prisma: PrismaService,
         private mailerService : MailerService
       ) {
+      }
+
+      async updateUser(userId: string, updateUserDto: any) {
+        return await this.prisma.user.update({
+           where : {
+            id : userId
+           },
+           data : {
+            firstname : updateUserDto.firstname,
+            lastname : updateUserDto.lastname,
+            job : updateUserDto.job,
+            email : updateUserDto.email,
+            number: updateUserDto.number,
+            address : updateUserDto.address,
+            birthday : updateUserDto.birthday,
+            degree : updateUserDto.degree,
+            roleId : updateUserDto.roleId
+           }
+        })
+      }
+
+      async getUserById(id: string) {
+        return await this.prisma.user.findUnique({
+          where : {
+            id : id
+          }
+        })
+      }
+
+
+
+     async  getUserByEmail(email: string): Promise<Userprofile> {
+        return await this.prisma.user.findUnique({
+          where: {
+            email : email
+          },
+          select : {
+            firstname : true,
+            lastname : true, 
+            email : true, 
+            address : true,
+            birthday : true,
+            degree : true,
+            number : true,
+            job : true
+
+          }
+        })
       }
 
 
@@ -36,6 +85,7 @@ export class UsersService {
             birthday: registerRequest.birthday, 
             degree: registerRequest.degree,
             number: registerRequest.number,
+            job : registerRequest.job,
             hash: hash,
             roles: { connect: registerRequest.roles.map(role => ({ id: role.id })) } 
           }

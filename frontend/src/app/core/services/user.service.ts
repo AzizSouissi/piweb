@@ -32,4 +32,20 @@ import { Injectable } from "@angular/core";
   {
      return this._http.delete(this.URL+`/${id}`);
   }
+
+  getUserByEmail(email : string)
+  {
+    return this._http.get(this.URL+`/email/${email}`);
+  }
+  getUserById(id : string)
+  {
+    return this._http.get(this.URL+`/${id}`)
+  }
+
+  updateUser(id: string , user : any)
+  {
+    return this._http.patch(this.URL+`/${id}`,user);
+  }
+
+
   }
