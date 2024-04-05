@@ -11,7 +11,7 @@ import { HomeComponent } from './modules/home/home.component';
 import { ProfileComponent } from './modules/profile/profile.component';
 
 const routes: Routes = [
-  // { path: '', component: LoginComponent },
+  { path: '', component: LoginComponent },
   { path: 'login', component: LoginComponent },
   {
     path: 'resetpassword',
@@ -30,7 +30,7 @@ const routes: Routes = [
     component: NotFoundComponent,
   },
   {
-    path: '',
+    path: 'home',
     component: HomeComponent,
     canActivate: [HomeGuard],
     children: [

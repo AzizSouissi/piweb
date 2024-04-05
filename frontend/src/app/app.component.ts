@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -6,11 +7,5 @@ import { Component, OnInit } from '@angular/core';
   styleUrl: './app.component.css',
 })
 export class AppComponent implements OnInit {
-  ngOnInit(): void {
-    if (localStorage.getItem('token')) {
-      this.logged = true;
-    }
-  }
-  title = 'frontend';
-  logged: boolean = false;
+  ngOnInit(): void {}
 }

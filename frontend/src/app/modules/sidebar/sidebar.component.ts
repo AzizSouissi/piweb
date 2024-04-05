@@ -35,6 +35,11 @@ export class SidebarComponent implements OnInit {
       this.displayUserAdd = true;
     }
   }
+  DropdownVisible: boolean = false;
+
+  toggleDropdown() {
+    this.DropdownVisible = !this.DropdownVisible;
+  }
 
   getPrivileges() {}
 }

@@ -46,7 +46,7 @@
             data-username="Table bootstrap datatable footable"
             class="nav-item"
           >
-            <a routerLink="roles/add" class="nav-link">
+            <a routerLink="home/roles/add" class="nav-link">
               <span class="pcoded-micon"
                 ><i class="feather icon-server"></i
               ></span>
@@ -101,6 +101,30 @@
                 <a href="attendance/updateAttendance" class=""
                   >Attendance Sheet</a
                 >
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item pcoded-hasmenu" (click)="toggleDropdown()">
+            <a class="nav-item dropdown-toggle">
+              <span
+                ><i class="bi bi-house-heart"></i>&nbsp; &nbsp; &nbsp; &nbsp;
+                Foyer</span
+              >
+            </a>
+            <ul
+              class="nav-dropdown"
+              [style.display]="DropdownVisible ? 'block' : 'none'"
+              style="width: 250px"
+            >
+              <li class="nav-item">
+                <a class="nav-link" routerLink="mainFoyer/addFoyer">
+                  <span> &nbsp; &nbsp;Add</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" routerLink="mainFoyer/listFoyer">
+                  <span> &nbsp; &nbsp;List</span>
+                </a>
               </li>
             </ul>
           </li>
