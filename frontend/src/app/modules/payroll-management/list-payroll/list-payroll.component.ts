@@ -1,3 +1,4 @@
+import { ConfigService } from './../../../core/services/config.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
@@ -11,16 +12,40 @@ import { PayrollService } from '../../../core/services/payroll.service';
 })
 export class ListPayrollComponent implements OnInit {
   data: Payroll[] = [];
+  isDate: boolean = false;
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private formB: FormBuilder,
-    private payrollService: PayrollService
+    private payrollService: PayrollService,
+    private configService: ConfigService
   ) {}
 
   ngOnInit() {
+    let payDay: Date;
+    const currentDate = new Date();
+    const currentMonth = currentDate.getMonth() + 1;
+    this.configService.getConfig().subscribe((config) => {
+      let jour = Number(config[0].payDay);
+      const currentDate = new Date();
+      const currentYear = currentDate.getFullYear();
+      payDay = new Date(currentYear, currentMonth - 1, jour);
+    });
     this.payrollService.getAllPayrolls().subscribe((data) => {
       this.data = data;
+      const lastPayDate = new Date(data[data.length - 1].month);
+      console.log('last ', lastPayDate);
+      console.log('paydate', payDay);
+      console.log('current date', currentDate);
+      console.log('current month', currentMonth);
+      if (
+        lastPayDate.getMonth() + 1 !== currentMonth &&
+        currentDate >= payDay
+      ) {
+        this.isDate = false;
+      } else {
+        this.isDate = true;
+      }
     }),
       (error: any) => {
         console.error('Error fetching payrolls:', error);

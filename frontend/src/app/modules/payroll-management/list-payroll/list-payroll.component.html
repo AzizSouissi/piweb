@@ -11,6 +11,9 @@
                                 <div class="card">
                                     <div class="card-header">
                                         <h5>Payroll</h5>
+                                        <button class="btn btn-primary btn-sm float-right"
+                                            [hidden]="isDate">Add</button>
+
                                     </div>
                                     <input type="month" (change)="getDataByDate($event)">
                                     <div class="card-body">
