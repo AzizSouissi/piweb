@@ -67,7 +67,7 @@ const routes: Routes = [
           ).then((m) => m.AttendanceManagementModule),
       },
       {
-        path: 'task',
+        path: 'tasks',
         loadChildren: () =>
           import('./modules/task/task.module').then(
             (m) => m.TaskManagementModule

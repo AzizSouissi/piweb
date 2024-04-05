@@ -84,7 +84,7 @@ export class ListUserComponent {
 
   onEditClick(id: string) {
     
-    this.router.navigate(['/users/update/'+id]);
+    this.router.navigate(['/home/users/update/'+id]);
   }
   delete(id : string)
   {

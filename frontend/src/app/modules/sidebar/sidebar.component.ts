@@ -16,6 +16,8 @@ export class SidebarComponent implements OnInit {
   }
 
 
+
+
   visibiliyEmployeeManagment =false;
   EmployeeManagment = false;
   displayEmployeeList = false;
@@ -35,8 +37,15 @@ export class SidebarComponent implements OnInit {
   }
   
 
+  visibiliyProjectManagment =false;
+  ProjectManagment = false;
+  displayProjectList = false;
 
+  visibiliyHolidayManagment =false;
+  visibiliyTaskManagment =false;
 
+  visibiliyConfigManagment =false;
+  visibiliyPayrollManagment =false;
   
 
   constructor(private encryptionService: EncryptionService) {}
@@ -48,6 +57,28 @@ export class SidebarComponent implements OnInit {
       '2f7'
     );
 
+    if(authorities.includes('PAYROLL'))
+    {
+       this.visibiliyPayrollManagment =true;
+    }
+    if(authorities.includes('CONFIG'))
+    {
+       this.visibiliyConfigManagment =true;
+    }
+
+    if(authorities.includes('PROJECT'))
+    {
+       this.visibiliyProjectManagment =true;
+    }
+    if(authorities.includes('TASK'))
+    {
+       this.visibiliyTaskManagment =true;
+    }
+
+    if(authorities.includes('HOLIDAY'))
+    {
+       this.visibiliyHolidayManagment =true;
+    }
 
     if(authorities.includes('ATTENDANCE'))
     {

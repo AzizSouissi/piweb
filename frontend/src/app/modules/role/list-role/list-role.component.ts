@@ -69,7 +69,7 @@ export class ListRoleComponent implements OnInit{
 
 onEditClick(id: string) {
     
-  this.router.navigate(['/roles/update/'+id]);
+  this.router.navigate(['/home/roles/update/'+id]);
 }
 delete(id : string)
 {
