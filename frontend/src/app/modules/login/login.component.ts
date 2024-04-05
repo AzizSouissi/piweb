@@ -43,7 +43,7 @@ export class LoginComponent {
             );
             localStorage.setItem('authorities', authorities);
             localStorage.setItem('user', JSON.stringify(user));
-            this.router.navigate(['/home']);
+            this.router.navigate(['/']);
           },
           error: (err: any) => {
             console.error(err);
