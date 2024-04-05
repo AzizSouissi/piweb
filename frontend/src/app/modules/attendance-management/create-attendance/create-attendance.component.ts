@@ -17,14 +17,21 @@ export class CreateAttendanceComponent implements OnInit {
   selectedStatus!: Status.PRESENT | Status.ABSENT; // Default to 'present'
   selectedShiftType!: ShiftType;
   absentReason!: string;
-  id: string = '6608bb56d0d49ebe44c0999f';
+  id!: any;
   dateStr!: string;
   user!: User;
 
   constructor(private attendanceService: AttendanceTrackingService) {}
 
   ngOnInit(): void {
-    localStorage.setItem('user', this.id);
+    let p = localStorage.getItem('user');
+    if (p) {
+      let email = JSON.parse(p)['email'];
+      this.attendanceService.getUserIdByEmail(email).subscribe((data) => {
+        this.id = data.id;
+        console.log('wa salem', this.id);
+      });
+    }
 
     const currentDate = new Date();
     const year = currentDate.getFullYear();

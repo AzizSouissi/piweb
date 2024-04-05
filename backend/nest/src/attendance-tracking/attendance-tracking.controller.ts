@@ -12,6 +12,7 @@ import {
 } from '@nestjs/common';
 import { AttendanceTrackingService } from './attendance-tracking.service';
 import { UpdateAttendanceTrackingDto } from './dto/update-attendance-tracking.dto';
+import { Public } from '../auth/common/decorators/public.decorator';
 
 import { PrismaService } from 'src/prisma/prisma.service';
 import { AttendanceRecord, User } from '@prisma/client';
@@ -93,6 +94,17 @@ export class AttendanceTrackingController {
       console.error('Error updating attendance record:', error);
       throw new Error('Failed to update attendance record');
     }
+  }
+  @Get('/getUserByEmail/:email')
+  getUserIdByEmail(@Param('email') email: string): Promise<String | any> {
+    return this.prisma.user.findUnique({
+      where: {
+        email: email,
+      },
+      select: {
+        id: true,
+      },
+    });
   }
   /*@Put('/updateEmployee/:id')
   async updateEmployeeAndAttendance(

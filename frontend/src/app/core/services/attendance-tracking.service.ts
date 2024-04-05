@@ -94,4 +94,8 @@ export class AttendanceTrackingService {
     const url = `${this.URL}/${id}?date=${date}`;
     return this.http.get<AttendanceRecord | null>(url);
   }
+  getUserIdByEmail(email: string): Observable<any> {
+    const url = `${this.URL}/getUserByEmail/${email}`;
+    return this.http.get<any>(url);
+  }
 }
