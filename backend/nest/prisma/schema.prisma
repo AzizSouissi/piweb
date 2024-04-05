@@ -24,6 +24,8 @@ model User {
   birthday                        String?
   degree                          String?
   number                          Int?
+  job                             String?
+  image                           String?
   hash                            String
   hashedAt                        String?
   hashedRt                        String?

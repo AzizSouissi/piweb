@@ -13,8 +13,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class UpdateRoleComponent implements OnInit {
   id!: string;
-  role!: Role;
-  selectedPrivileges: Privilege[] = [];
+  role!: any;
+  selectedPrivileges: string[] = [];
   privileges: Privilege[] = [];
   myForm!: FormGroup;
 
@@ -57,7 +57,7 @@ export class UpdateRoleComponent implements OnInit {
       next: (res: any) => {
         console.log(res);
         this.role = res;
-        this.selectedPrivileges = this.role.privileges;
+        this.selectedPrivileges = this.role.privilegeId;
         this.myForm.patchValue({
           roleTitle: this.role.name,
         });
@@ -69,14 +69,14 @@ export class UpdateRoleComponent implements OnInit {
   }
 
   isSelected(privilege: Privilege): boolean {
-    return this.selectedPrivileges.some((p) => p.id === privilege.id);
+    return this.selectedPrivileges.includes(privilege.id);
   }
 
   onPrivilegeSelect(privilege: Privilege, event: any) {
     if (event.target.checked) {
-      this.selectedPrivileges.push(privilege);
+      this.selectedPrivileges.push(privilege.id);
     } else {
-      const index = this.selectedPrivileges.indexOf(privilege);
+      const index = this.selectedPrivileges.indexOf(privilege.id);
       if (index !== -1) {
         this.selectedPrivileges.splice(index, 1);
       }
@@ -90,12 +90,12 @@ export class UpdateRoleComponent implements OnInit {
     const role = {
       id: this.id,
       name: roleTitle,
-      privileges: this.selectedPrivileges,
+      privilegeId: this.selectedPrivileges,
     };
 
-    this.roleService.updateRole(role).subscribe(
+    this.roleService.updateRole(role.id, role).subscribe(
       (res: any) => {
-        this.router.navigate(['/home/roles']);
+        this.router.navigate(['/roles']);
       },
       (err: any) => {
         console.error('Error adding role:', err);

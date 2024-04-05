@@ -8,6 +8,7 @@ import { RoleGuard } from './core/guards/role-guard.guard';
 import { NotFoundComponent } from './modules/not-found/not-found.component';
 import { HomeGuard } from './core/guards/home-guard.guard';
 import { HomeComponent } from './modules/home/home.component';
+import { ProfileComponent } from './modules/profile/profile.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -32,6 +33,7 @@ const routes: Routes = [
     component: HomeComponent,
     canActivate: [HomeGuard],
     children: [
+      { path: 'profile', component: ProfileComponent },
       {
         path: 'users',
         loadChildren: () =>
@@ -66,16 +68,17 @@ const routes: Routes = [
       {
         path: 'task',
         loadChildren: () =>
-          import(
-            './modules/task/task.module'
-          ).then((m) => m.TaskManagementModule),
+          import('./modules/task/task.module').then(
+            (m) => m.TaskManagementModule
+          ),
       },
-      {path: 'projects',
-    loadChildren: () =>
-      import('./modules/project-management/project-management.module').then(
-        (m) => m.ProjectManagementModule
-      ),
-  },
+      {
+        path: 'projects',
+        loadChildren: () =>
+          import('./modules/project-management/project-management.module').then(
+            (m) => m.ProjectManagementModule
+          ),
+      },
     ],
   },
 

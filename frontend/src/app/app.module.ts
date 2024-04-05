@@ -29,6 +29,7 @@ import { RoleModule } from './modules/role/role.module';
 import { TaskManagementModule } from './modules/task/task.module';
 import { ProjectManagementModule } from './modules/project-management/project-management.module';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { ProfileComponent } from './modules/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     NewpasswordComponent,
     EmailsendedComponent,
     NotFoundComponent,
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,

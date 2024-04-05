@@ -47,8 +47,8 @@
                           <input
                             class="styled-checkbox"
                             type="checkbox"
-                            [checked]="isSelected(privilege)"
                             (change)="onPrivilegeSelect(privilege, $event)"
+                            [checked]="isSelected(privilege)"
                           />
                           {{ privilege.name }}
                         </label>
@@ -57,7 +57,9 @@
                       <button
                         type="submit"
                         class="btn btn-primary"
-                        [disabled]="myForm.invalid"
+                        [disabled]="
+                          myForm.invalid || selectedPrivileges.length === 0
+                        "
                       >
                         Update
                       </button>
