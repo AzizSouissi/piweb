@@ -32,6 +32,8 @@ export class SidebarComponent implements OnInit {
   displayAttendanceList = false;
   displayAttendanceAdd = false;
   displayAttendanceUpdate = false;
+  displayAttendanceCreate = false;
+
   toggleDropdownAttendance(){
     this.AttendanceManagment = !this.AttendanceManagment
   }
@@ -93,6 +95,11 @@ export class SidebarComponent implements OnInit {
     if (authorities.includes('EDIT::ATTENDANCE')) {
       this.displayAttendanceUpdate = true;
     }
+    if (authorities.includes('CREATE::ATTENDANCE')) {
+      this.displayAttendanceCreate = true;
+    }
+
+   
      
 
     if(authorities.includes('ROLE'))
