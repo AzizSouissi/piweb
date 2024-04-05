@@ -3,8 +3,10 @@ pipeline {
     stages {
         stage('Install dependencies') {
             steps {
+                dir('/var/lib/jenkins/workspace/PI-DEV-V0_Project-Management/frontend'){
                 script {
-                    sh 'npm install'
+                    sh 'npm install --force'
+                }
                 }
             }
         }
