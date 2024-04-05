@@ -5,7 +5,7 @@ import {
 } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule , HttpClient } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NavbarComponent } from './modules/navbar/navbar.component';
 import { SidebarComponent } from './modules/sidebar/sidebar.component';
@@ -13,6 +13,7 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './modules/home/home.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { HolidayManagementModule } from './modules/holiday-management/holiday-management.module';
+import { DepartmentManagementModule } from './modules/department-management/department-management.module';
 
 @NgModule({
   declarations: [
@@ -25,9 +26,12 @@ import { HolidayManagementModule } from './modules/holiday-management/holiday-ma
   imports: [
     BrowserModule,
     AppRoutingModule,
-HttpClientModule,    ReactiveFormsModule,
+    HttpClientModule,   
+    ReactiveFormsModule,
     FormsModule,
-  HolidayManagementModule  ],
+    HolidayManagementModule, 
+    DepartmentManagementModule
+  ],
   providers: [provideClientHydration(), provideAnimationsAsync()],
   bootstrap: [AppComponent],
 })

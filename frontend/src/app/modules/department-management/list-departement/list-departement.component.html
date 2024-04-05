@@ -5,18 +5,13 @@
           <div class="container">
             <div class="d-flex align-items-center justify-content-end my-3">
               <div id="bulk-select-replace-element">
-                <button  class="btn btn-phoenix-success btn-sm" data-toggle="modal" data-target="#add"  type="button">
+                <button  class="btn btn-phoenix-success btn-sm" (click)="navigatetoAdd()" type="button">
                   <span
                     class="fas fa-plus"
                     data-fa-transform="shrink-3 down-2"
                   ></span>
                   <span class="ms-1">New</span>
                 </button>
-                <div class="modal fade" id="add" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-
-                        <app-add-holiday></app-add-holiday>
-
-                </div>
                 
               </div>
               <div class="d-none ms-3" id="bulk-select-actions">
@@ -61,9 +56,6 @@
                         </div>
                       </th>
                       <th class="sort align-middle" data-sort="name">Name</th>
-                      <th class="sort align-middle" data-sort="job">Duration</th>
-                      <th class="sort align-middle" data-sort="date">Date</th>
-                      <th class="sort align-middle" data-sort="shift">Shift</th>
                       <th class="sort text-end align-middle pe-0" scope="col">
                         ACTION
                       </th>
@@ -71,7 +63,8 @@
                   </thead>
                   <tbody class="list" id="bulk-select-body">
                     <!-- Your data goes here -->
-                    <tr *ngFor="let holiday of holidays;let i =index ">
+                    @for(department of departments;track departments ){
+                    <tr>
                       <td class="fs--1 align-middle">
                         <div class="form-check mb-0 fs-0">
                           <input
@@ -82,25 +75,15 @@
                         </div>
                       </td>
 
-                      <td class="align-middle name">{{ holiday?.name }}</td>
-                      <td class="align-middle job">{{ holiday?.duration }}</td>
-                      <td class="align-middle date">{{ holiday.date }}</td>
-                      <td class="align-middle status">{{ holiday.shift }}</td>
+                      <td class="align-middle name">{{ department?.name }}</td>
+                     
                       <td>
-                        <button  type="button" data-bs-toggle="modal"  [attr.data-bs-target]="'#exampleModalupdate' + i"
-                        class="btn btn-success btn-sm rounded-0"
-                        data-toggle="tooltip" data-placement="top"
-                        title="Edit"
-                        >
-                    <i class="fa fa-edit"></i> 
-                </button>
-                       <!-- Modal -->
-  <div class="modal fade"     [id]="'exampleModalupdate' + i" tabindex="-1" aria-labelledby="exampleModalupdate" aria-hidden="true">
-    <app-update-holiday [Id]="holiday.id"></app-update-holiday>
-</div>
+                        <button (click)="navigateToUpdate(department.id)" class="btn btn-success btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Edit" >
+                          <i class="fa fa-edit"></i>
+                        </button>
                       </td>
                       <td>
-                        <button type="button" class="remove" (click)="onDelete(holiday.id)">
+                        <button type="button" class="remove" (click)="onDelete(department.id)">
                           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                             class="bi bi-trash" viewBox="0 0 16 16">
                             <path
@@ -113,7 +96,7 @@
                      
 
                     </tr>
-                    
+                    } 
                     <!-- Repeat the above row structure for each data entry -->
                   </tbody>
                 </table>

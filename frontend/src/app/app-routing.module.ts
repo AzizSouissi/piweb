@@ -12,6 +12,17 @@ const routes: Routes = [
         './modules/holiday-management/holiday-management.module'
       ).then((m) => m.HolidayManagementModule),
   },
+
+  {
+    path: 'department',
+    loadChildren: () =>
+      import(
+        './modules/department-management/department-management.module'
+      ).then((m) => m.DepartmentManagementModule),
+  },
+
+
+  
 ];
 
 @NgModule({

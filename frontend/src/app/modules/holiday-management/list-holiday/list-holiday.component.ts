@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HolidayService } from '../../../core/services/holiday-service';
 import { Holiday } from '../../../core/models/Holiday';
-import { ActivatedRoute, Route, Router } from '@angular/router';
+import { ActivatedRoute,Router } from '@angular/router';
 
 @Component({
   selector: 'app-list-holiday',
