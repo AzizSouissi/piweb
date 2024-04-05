@@ -1,30 +1,26 @@
 # Stage 1: Build the Angular app
-FROM node:latest AS builder
+FROM node:20.11.0-slim AS build
 
-WORKDIR /app
+# Set the working directory
+WORKDIR /usr/local/app
 
-COPY package.json package-lock.json /app/
+# Copy the source code to the working directory
+COPY ./ /usr/local/app/
 
+# Install dependencies
 RUN npm install
 
-COPY . /app/
+# Build the Angular application
+RUN npm run build
 
-RUN npm run build -- --prod
 
-# Stage 2: Serve the Angular app with nginx
+# Stage 2: Serve app with nginx server
+
+# Use official nginx image as the base image
 FROM nginx:latest
 
-# Copy the built Angular app from the previous stage
-COPY --from=builder /app/dist/frontend /usr/share/nginx/html
-
-# Remove default nginx website
-RUN rm -rf /usr/share/nginx/html/*
-
-# Copy nginx configuration
-COPY nginx.conf /etc/nginx/nginx.conf
+# Copy the built application from Stage 1 to replace the default nginx contents
+COPY --from=build /usr/local/app/dist/frontend /usr/share/nginx/html
 
 # Expose port 80
 EXPOSE 80
-
-# Start nginx
-CMD ["nginx", "-g", "daemon off;"]
