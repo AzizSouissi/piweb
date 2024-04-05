@@ -6,81 +6,30 @@
                 <div class="main-body">
                     <div class="page-wrapper">
                         <!-- [ Main Content ] start -->
-                        <div class="row">
-                            <div class="col-sm-12">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-8">
                                 <div class="card">
                                     <div class="card-header">
-                                        <h5> wfg</h5>
+                                        <h5> {{data[0].companyName}}</h5>
+                                        <button type="button" class="btn btn-success btn-sm float-right mr-2"
+                                            data-bs-toggle="modal" data-bs-target="#exampleModalupdate"
+                                            data-toggle="tooltip" data-placement="top" title="Edit">
+                                            <i class="fa fa-edit"></i>
+                                        </button>
                                     </div>
                                     <div class="card-body">
-                                        <h5></h5>
-                                        <hr>
-                                        <table class="table">
-                                            <thead>
-                                                <tr>
-                                                    <th scope="col">Id</th>
-                                                    <th scope="col">companyName</th>
-                                                    <th scope="col">cnssrib</th>
-                                                    <th scope="col">cssrate</th>
-                                                    <th scope="col">delayPayment</th>
-                                                    <th scope="col">payDay</th>
-                                                    <th scope="col">Actions</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr *ngFor="let item of data; let i = index">
-                                                    <th scope="row">{{item.id}}</th>
-                                                    <td>{{item.companyName}}</td>
-                                                    <td>{{item.cnssrib}}</td>
-                                                    <td>{{item.cssrate}}</td>
-                                                    <td>{{item.delayPayment}}</td>
-                                                    <td>{{item.payDay}}</td>
-
-
-                                                    <td>
-                                                        <li class="list-inline-item">
-                                                            <button type="button" data-bs-toggle="modal"
-                                                                data-bs-target="#exampleModalupdate"
-                                                                class="btn btn-success btn-sm rounded-0"
-                                                                data-toggle="tooltip" data-placement="top" title="Edit">
-                                                                <i class="fa fa-edit"></i>
-                                                            </button>
-                                                            <!-- Modal -->
-                                                            <div class="modal fade" id="exampleModalupdate"
-                                                                tabindex="-1" aria-labelledby="exampleModalupdate"
-                                                                aria-hidden="true">
-                                                            </div>
-                                                        </li>
-                                                        <li class="list-inline-item">
-                                                            <button type="button"
-                                                                class="btn btn-danger btn-sm rounded-0"
-                                                                data-toggle="tooltip" data-placement="top"
-                                                                title="Delete">
-                                                                <i class="fas fa-trash"></i>
-                                                            </button>
-                                                        </li>
-                                                    </td>
-
-                                                </tr>
-
-                                            </tbody>
-                                        </table>
-                                        <hr>
-                                        <button id="addButton" type="button" class="btn btn-primary" title=""
-                                            data-toggle="tooltip" data-original-title="btn btn-primary"
-                                            routerLink="addAnn">Add</button>
-                                        <!-- Button trigger modal -->
-                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                            data-bs-target="#exampleModal">
-                                            Add Announcement </button>
-
-                                        <!-- Modal -->
-                                        <div class="modal fade" id="exampleModal" tabindex="-1"
-                                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="row">
+                                            <div class="col-md-12 mb-4" *ngFor="let item of data; let i = index">
+                                                <div class="card custom-card">
+                                                    <div class="card-body">
+                                                        <p class="card-text">CNSSRIB: {{item.cnssrib}}</p>
+                                                        <p class="card-text">CSS Rate: {{item.cssrate}}</p>
+                                                        <p class="card-text">Delay Payment: {{item.delayPayment}}</p>
+                                                        <p class="card-text">Pay Day: {{item.payDay}}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
-
-
-
                                     </div>
                                 </div>
                                 <!-- Input group -->
