@@ -24,160 +24,148 @@
         class="navbar-content scroll-div"
         style="overflow: hidden; width: 100%; height: calc(-70px + 100vh)"
       >
+
         <ul class="nav pcoded-inner-navbar">
+          <li
+            data-username="Table bootstrap datatable footable"
+            class="nav-item"
+          >
+            <a  routerLink="/home" class="nav-link">
+              <span class="pcoded-micon"
+                ><i class="feather icon-server"></i
+              ></span>
+              <span class="pcoded-mtext">Home</span>
+            </a>
+          </li>
           <li class="nav-item pcoded-menu-caption">
             <label>Navigation</label>
           </li>
 
-          <li
-            *ngIf="displayRoleList"
-            data-username="Table bootstrap datatable footable"
-            class="nav-item"
-          >
-            <a routerLink="roles" class="nav-link">
-              <span class="pcoded-micon"
-                ><i class="feather icon-server"></i
-              ></span>
-              <span class="pcoded-mtext">Roles</span>
-            </a>
-          </li>
-          <li
-            *ngIf="displayRoleAdd"
-            data-username="Table bootstrap datatable footable"
-            class="nav-item"
-          >
-            <a routerLink="home/roles/add" class="nav-link">
-              <span class="pcoded-micon"
-                ><i class="feather icon-server"></i
-              ></span>
-              <span class="pcoded-mtext"> Add Roles</span>
-            </a>
-          </li>
+      
 
-          <li
-            *ngIf="displayUserList"
-            data-username="Table bootstrap datatable footable"
-            class="nav-item"
-          >
-            <a routerLink="users" class="nav-link">
-              <span class="pcoded-micon"
-                ><i class="feather icon-server"></i
-              ></span>
-              <span class="pcoded-mtext">Employees</span>
-            </a>
-          </li>
-          <li
-            *ngIf="displayUserAdd"
-            data-username="Table bootstrap datatable footable"
-            class="nav-item"
-          >
-            <a routerLink="users/add" class="nav-link">
-              <span class="pcoded-micon"
-                ><i class="feather icon-server"></i
-              ></span>
-              <span class="pcoded-mtext"> Add Employees</span>
-            </a>
-          </li>
+       
+          
 
-          <li
-            data-username="basic components Button Alert Badges breadcrumb Paggination progress Tooltip popovers Carousel Cards Collapse Tabs pills Modal Grid System Typography Extra Shadows Embeds"
-            class="nav-item pcoded-hasmenu"
-          >
-            <a href="javascript:" class="nav-link"
-              ><span class="pcoded-micon"
-                ><i class="feather icon-file-text"></i></span
-              ><span class="pcoded-mtext">Attendance Management</span></a
-            >
-            <ul class="pcoded-submenu">
-              <li class="">
-                <a href="attendance/addAttendance" class=""
-                  >Update Attendance</a
-                >
-              </li>
-              <li class="">
-                <a href="attendance/ListAttendance" class="">Attendance List</a>
-              </li>
-              <li class="">
-                <a href="attendance/updateAttendance" class=""
-                  >Attendance Sheet</a
-                >
-              </li>
-            </ul>
-          </li>
-          <li class="nav-item pcoded-hasmenu" (click)="toggleDropdown()">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          <li *ngIf="visibiliyEmployeeManagment" class="nav-item pcoded-hasmenu" (click)="toggleDropdownEmployee()">
             <a class="nav-item dropdown-toggle">
-              <span
-                ><i class="bi bi-house-heart"></i>&nbsp; &nbsp; &nbsp; &nbsp;
-                Foyer</span
-              >
+              <span class="pcoded-micon"
+              ><i class="feather icon-server"></i
+            ></span> Employee Management
+             
             </a>
             <ul
               class="nav-dropdown"
-              [style.display]="DropdownVisible ? 'block' : 'none'"
+              [style.display]="EmployeeManagment ? 'block' : 'none'"
               style="width: 250px"
             >
-              <li class="nav-item">
-                <a class="nav-link" routerLink="mainFoyer/addFoyer">
-                  <span> &nbsp; &nbsp;Add</span>
+              <li  *ngIf="displayEmployeeList" class="nav-item">
+                <a class="nav-link" routerLink="users/">
+                  <span> &nbsp; &nbsp;Employees</span>
                 </a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" routerLink="mainFoyer/listFoyer">
-                  <span> &nbsp; &nbsp;List</span>
+              <li  *ngIf="displayEmployeeAdd" class="nav-item">
+                <a class="nav-link" routerLink="users/add">
+                  <span> &nbsp; &nbsp;Add Employees</span>
                 </a>
               </li>
             </ul>
           </li>
-          <li
-            data-username="basic components Button Alert Badges breadcrumb Paggination progress Tooltip popovers Carousel Cards Collapse Tabs pills Modal Grid System Typography Extra Shadows Embeds"
-            class="nav-item pcoded-hasmenu"
-          >
-            <a href="javascript:" class="nav-link"
-              ><span class="pcoded-micon"><i class="feather icon-box"></i></span
-              ><span class="pcoded-mtext">Components</span></a
+
+
+
+
+
+
+          
+          <li *ngIf="visibiliyRoleManagment" class="nav-item pcoded-hasmenu" (click)="toggleDropdownRole()">
+            <a class="nav-item dropdown-toggle">
+              <span class="pcoded-micon"
+              ><i class="feather icon-server"></i
+            ></span> Role Management
+             
+            </a>
+            <ul
+              class="nav-dropdown"
+              [style.display]="roleManagment ? 'block' : 'none'"
+              style="width: 250px"
             >
-            <ul class="pcoded-submenu">
-              <li class=""><a href="bc_button.html" class="">Button</a></li>
-              <li class=""><a href="bc_badges.html" class="">Badges</a></li>
-              <li class="">
-                <a href="bc_breadcrumb-pagination.html" class=""
-                  >Breadcrumb & paggination</a
-                >
+              <li  *ngIf="displayRoleList" class="nav-item">
+                <a class="nav-link" routerLink="roles/">
+                  <span> &nbsp; &nbsp;Roles</span>
+                </a>
               </li>
-              <li class="">
-                <a href="bc_collapse.html" class="">Collapse</a>
+              <li  *ngIf="displayRoleAdd" class="nav-item">
+                <a class="nav-link" routerLink="roles/add">
+                  <span> &nbsp; &nbsp;Add Roles</span>
+                </a>
               </li>
-              <li class="">
-                <a href="bc_tabs.html" class="">Tabs & pills</a>
-              </li>
-              <li class="">
-                <a href="bc_typography.html" class="">Typography</a>
+            </ul>
+          </li>
+
+
+
+
+
+         
+
+
+
+
+
+         
+        
+
+          <li *ngIf="visibiliyAttendanceManagment" class="nav-item pcoded-hasmenu" (click)="toggleDropdownAttendance()">
+            <a class="nav-item dropdown-toggle">
+              <span class="pcoded-micon"
+              ><i class="feather icon-server"></i
+            ></span> Attendances Management
+             
+            </a>
+            <ul
+              class="nav-dropdown"
+              [style.display]="AttendanceManagment ? 'block' : 'none'"
+              style="width: 250px"
+            >
+              <li  *ngIf="displayAttendanceList" class="nav-item">
+                <a class="nav-link" routerLink="attendance/ListAttendance">
+                  <span> &nbsp; &nbsp;Attendances</span>
+                </a>
               </li>
 
-              <li class="">
-                <a href="icon-feather.html" class=""
-                  >Feather<span class="pcoded-badge label label-danger"
-                    >NEW</span
-                  ></a
-                >
+              <li  *ngIf="displayAttendanceUpdate" class="nav-item">
+                <a class="nav-link" routerLink="attendance/updateAttendance">
+                  <span> &nbsp; &nbsp;Attendance Sheet</span>
+                </a>
+              </li>
+
+              <li  *ngIf="displayAttendanceAdd" class="nav-item">
+                <a class="nav-link" routerLink="attendance/addAttendance">
+                  <span> &nbsp; &nbsp;Update Attendance</span>
+                </a>
               </li>
             </ul>
           </li>
-          <li
-            data-username="basic components Button Alert Badges breadcrumb Paggination progress Tooltip popovers Carousel Cards Collapse Tabs pills Modal Grid System Typography Extra Shadows Embeds"
-            class="nav-item pcoded-hasmenu"
-          >
-            <a href="javascript:" class="nav-link"
-              ><span class="pcoded-micon"
-                ><i class="feather icon-file-text"></i></span
-              ><span class="pcoded-mtext">Project Management</span></a
-            >
-            <ul class="pcoded-submenu">
-              <li class="">
-                <a routerLink="projects" class="">List Projects</a>
-              </li>
-            </ul>
-          </li>
+
+
+
+
+          
+         
         </ul>
       </div>
       <div
