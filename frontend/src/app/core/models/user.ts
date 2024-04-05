@@ -6,4 +6,10 @@ export class User {
   lastname!: string;
   attendanceRecord!: AttendanceRecord[];
   project!: Project[];
+  basicSalary!: number;
+  offDays!: number;
+  familySituation!: string;
+  childrenNumber!: number;
+  bankrib!: string;
+  numCnss!: string;
 }

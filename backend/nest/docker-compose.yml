@@ -1,7 +1,7 @@
 version: '3.9'
 services:
   api:
-    container_name: notification
+    container_name: aziz
     restart: unless-stopped
     build:
       dockerfile: Dockerfile

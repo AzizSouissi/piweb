@@ -1,3 +1,4 @@
+import { PayrollManagementModule } from './modules/payroll-management/payroll-management.module';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './modules/login/login.component';
@@ -9,6 +10,7 @@ import { NotFoundComponent } from './modules/not-found/not-found.component';
 import { HomeGuard } from './core/guards/home-guard.guard';
 import { HomeComponent } from './modules/home/home.component';
 import { ProfileComponent } from './modules/profile/profile.component';
+import { ConfigManagementModule } from './../app/modules/config-management/config-management.module';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -52,6 +54,7 @@ const routes: Routes = [
             './../app/modules/config-management/config-management.module'
           ).then((m) => m.ConfigManagementModule),
       },
+
       {
         path: 'holiday',
         loadChildren: () =>
@@ -79,6 +82,13 @@ const routes: Routes = [
           import('./modules/project-management/project-management.module').then(
             (m) => m.ProjectManagementModule
           ),
+      },
+      {
+        path: 'payroll',
+        loadChildren: () =>
+          import(
+            './../app/modules/payroll-management/payroll-management.module'
+          ).then((m) => m.PayrollManagementModule),
       },
     ],
   },
