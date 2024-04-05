@@ -55,8 +55,7 @@
                                 type="radio"
                                 id="halfDayRadio"
                                 name="durationRadio"
-                                [(ngModel)]="selectedDuration"
-                                value="HALF_DAY"
+                                (change)="choose(0)"
                               />
                               <label for="halfDayRadio">Half Day</label>
                             </div>
@@ -66,8 +65,7 @@
                                 type="radio"
                                 id="quarterDayRadio"
                                 name="durationRadio"
-                                [(ngModel)]="selectedDuration"
-                                value="QUARTER_SHIFT"
+                                (change)="choose(1)"
                               />
                               <label for="quarterDayRadio">Quarter Day</label>
                             </div>
@@ -77,9 +75,7 @@
                                 type="radio"
                                 id="fullDayRadio"
                                 name="durationRadio"
-                                [(ngModel)]="selectedDuration"
-                                value="FULL_DAY"
-                                [checked]="selectedDuration === 'FULL_DAY'"
+                                (change)="choose(2)"
                               />
                               <label for="fullDayRadio">Full Day</label>
                             </div>

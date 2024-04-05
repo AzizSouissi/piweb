@@ -14,6 +14,16 @@ import { AttendanceRecord } from '../../../core/models/attendanceRecord';
   styleUrls: ['./add-attendance.component.css'],
 })
 export class AddAttendanceComponent implements OnInit {
+  choose(i: number) {
+    console.log(i);
+    if (i == 0) {
+      this.selectedDuration = ShiftType.HALF_DAY;
+    } else if (i == 1) {
+      this.selectedDuration = ShiftType.QUARTER_SHIFT;
+    } else {
+      this.selectedDuration = ShiftType.FULL_DAY;
+    }
+  }
   monthData: MonthData[] = [];
   users: User[] = [];
   user!: User;
@@ -22,11 +32,10 @@ export class AddAttendanceComponent implements OnInit {
   selectedDate: Date = new Date();
   absenceReason: string = '';
   attendanceRecordId!: string;
-  selectedDuration!: ShiftType;
+  selectedDuration: ShiftType = ShiftType.HALF_DAY;
   userid!: string;
   day!: number;
   isModalOpened: boolean = false; // Flag to track if the modal is open
-
   constructor(private attendanceService: AttendanceTrackingService) {}
 
   ngOnInit(): void {
