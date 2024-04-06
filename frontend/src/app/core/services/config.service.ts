@@ -6,7 +6,7 @@ import { Config } from '../models/config';
   providedIn: 'root',
 })
 export class ConfigService {
-  URL = 'http://localhost:9090/configs';
+  URL = 'http://localhost:3000/configs';
   constructor(private http: HttpClient) {}
 
   httpOtions = {

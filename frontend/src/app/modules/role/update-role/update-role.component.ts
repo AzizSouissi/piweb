@@ -95,7 +95,7 @@ export class UpdateRoleComponent implements OnInit {
 
     this.roleService.updateRole(role.id, role).subscribe(
       (res: any) => {
-        this.router.navigate(['/roles']);
+        this.router.navigate(['/home/roles']);
       },
       (err: any) => {
         console.error('Error adding role:', err);

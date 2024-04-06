@@ -96,7 +96,7 @@ export class AddUserComponent {
           '2f7'
         );
         if (authorities.includes('READ::USER'))
-          this.router.navigate(['/users']);
+          this.router.navigate(['/home/users']);
         else this.router.navigate(['/home']);
       },
       (error) => {

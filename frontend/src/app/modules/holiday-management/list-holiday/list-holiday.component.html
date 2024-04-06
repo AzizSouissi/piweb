@@ -5,13 +5,18 @@
           <div class="container">
             <div class="d-flex align-items-center justify-content-end my-3">
               <div id="bulk-select-replace-element">
-                <button  class="btn btn-phoenix-success btn-sm" (click)="navigatetoAdd()" type="button">
+                <button  class="btn btn-phoenix-success btn-sm" data-toggle="modal" data-target="#add"  type="button">
                   <span
                     class="fas fa-plus"
                     data-fa-transform="shrink-3 down-2"
                   ></span>
                   <span class="ms-1">New</span>
                 </button>
+                <div class="modal fade" id="add" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+                        <app-add-holiday></app-add-holiday>
+
+                </div>
                 
               </div>
               <div class="d-none ms-3" id="bulk-select-actions">
@@ -66,8 +71,7 @@
                   </thead>
                   <tbody class="list" id="bulk-select-body">
                     <!-- Your data goes here -->
-                    @for(holiday of holidays;track holidays ){
-                    <tr>
+                    <tr *ngFor="let holiday of holidays;let i =index ">
                       <td class="fs--1 align-middle">
                         <div class="form-check mb-0 fs-0">
                           <input
@@ -83,9 +87,17 @@
                       <td class="align-middle date">{{ holiday.date }}</td>
                       <td class="align-middle status">{{ holiday.shift }}</td>
                       <td>
-                        <button (click)="navigateToUpdate(holiday.id)" class="btn btn-success btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Edit" >
-                          <i class="fa fa-edit"></i>
-                        </button>
+                        <button  type="button" data-bs-toggle="modal"  [attr.data-bs-target]="'#exampleModalupdate' + i"
+                        class="btn btn-success btn-sm rounded-0"
+                        data-toggle="tooltip" data-placement="top"
+                        title="Edit"
+                        >
+                    <i class="fa fa-edit"></i> 
+                </button>
+                       <!-- Modal -->
+  <div class="modal fade"     [id]="'exampleModalupdate' + i" tabindex="-1" aria-labelledby="exampleModalupdate" aria-hidden="true">
+    <app-update-holiday [Id]="holiday.id"></app-update-holiday>
+</div>
                       </td>
                       <td>
                         <button type="button" class="remove" (click)="onDelete(holiday.id)">
@@ -101,7 +113,7 @@
                      
 
                     </tr>
-                    } 
+                    
                     <!-- Repeat the above row structure for each data entry -->
                   </tbody>
                 </table>

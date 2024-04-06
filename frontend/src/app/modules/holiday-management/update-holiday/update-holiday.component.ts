@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
 import { Holiday } from '../../../core/models/Holiday';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { HolidayService } from '../../../core/services/holiday-service';
@@ -10,9 +10,8 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrl: './update-holiday.component.css'
 })
 export class UpdateHolidayComponent implements OnInit {
-updateFoyer() {
-throw new Error('Method not implemented.');
-}
+@Input()Id!:string|null;
+
 id !:string|null
   holiday!:Holiday;
   updateForm!:FormGroup;
@@ -24,13 +23,11 @@ id !:string|null
     ) {
      
      }
-
   ngOnInit() {
-   if( this.route.paramMap.subscribe((paramMap) => {this.id= paramMap.get('id')})){
-    if(this.id==null){
+    if(this.Id==null){
 return
     }
-      this.holidayService.getHolidayById(this.id).subscribe(
+      this.holidayService.getHolidayById(this.Id).subscribe(
         (data: Holiday|String) => {
           
           if('name' in data){
@@ -56,7 +53,7 @@ return
           console.error('Error fetching user by ID:', error);
         }
    }
-  }
+  
   
   updateholiday(){
  
@@ -69,7 +66,7 @@ return
     (response) => {
       alert('User Updated Successfully!');
       console.log(this.holiday)
-      this.router.navigate(['holiday/']);
+
 
     },
     (error) => {

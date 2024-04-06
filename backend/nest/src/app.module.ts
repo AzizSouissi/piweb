@@ -7,12 +7,14 @@ import { RolesModule } from './roles/roles.module';
 import { UsersModule } from './users/users.module';
 import { PasswordresetModule } from './passwordreset/passwordreset.module';
 import { AttendanceTrackingModule } from './attendance-tracking/attendance-tracking.module';
-import { HttpModule } from '@infra/http/http.module';
-import { DatabaseModule } from '@infra/database/database.module';
 import { HolidayManagementModule } from './holiday-management/holiday-management.module';
 import { TasksModule } from './tasks/tasks.module';
 import { ProjectManagementModule } from './project-management/project-management.module';
-
+import { PayrollModule } from './payroll/payroll.module';
+import { AllowancesModule } from './allowances/allowances.module';
+import { DeductionsModule } from './deductions/deductions.module';
+import { ConfigsModule } from './configs/configs.module';
+import { NotificationsModule } from './notifications/notifications.module';
 
 @Module({
   imports: [
@@ -22,10 +24,16 @@ import { ProjectManagementModule } from './project-management/project-management
     RolesModule,
     UsersModule,
     PasswordresetModule,
-    HttpModule, DatabaseModule,
+
     HolidayManagementModule,
     TasksModule,
-    ProjectManagementModule
+    ProjectManagementModule,
+    PayrollModule,
+    AllowancesModule,
+    DeductionsModule,
+    ConfigsModule,
+    ConfigsModule,
+    NotificationsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

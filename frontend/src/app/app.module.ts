@@ -30,6 +30,8 @@ import { TaskManagementModule } from './modules/task/task.module';
 import { ProjectManagementModule } from './modules/project-management/project-management.module';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { ProfileComponent } from './modules/profile/profile.component';
+import { ConfigManagementModule } from './modules/config-management/config-management.module';
+import { PayrollManagementModule } from './modules/payroll-management/payroll-management.module';
 
 @NgModule({
   declarations: [
@@ -47,6 +49,7 @@ import { ProfileComponent } from './modules/profile/profile.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    ConfigManagementModule,
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
@@ -59,7 +62,7 @@ import { ProfileComponent } from './modules/profile/profile.component';
     ConfigManagementModule,
     HolidayManagementModule,
     TaskManagementModule,
-    DragDropModule
+    DragDropModule,
   ],
   providers: [
     provideClientHydration(),
@@ -69,6 +72,7 @@ import { ProfileComponent } from './modules/profile/profile.component';
       useClass: TokenInterceptor,
       multi: true,
     },
+    DatePipe,
   ],
   bootstrap: [AppComponent],
 })
