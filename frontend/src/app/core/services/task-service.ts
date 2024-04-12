@@ -5,64 +5,42 @@ import { Task } from '../models/Task';
 import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class TaskService {
-
-  private URL = "http://localhost:3010/tasks"; // Update the URL 
+  private URL = 'http://localhost:3000/tasks'; // Update the URL
   private httpOtions = {
     headers: new HttpHeaders({
       'Content-type': 'application/json',
     }),
   };
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
-  getAll():Observable<Task[]> { // Change method name
+  getAll(): Observable<Task[]> {
+    // Change method name
     return this.http.get<Task[]>(this.URL, this.httpOtions);
   }
-  addTask( 
-    createtaskdto: Task): Observable<Task> {
-      return this.http.post<Task>(
-        this.URL,
-        createtaskdto,
-        this.httpOtions
+  addTask(createtaskdto: Task): Observable<Task> {
+    return this.http.post<Task>(this.URL, createtaskdto, this.httpOtions);
+  }
+
+  getTaskById(id: String): Observable<Task | string> {
+    // Change method name
+    return this.http
+      .get<Task | string>(`${this.URL}/${id}`, this.httpOtions)
+      .pipe(
+        catchError((error) => {
+          console.error('Error fetching holiday by ID:', error);
+          return throwError(error);
+        })
       );
   }
 
-
-
-
-
-
-
-  getTaskById(id: String):Observable<Task | string >  { // Change method name
-    return this.http.get<Task | string>(`${this.URL}/${id}`,this.httpOtions).pipe(
-      catchError(error => {
-        console.error('Error fetching holiday by ID:', error);
-        return throwError(error);
-      })
-    );
+  updateTask(id: string, updateTaskDto: Task): Observable<any> {
+    return this.http.put(`${this.URL}/${id}`, updateTaskDto, this.httpOtions);
   }
 
-  
-  
-
- 
-
-  updateTask(    id: string,
-    updateTaskDto:Task
-    ) : Observable<any> {
-    return this.http.put(
-      `${this.URL}/${id}`,
-      updateTaskDto,
-      this.httpOtions
-    );
-  }
-
-
-
-  deleteTask(id: string):Observable<boolean> { 
+  deleteTask(id: string): Observable<boolean> {
     return this.http.delete<boolean>(`${this.URL}/${id}`, this.httpOtions);
   }
- 
 }

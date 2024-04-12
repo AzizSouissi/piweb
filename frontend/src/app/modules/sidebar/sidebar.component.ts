@@ -7,48 +7,42 @@ import { EncryptionService } from '../../core/services/encryption.service';
   styleUrl: './sidebar.component.css',
 })
 export class SidebarComponent implements OnInit {
-  visibiliyRoleManagment =false;
+  visibiliyRoleManagment = false;
   roleManagment = false;
   displayRoleList = false;
   displayRoleAdd = false;
-  toggleDropdownRole(){
-    this.roleManagment = !this.roleManagment
+  toggleDropdownRole() {
+    this.roleManagment = !this.roleManagment;
   }
 
-
-
-
-  visibiliyEmployeeManagment =false;
+  visibiliyEmployeeManagment = false;
   EmployeeManagment = false;
   displayEmployeeList = false;
   displayEmployeeAdd = false;
-  toggleDropdownEmployee(){
-    this.EmployeeManagment = !this.EmployeeManagment
+  toggleDropdownEmployee() {
+    this.EmployeeManagment = !this.EmployeeManagment;
   }
 
-
-  visibiliyAttendanceManagment =false;
+  visibiliyAttendanceManagment = false;
   AttendanceManagment = false;
   displayAttendanceList = false;
   displayAttendanceAdd = false;
   displayAttendanceUpdate = false;
   displayAttendanceCreate = false;
 
-  toggleDropdownAttendance(){
-    this.AttendanceManagment = !this.AttendanceManagment
+  toggleDropdownAttendance() {
+    this.AttendanceManagment = !this.AttendanceManagment;
   }
-  
 
-  visibiliyProjectManagment =false;
+  visibiliyProjectManagment = false;
   ProjectManagment = false;
   displayProjectList = false;
 
-  visibiliyHolidayManagment =false;
-  visibiliyTaskManagment =false;
+  visibiliyHolidayManagment = false;
+  visibiliyTaskManagment = false;
 
-  visibiliyConfigManagment =false;
-  visibiliyPayrollManagment =false;
-  
+  visibiliyConfigManagment = false;
+  visibiliyPayrollManagment = false;
 
   constructor(private encryptionService: EncryptionService) {}
 
@@ -59,35 +53,29 @@ export class SidebarComponent implements OnInit {
       '2f7'
     );
 
-    if(authorities.includes('PAYROLL'))
-    {
-       this.visibiliyPayrollManagment =true;
+    if (authorities.includes('PAYROLL')) {
+      this.visibiliyPayrollManagment = true;
     }
-    if(authorities.includes('CONFIG'))
-    {
-       this.visibiliyConfigManagment =true;
+    if (authorities.includes('CONFIG')) {
+      this.visibiliyConfigManagment = true;
     }
 
-    if(authorities.includes('PROJECT'))
-    {
-       this.visibiliyProjectManagment =true;
+    if (authorities.includes('PROJECT')) {
+      this.visibiliyProjectManagment = true;
     }
-    if(authorities.includes('TASK'))
-    {
-       this.visibiliyTaskManagment =true;
+    if (authorities.includes('TASK')) {
+      this.visibiliyTaskManagment = true;
     }
 
-    if(authorities.includes('HOLIDAY'))
-    {
-       this.visibiliyHolidayManagment =true;
+    if (authorities.includes('HOLIDAY')) {
+      this.visibiliyHolidayManagment = true;
     }
 
-    if(authorities.includes('ATTENDANCE'))
-    {
-       this.visibiliyAttendanceManagment =true;
+    if (authorities.includes('ATTENDANCE')) {
+      this.visibiliyAttendanceManagment = true;
     }
     if (authorities.includes('READ::ATTENDANCE')) {
-      this.displayAttendanceList  = true;
+      this.displayAttendanceList = true;
     }
     if (authorities.includes('ADD::ATTENDANCE')) {
       this.displayAttendanceAdd = true;
@@ -99,12 +87,8 @@ export class SidebarComponent implements OnInit {
       this.displayAttendanceCreate = true;
     }
 
-   
-     
-
-    if(authorities.includes('ROLE'))
-    {
-       this.visibiliyRoleManagment =true;
+    if (authorities.includes('ROLE')) {
+      this.visibiliyRoleManagment = true;
     }
     if (authorities.includes('READ::ROLE')) {
       this.displayRoleList = true;
@@ -113,10 +97,8 @@ export class SidebarComponent implements OnInit {
       this.displayRoleAdd = true;
     }
 
-
-    if(authorities.includes('USER'))
-    {
-       this.visibiliyEmployeeManagment =true;
+    if (authorities.includes('USER')) {
+      this.visibiliyEmployeeManagment = true;
     }
     if (authorities.includes('READ::USER')) {
       this.displayEmployeeList = true;
@@ -124,13 +106,7 @@ export class SidebarComponent implements OnInit {
     if (authorities.includes('ADD::USER')) {
       this.displayEmployeeAdd = true;
     }
-    
-
-
-
   }
-  
-
 
   getPrivileges() {}
 }

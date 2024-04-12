@@ -1,5 +1,3 @@
-import { User } from './User';
-
 export class AttendanceRecord {
   id!: string;
   date!: string;

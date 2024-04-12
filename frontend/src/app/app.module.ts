@@ -30,7 +30,6 @@ import { TaskManagementModule } from './modules/task/task.module';
 import { ProjectManagementModule } from './modules/project-management/project-management.module';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { ProfileComponent } from './modules/profile/profile.component';
-import { ConfigManagementModule } from './modules/config-management/config-management.module';
 import { PayrollManagementModule } from './modules/payroll-management/payroll-management.module';
 
 @NgModule({
@@ -40,6 +39,7 @@ import { PayrollManagementModule } from './modules/payroll-management/payroll-ma
     HomeComponent,
     SidebarComponent,
     NavbarComponent,
+
     ResetpasswordComponent,
     NewpasswordComponent,
     EmailsendedComponent,
@@ -50,6 +50,7 @@ import { PayrollManagementModule } from './modules/payroll-management/payroll-ma
     BrowserModule,
     AppRoutingModule,
     ConfigManagementModule,
+    PayrollManagementModule,
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,

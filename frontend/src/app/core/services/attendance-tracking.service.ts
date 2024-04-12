@@ -2,11 +2,12 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, catchError, tap } from 'rxjs';
 import { AttendanceRecord, ShiftType } from '../models/attendanceRecord';
-import { User } from '../models/User';
+
 import {
   CreateAttendanceTrackingDto,
   Status,
 } from '../models/Dto/CreateAttendanceTrackingDto';
+import { User } from '../models/User';
 
 @Injectable({
   providedIn: 'root',
