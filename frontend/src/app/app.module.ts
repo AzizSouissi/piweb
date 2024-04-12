@@ -20,7 +20,6 @@ import { AttendanceManagementModule } from './modules/attendance-management/atte
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { DatePipe } from '@angular/common';
-import { ConfigManagementModule } from './modules/config-management/config-management.module';
 import { HolidayManagementModule } from './modules/holiday-management/holiday-management.module';
 import { SidebarComponent } from './modules/sidebar/sidebar.component';
 import { HomeComponent } from './modules/home/home.component';
@@ -30,6 +29,7 @@ import { TaskManagementModule } from './modules/task/task.module';
 import { ProjectManagementModule } from './modules/project-management/project-management.module';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { ProfileComponent } from './modules/profile/profile.component';
+import { ConfigManagementModule } from './modules/config-management/config-management.module';
 import { PayrollManagementModule } from './modules/payroll-management/payroll-management.module';
 
 @NgModule({
@@ -39,7 +39,6 @@ import { PayrollManagementModule } from './modules/payroll-management/payroll-ma
     HomeComponent,
     SidebarComponent,
     NavbarComponent,
-
     ResetpasswordComponent,
     NewpasswordComponent,
     EmailsendedComponent,
@@ -49,12 +48,12 @@ import { PayrollManagementModule } from './modules/payroll-management/payroll-ma
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ConfigManagementModule,
-    PayrollManagementModule,
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
     RoleModule,
+    ConfigManagementModule,
+    PayrollManagementModule,
     UserModule,
     AttendanceManagementModule,
     ProjectManagementModule,
