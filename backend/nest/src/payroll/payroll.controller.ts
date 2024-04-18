@@ -1,11 +1,17 @@
+import { PrismaService } from './../prisma.service';
 import { Controller, Get, Post, Param, Body } from '@nestjs/common';
 import { PayrollService } from './payroll.service';
 import { Payroll } from '@prisma/client';
 import { CreatePayrollDto } from './dto/create-payroll.dto';
+import { Public } from 'src/auth/common/decorators/public.decorator';
 
+@Public()
 @Controller('payrolls')
 export class PayrollController {
-  constructor(private readonly payrollService: PayrollService) {}
+  constructor(
+    private readonly payrollService: PayrollService,
+    private readonly prisma: PrismaService,
+  ) {}
 
   @Post()
   async createPayroll(
@@ -29,5 +35,17 @@ export class PayrollController {
     @Param('userId') userId: string,
   ): Promise<Payroll[]> {
     return this.payrollService.getPayrollsByUserId(userId);
+  }
+
+  @Get('/getUserByEmail/:email')
+  getUserIdByEmail(@Param('email') email: string): Promise<String | any> {
+    return this.prisma.user.findUnique({
+      where: {
+        email: email,
+      },
+      select: {
+        id: true,
+      },
+    });
   }
 }
