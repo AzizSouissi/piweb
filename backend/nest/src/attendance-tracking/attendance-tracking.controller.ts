@@ -17,6 +17,7 @@ import { Public } from '../auth/common/decorators/public.decorator';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { AttendanceRecord, User } from '@prisma/client';
 import { CreateAttendanceTrackingDto } from './dto/create-attendance-tracking.dto';
+import { Cron, CronExpression } from '@nestjs/schedule';
 
 @Controller('attendance-tracking')
 export class AttendanceTrackingController {
@@ -172,5 +173,47 @@ export class AttendanceTrackingController {
       userId,
       date,
     );
+  }
+  @Cron(CronExpression.EVERY_10_SECONDS)
+  async remindUsers() {
+    const users = await this.findAllWithAttendance();
+    console.log('bonjour'); // Fetch all users
+
+    for (const user of users) {
+      console.log(user.number);
+      const todayAttendance =
+        await this.attendanceTrackingService.getAttendanceByUserIdAndDate(
+          user.id,
+          new Date().toISOString().split('T')[0],
+        );
+
+      if (!todayAttendance) {
+        const number = '+216' + user.number;
+        const message =
+          'Hey ' +
+          user.firstname +
+          "! It seems like you haven't logged your attendance for today yet. Could you please take a moment to do so?";
+        console.log('asaa' + number);
+        // User didn't create attendance today, send a reminder message
+        this.sendReminderMessage(number);
+      }
+    }
+  }
+  private sendReminderMessage(number) {
+    console.log('bonjour'); // Fetch all users
+
+    // Download the helper library from https://www.twilio.com/docs/node/install
+    // Find your Account SID and Auth Token at twilio.com/console
+    // and set the environment variables. See http://twil.io/secure
+    const accountSid = 'AC656429b580a8994d0cc560a9ae915228';
+    const authToken = '1460ba8886e7e2fc6f57b9cd5dd55f8b';
+    const client = require('twilio')(accountSid, authToken);
+    client.messages
+      .create({
+        body: "Hey there! It seems like you haven't logged your attendance for today yet. Could you please take a moment to do so?",
+        from: '+12512503383',
+        to: number,
+      })
+      .then((message) => console.log(message.sid));
   }
 }

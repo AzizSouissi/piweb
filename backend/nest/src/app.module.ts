@@ -15,6 +15,7 @@ import { AllowancesModule } from './allowances/allowances.module';
 import { DeductionsModule } from './deductions/deductions.module';
 import { ConfigsModule } from './configs/configs.module';
 import { NotificationsModule } from './notifications/notifications.module';
+import { ScheduleModule } from '@nestjs/schedule';
 
 @Module({
   imports: [
@@ -24,7 +25,7 @@ import { NotificationsModule } from './notifications/notifications.module';
     RolesModule,
     UsersModule,
     PasswordresetModule,
-
+    ScheduleModule.forRoot(),
     HolidayManagementModule,
     TasksModule,
     ProjectManagementModule,
