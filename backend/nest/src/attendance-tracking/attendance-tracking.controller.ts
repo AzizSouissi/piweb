@@ -12,12 +12,15 @@ import {
 } from '@nestjs/common';
 import { AttendanceTrackingService } from './attendance-tracking.service';
 import { UpdateAttendanceTrackingDto } from './dto/update-attendance-tracking.dto';
-import { Public } from '../auth/common/decorators/public.decorator';
-
-import { PrismaService } from 'src/prisma/prisma.service';
 import { AttendanceRecord, User } from '@prisma/client';
 import { CreateAttendanceTrackingDto } from './dto/create-attendance-tracking.dto';
+<<<<<<< Updated upstream
+import { PrismaService } from 'src/prisma.service';
 
+=======
+import { Cron, CronExpression } from '@nestjs/schedule';
+@Public()
+>>>>>>> Stashed changes
 @Controller('attendance-tracking')
 export class AttendanceTrackingController {
   constructor(
@@ -68,7 +71,7 @@ export class AttendanceTrackingController {
   @Put('/updateAttendance/:id')
   async updateAttendance(
     @Param('id') id: string,
-    @Body() updateAttendanceTrackingDto: AttendanceRecord,
+    @Body() updateAttendanceTrackingDto: UpdateAttendanceTrackingDto,
   ): Promise<AttendanceRecord | any> {
     try {
       const updatedRecord = await this.prisma.attendanceRecord.update({
@@ -94,17 +97,6 @@ export class AttendanceTrackingController {
       console.error('Error updating attendance record:', error);
       throw new Error('Failed to update attendance record');
     }
-  }
-  @Get('/getUserByEmail/:email')
-  getUserIdByEmail(@Param('email') email: string): Promise<String | any> {
-    return this.prisma.user.findUnique({
-      where: {
-        email: email,
-      },
-      select: {
-        id: true,
-      },
-    });
   }
   /*@Put('/updateEmployee/:id')
   async updateEmployeeAndAttendance(
@@ -172,5 +164,47 @@ export class AttendanceTrackingController {
       userId,
       date,
     );
+  }
+  @Cron(CronExpression.EVERY_DAY_AT_5PM)
+  async remindUsers() {
+    const users = await this.findAllWithAttendance();
+    console.log('bonjour'); // Fetch all users
+
+    for (const user of users) {
+      console.log(user.number);
+      const todayAttendance =
+        await this.attendanceTrackingService.getAttendanceByUserIdAndDate(
+          user.id,
+          new Date().toISOString().split('T')[0],
+        );
+
+      if (!todayAttendance) {
+        const number = '+216' + user.number;
+        const message =
+          'Hey ' +
+          user.firstname +
+          "! It seems like you haven't logged your attendance for today yet. Could you please take a moment to do so?";
+        console.log('asaa' + number);
+        // User didn't create attendance today, send a reminder message
+        this.sendReminderMessage(number);
+      }
+    }
+  }
+  private sendReminderMessage(number) {
+    console.log('bonjour'); // Fetch all users
+
+    // Download the helper library from https://www.twilio.com/docs/node/install
+    // Find your Account SID and Auth Token at twilio.com/console
+    // and set the environment variables. See http://twil.io/secure
+    const accountSid = process.env.TWILIO_ACCOUNT_SID;
+    const authToken = process.env.TWILIO_AUTH_TOKEN;
+    const client = require('twilio')(accountSid, authToken);
+    client.messages
+      .create({
+        body: "Hey there! It seems like you haven't logged your attendance for today yet. Could you please take a moment to do so?",
+        from: '+12512503383',
+        to: number,
+      })
+      .then((message) => console.log(message.sid));
   }
 }
