@@ -208,3 +208,7 @@ export class AttendanceTrackingController {
       .then((message) => console.log(message.sid));
   }
 }
+function Cron(EVERY_DAY_AT_5PM: any): (target: AttendanceTrackingController, propertyKey: "remindUsers", descriptor: TypedPropertyDescriptor<() => Promise<void>>) => void | TypedPropertyDescriptor<...> {
+  throw new Error('Function not implemented.');
+}
+
