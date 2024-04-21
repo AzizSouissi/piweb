@@ -1,8 +1,11 @@
 export class Config {
   id!: string;
   companyName!: string;
-  cnssrib!: string;
-  payDay!: Date;
-  delayPayment!: number;
-  cssrate!: number;
+  companyLogo!: string;
+  address!: string;
+  cnssAffiliation!: string;
+  payDay!: number;
+  delayBeforePayment!: number;
+  cnssRate!: number;
+  cssRate!: number;
 }

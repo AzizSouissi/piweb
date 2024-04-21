@@ -7,18 +7,18 @@ import {
   Delete,
   Put,
 } from '@nestjs/common';
-import { CreateDeductionDto } from './dto/create-deduction.dto';
-import { UpdateDeductionDto } from './dto/update-deduction.dto';
 import { Deduction } from '@prisma/client';
 import { DeductionsService } from './deductions.service';
+import { Public } from 'src/auth/common/decorators';
 
+@Public()
 @Controller('deductions')
 export class DeductionsController {
   constructor(private readonly deductionsService: DeductionsService) {}
 
   @Post()
   async createDeduction(
-    @Body() createDeductionDto: CreateDeductionDto,
+    @Body() createDeductionDto: Deduction,
   ): Promise<Deduction> {
     return this.deductionsService.createDeduction(createDeductionDto);
   }
@@ -34,10 +34,7 @@ export class DeductionsController {
   }
 
   @Put(':id')
-  update(
-    @Param('id') id: string,
-    @Body() updateDeductionDto: UpdateDeductionDto,
-  ) {
+  update(@Param('id') id: string, @Body() updateDeductionDto: Deduction) {
     return this.deductionsService.update(id, updateDeductionDto);
   }
 

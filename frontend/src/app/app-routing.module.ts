@@ -90,9 +90,15 @@ const routes: Routes = [
             './../app/modules/payroll-management/payroll-management.module'
           ).then((m) => m.PayrollManagementModule),
       },
+      {
+        path: 'allowance',
+        loadChildren: () =>
+          import(
+            './../app/modules/allowance/allowance-routing.module'
+          ).then((m) => m.AllowanceRoutingModule),
+      },
     ],
   },
-
   { path: '**', component: NotFoundComponent },
 ];
 

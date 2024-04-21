@@ -18,6 +18,7 @@ import { PrismaService } from 'src/prisma/prisma.service';
 import { AttendanceRecord, User } from '@prisma/client';
 import { CreateAttendanceTrackingDto } from './dto/create-attendance-tracking.dto';
 
+@Public()
 @Controller('attendance-tracking')
 export class AttendanceTrackingController {
   constructor(

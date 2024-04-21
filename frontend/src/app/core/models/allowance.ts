@@ -1,9 +1,16 @@
-import { Payroll } from './payroll';
-
 export class Allowance {
   id!: string;
-  payroll!: Payroll;
-  payrollId!: string;
+  userId!: string;
   description!: string;
+  category!: AllowanceCategory;
   amount!: number;
+  date!: string;
+}
+
+export enum AllowanceCategory {
+  FOOD = "FOOD",
+  TRANSPORTATION = "TRANSPORTATION",
+  LODGING = "LODGING",
+  ENTERTAINMENT = "ENTERTAINMENT",
+  MISCELLANEOUS = "MISCELLANEOUS"
 }

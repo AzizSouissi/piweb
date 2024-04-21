@@ -34,8 +34,6 @@
                                             <tbody>
                                                 <tr *ngFor="let item of data; let i = index">
                                                     <td>{{ item.month | date: 'MMM d, yyyy' }}</td>
-                                                    <td>{{ item.basicSalary }}</td>
-                                                    <td>{{ item.cnssdeduction }}</td>
                                                     <td>{{ item.taxableSalary }}</td>
                                                     <td>{{ item.irpp }}</td>
                                                     <td>{{ item.css }}</td>
