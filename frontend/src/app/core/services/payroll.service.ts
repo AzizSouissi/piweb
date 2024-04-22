@@ -45,4 +45,11 @@ export class PayrollService {
       this.httpOptions
     );
   }
+
+  getAllUsers() {
+    return this.http.get<User[]>(
+      `${this.URL}/getAllUsers`,
+      this.httpOptions
+    );
+  }
 }

@@ -7,12 +7,11 @@ export class PayrollService {
   constructor(private readonly prisma: PrismaService) {}
 
   async createPayroll(createPayrollDto: Payroll): Promise<Payroll> {
-    const { id, userId, month, cnssdeduction, irpp, css, netSalary } =
+    const { userId, month, cnssdeduction, irpp, css, netSalary } =
       createPayrollDto;
 
     return this.prisma.payroll.create({
       data: {
-        id,
         userId,
         month,
         cnssdeduction,
@@ -39,6 +38,27 @@ export class PayrollService {
     return this.prisma.payroll.findMany({
       where: {
         userId: userId,
+      },
+    });
+  }
+
+  findAllUsers(): Promise<any> {
+    return this.prisma.user.findMany({
+      select: {
+        id: true,
+        firstname: true,
+        lastname: true,
+        address: true,
+        birthday: true,
+        basicSalary: true,
+        offDays: true,
+        payrolls: true,
+        allowances: true,
+        deductions: true,
+        familySituation: true,
+        childrenNumber: true,
+        bankrib: true,
+        numCnss: true,
       },
     });
   }

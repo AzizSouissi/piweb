@@ -3,7 +3,7 @@ export class Payroll {
   userId!: string;
   month!: string;
   taxableSalary!: number;
-  cnssDeduction!: number;
+  cnssdeduction!: number;
   irpp!: number;
   css!: number;
   netSalary!: number;

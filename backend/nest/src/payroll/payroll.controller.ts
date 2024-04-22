@@ -1,7 +1,7 @@
 import { PrismaService } from './../prisma.service';
 import { Controller, Get, Post, Param, Body } from '@nestjs/common';
 import { PayrollService } from './payroll.service';
-import { Payroll } from '@prisma/client';
+import { Payroll, User } from '@prisma/client';
 import { Public } from 'src/auth/common/decorators/public.decorator';
 
 @Public()
@@ -44,5 +44,10 @@ export class PayrollController {
         id: true,
       },
     });
+  }
+
+  @Get('/getAllUsers')
+  find(): Promise<User> {
+    return this.payrollService.findAllUsers();
   }
 }
