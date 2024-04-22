@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { AttendanceRecord } from '../../../core/models/attendanceRecord';
 import { User } from '../../../core/models/User';
 import { AttendanceTrackingService } from '../../../core/services/attendance-tracking.service';
@@ -9,24 +9,27 @@ import { AttendanceTrackingService } from '../../../core/services/attendance-tra
   styleUrl: './list-attendance.component.css',
 })
 export class ListAttendanceComponent {
-  users: User[] = []; // Initialize as empty array
+  user!: User; // Initialize as empty array
   daysInMonth: any;
   $day: any;
   attendanceRecord: AttendanceRecord[] = [];
+  id!: string;
 
   constructor(private attendanceService: AttendanceTrackingService) {}
 
   ngOnInit(): void {
-    // Call the service method to fetch all users' attendance data
-    this.attendanceService.findAllUsers().subscribe(
-      (usersData) => {
-        this.users = usersData;
-        console.log(usersData);
-      },
-      (error) => {
-        console.error('Error fetching users data:', error);
-      }
-    );
+    let p = localStorage.getItem('user');
+    console.log(p);
+    if (p) {
+      let email = JSON.parse(p)['email'];
+      this.attendanceService.getUserIdByEmail(email).subscribe((data) => {
+        this.id = data.id;
+        this.attendanceService.find(this.id).subscribe((data) => {
+          this.user = data;
+          console.log('user', this.user);
+        });
+      });
+    }
   }
 
   getAttendanceStatus(user: User, date: string): string {

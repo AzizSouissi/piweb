@@ -25,11 +25,11 @@ export class CreateAttendanceComponent implements OnInit {
 
   ngOnInit(): void {
     let p = localStorage.getItem('user');
+   
     if (p) {
       let email = JSON.parse(p)['email'];
       this.attendanceService.getUserIdByEmail(email).subscribe((data) => {
         this.id = data.id;
-        console.log('wa salem', this.id);
       });
     }
 
@@ -42,9 +42,7 @@ export class CreateAttendanceComponent implements OnInit {
     this.dateStr = `${year}-${formattedMonth}-${formattedDay}`;
   }
   submitForm(): void {
-    user: this.attendanceService
-      .find(this.id)
-      .subscribe((data) => console.log(data));
+    user: this.attendanceService.find(this.id).subscribe((data) => data);
     const selectedDuration: ShiftType = this.selectedShiftType as ShiftType;
 
     Object.values(ShiftType).includes(selectedDuration);

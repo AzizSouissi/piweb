@@ -18,10 +18,7 @@ $(document).ready(function () {
     lat: 21.2334329,
     lng: 72.866472,
     title: "Marker with InfoWindow",
-    infoWindow: {
-      content:
-        '<p><Phoenicoded></Phoenicoded> <br/> Buy Now at <a href="">Themeforest</a></p>',
-    },
+    infoWindow: {},
   });
   var mapOverlay;
   mapOverlay = new GMaps({

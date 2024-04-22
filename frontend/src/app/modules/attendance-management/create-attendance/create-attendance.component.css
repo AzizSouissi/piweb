@@ -1,46 +1,36 @@
-.form-card {
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    background-color: #f9f9f9;
+.form-card,
+.list-card {
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.form-card .card-body,
+.list-card .card-body {
+  padding: 30px;
+}
+
+.card-title {
+  color: #333;
+}
+
+.form-select,
+.form-control {
+  border-radius: 5px;
+}
+
+.submit-btn {
+  margin-top: 15px;
+}
+
+.list-card {
+  margin-top: 30px;
+}
+
+@media (max-width: 768px) {
+  .list-card {
+    margin-top: 15px;
   }
-  
-  .animated-form {
-    animation: fadeInUp 0.5s ease;
-  }
-  
-  .animated-form-group {
-    animation: slideInRight 0.5s ease;
-  }
-  
-  @keyframes fadeInUp {
-    from {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-  
-  @keyframes slideInRight {
-    from {
-      opacity: 0;
-      transform: translateX(20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateX(0);
-    }
-  }
-  
-  .form-header {
-    font-size: 18px;
-    font-weight: bold;
-  }
-  
-  .submit-btn {
-    margin-top: 20px;
-  }
-  
+}
+.grey-bg {  
+  background-color: #F5F7FA;
+}

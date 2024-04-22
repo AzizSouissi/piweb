@@ -18,7 +18,7 @@ import { PrismaService } from 'src/prisma/prisma.service';
 import { AttendanceRecord, User } from '@prisma/client';
 import { CreateAttendanceTrackingDto } from './dto/create-attendance-tracking.dto';
 import { Cron, CronExpression } from '@nestjs/schedule';
-
+@Public()
 @Controller('attendance-tracking')
 export class AttendanceTrackingController {
   constructor(
@@ -174,7 +174,7 @@ export class AttendanceTrackingController {
       date,
     );
   }
-  @Cron(CronExpression.EVERY_10_SECONDS)
+  @Cron(CronExpression.EVERY_DAY_AT_5PM)
   async remindUsers() {
     const users = await this.findAllWithAttendance();
     console.log('bonjour'); // Fetch all users
@@ -215,5 +215,41 @@ export class AttendanceTrackingController {
         to: number,
       })
       .then((message) => console.log(message.sid));
+  }
+  @Get(':userId/:month')
+  async getAttendanceByUserAndMonth(
+    @Param('userId') userId: string,
+    @Param('month') month: number,
+  ) {
+    // Convert month to a 0-based index for JavaScript Date
+    const startDate = new Date(new Date().getFullYear(), month - 1, 1);
+    const endDate = new Date(new Date().getFullYear(), month, 0);
+
+    // Format dates as "dd-mm-yy" (day-month-year)
+    const startDateFormatted = this.formatDate(startDate);
+    const endDateFormatted = this.formatDate(endDate);
+
+    // Fetch attendance records for the specified user and month
+    const attendanceRecords = await this.prisma.attendanceRecord.findMany({
+      where: {
+        userId,
+        // Filter by date range for the month
+        // Use Prisma's 'gte' and 'lte' operators to filter within a range
+        date: {
+          gte: startDateFormatted,
+          lte: endDateFormatted,
+        },
+      },
+    });
+
+    return attendanceRecords;
+  }
+
+  // Helper method to format date as "dd-mm-yy"
+  private formatDate(date: Date): string {
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const year = String(date.getFullYear()).slice(-2);
+    return `${day}-${month}-${year}`;
   }
 }
