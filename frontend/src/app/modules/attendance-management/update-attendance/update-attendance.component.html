@@ -1,6 +1,41 @@
 <div class="pcoded-main-container">
   <div class="pcoded-wrapper">
     <div class="pcoded-content">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card status-card">
+              <div class="card-body">
+                <h5 class="card-title">Type icons :</h5>
+                <div class="status-legend row">
+                  <div class="col-md-2 legend-item">
+                    <span
+                      class="holiday-icon bi bi-star-fill text-warning"
+                    ></span>
+                    <span>Weekend</span>
+                  </div>
+                  <div class="col-md-2 legend-item">
+                    <span class="far fa-check-circle text-success"></span>
+                    <span>Present - Full Day</span>
+                  </div>
+                  <div class="col-md-2 legend-item">
+                    <span class="bi bi-clock-history text-dark"></span>
+                    <span>Present - Quarter Shift</span>
+                  </div>
+                  <div class="col-md-2 legend-item">
+                    <span class="fas fa-adjust col-orange"></span>
+                    <span>Present - Half Day</span>
+                  </div>
+                  <div class="col-md-2 legend-item">
+                    <span class="far fa-times-circle text-danger"></span>
+                    <span>Absent</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
       <div class="calendar-container">
         <div class="month-nav">
           <button (click)="switchMonth(-1)" class="nav-button">

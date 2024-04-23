@@ -15,6 +15,31 @@ export class AttendanceTrackingService {
     let attendanceRecord: Prisma.AttendanceRecordCreateInput;
     let employe: Prisma.UserCreateInput;
   }
+  async createAttendance(
+    userId: string,
+    createAttendanceTrackingDto: CreateAttendanceTrackingDto,
+  ): Promise<AttendanceRecord | any> {
+    const createdRecord = await this.prisma.attendanceRecord.create({
+      data: {
+        date: createAttendanceTrackingDto.date,
+        shiftType: createAttendanceTrackingDto.shiftType,
+        status: createAttendanceTrackingDto.status,
+        absent_reason: createAttendanceTrackingDto.absent_reason,
+        user: {
+          connect: { id: userId },
+        },
+      },
+      select: {
+        id: true,
+        date: true,
+        shiftType: true,
+        status: true,
+        absent_reason: true,
+        userId: true,
+      },
+    });
+    return createdRecord;
+  }
   async create(
     userId: string,
     createAttendanceTrackingDto: CreateAttendanceTrackingDto,
@@ -126,6 +151,55 @@ export class AttendanceTrackingService {
     } catch (error) {
       console.error('Error fetching Users:', error);
       return 'Error fetching Users';
+    }
+  }
+  async getTotalShiftsForUserInMonth(
+    userId: string,
+    month: number,
+  ): Promise<{
+    halfShifts: number;
+    fullShifts: number;
+    quarterShifts: number;
+    absences: number;
+  }> {
+    try {
+      const monthStr = month.toString().padStart(2, '0');
+
+      const records = await this.prisma.attendanceRecord.findMany({
+        where: {
+          userId,
+          date: {
+            contains: `2024-${monthStr}-`,
+          },
+        },
+      });
+
+      console.log('Fetched records:', records);
+
+      const halfShiftRecords = records.filter(
+        (record) => record.shiftType === 'HALF_DAY',
+      );
+      const fullShiftRecords = records.filter(
+        (record) => record.shiftType === 'FULL_DAY',
+      );
+      const quarterShiftRecords = records.filter(
+        (record) => record.shiftType === 'QUARTER_SHIFT',
+      );
+      const AbsentStatus = records.filter(
+        (record) => record.status === 'ABSENT',
+      );
+
+      console.log('Filtered records:', halfShiftRecords);
+
+      return {
+        halfShifts: halfShiftRecords.length,
+        fullShifts: fullShiftRecords.length,
+        quarterShifts: quarterShiftRecords.length,
+        absences: AbsentStatus.length,
+      };
+    } catch (error) {
+      console.error('Error fetching shifts:', error);
+      throw error; // Rethrow the error to propagate it to the caller
     }
   }
 

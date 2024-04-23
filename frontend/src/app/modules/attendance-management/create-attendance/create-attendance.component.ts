@@ -20,16 +20,27 @@ export class CreateAttendanceComponent implements OnInit {
   id!: any;
   dateStr!: string;
   user!: User;
-
+  halfShifts!: number;
+  fullShifts!: number;
+  quarterShifts!: number;
+  absences!: number;
   constructor(private attendanceService: AttendanceTrackingService) {}
 
   ngOnInit(): void {
     let p = localStorage.getItem('user');
-   
+
     if (p) {
       let email = JSON.parse(p)['email'];
       this.attendanceService.getUserIdByEmail(email).subscribe((data) => {
         this.id = data.id;
+        this.attendanceService
+          .getTotalHalfShiftDaysForUserInMonth(this.id, month)
+          .subscribe((data) => {
+            this.halfShifts = data.halfShifts;
+            this.fullShifts = data.fullShifts;
+            this.quarterShifts = data.quarterShifts;
+            this.absences = data.absences;
+          });
       });
     }
 
@@ -55,7 +66,6 @@ export class CreateAttendanceComponent implements OnInit {
       date: this.dateStr,
       userId: this.id,
     };
-    console.log('zzzz', formData);
     this.attendanceService.create(this.id, formData).subscribe(
       (response) => {
         alert(response['message']);

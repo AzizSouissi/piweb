@@ -25,7 +25,16 @@ export class AttendanceTrackingController {
     private readonly attendanceTrackingService: AttendanceTrackingService,
     private readonly prisma: PrismaService,
   ) {}
-
+  @Post('create/:userId')
+  async createAttendance(
+    @Param('userId') userId: string,
+    @Body() createAttendanceDto: CreateAttendanceTrackingDto,
+  ) {
+    return this.attendanceTrackingService.createAttendance(
+      userId,
+      createAttendanceDto,
+    );
+  }
   @Post(':id')
   create(
     @Param('id') id: string,
@@ -106,6 +115,21 @@ export class AttendanceTrackingController {
         id: true,
       },
     });
+  }
+  @Get('total-half-shift-days/:userId')
+  async getTotalHalfShiftDaysForUserInMonth(
+    @Param('userId') userId: string,
+    @Query('month') month: number,
+  ): Promise<{
+    halfShifts: number;
+    fullShifts: number;
+    quarterShifts: number;
+    absences: number;
+  }> {
+    return await this.attendanceTrackingService.getTotalShiftsForUserInMonth(
+      userId,
+      month,
+    );
   }
   /*@Put('/updateEmployee/:id')
   async updateEmployeeAndAttendance(
@@ -216,6 +240,7 @@ export class AttendanceTrackingController {
       })
       .then((message) => console.log(message.sid));
   }
+
   @Get(':userId/:month')
   async getAttendanceByUserAndMonth(
     @Param('userId') userId: string,

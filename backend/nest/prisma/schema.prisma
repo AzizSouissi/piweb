@@ -36,7 +36,7 @@ model User {
   basicSalary      Int?
   offDays          Int?
   payrolls         Payroll[]
-  familySituation  String?
+  familySituation  Int?
   childrenNumber   Int?
   bankrib          String?
   numCnss          String?

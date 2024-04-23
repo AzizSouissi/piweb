@@ -43,28 +43,11 @@
               <div class="card-body">
                 <div class="media d-flex">
                   <div class="align-self-center">
-                    <i class="icon-pencil primary font-large-2 float-left"></i>
-                  </div>
-                  <div class="media-body text-right">
-                    <h3>Hours worked this month</h3>
-                    <span>Placeholder</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-xl-3 col-sm-6 col-12">
-          <div class="card">
-            <div class="card-content">
-              <div class="card-body">
-                <div class="media d-flex">
-                  <div class="align-self-center">
                     <i class="icon-graph success font-large-2 float-left"></i>
                   </div>
                   <div class="media-body text-right">
                     <h3>Total Half Shift</h3>
-                    <span>Placeholder</span>
+                    <span>{{ halfShifts }}</span>
                   </div>
                 </div>
               </div>
@@ -78,7 +61,7 @@
                 <div class="media d-flex">
                   <div class="media-body text-left">
                     <h3 class="danger">Total Full Shift</h3>
-                    <span>Placeholder</span>
+                    <span>{{ fullShifts }}</span>
                   </div>
                   <div class="align-self-center">
                     <i class="icon-rocket danger font-large-2 float-right"></i>
@@ -95,7 +78,7 @@
                 <div class="media d-flex">
                   <div class="media-body text-left">
                     <h3 class="warning">Total Quarter Shift</h3>
-                    <span>Placeholder</span>
+                    <span>{{ quarterShifts }}</span>
                   </div>
                   <div class="align-self-center">
                     <i
@@ -117,7 +100,7 @@
                   </div>
                   <div class="media-body text-right">
                     <h3>Total Absent</h3>
-                    <span>Placeholder</span>
+                    <span>{{ absences }}</span>
                   </div>
                 </div>
               </div>

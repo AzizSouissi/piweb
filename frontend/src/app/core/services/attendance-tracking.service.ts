@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, catchError, tap } from 'rxjs';
 import { AttendanceRecord, ShiftType } from '../models/attendanceRecord';
 
@@ -98,5 +98,27 @@ export class AttendanceTrackingService {
   getUserIdByEmail(email: string): Observable<any> {
     const url = `${this.URL}/getUserByEmail/${email}`;
     return this.http.get<any>(url);
+  }
+  createAttendance(
+    userId: string,
+    createAttendanceTrackingDto: CreateAttendanceTrackingDto
+  ): Observable<any> {
+    return this.http.post<any>(
+      `${this.URL}/create/${userId}`,
+      createAttendanceTrackingDto,
+      this.httpOptions
+    );
+  }
+  getTotalHalfShiftDaysForUserInMonth(
+    userId: string,
+    month: number
+  ): Observable<any> {
+    // Construct query parameters
+    const params = new HttpParams().set('month', month.toString());
+
+    // Make GET request with query parameters
+    return this.http.get<any>(`${this.URL}/total-half-shift-days/${userId}`, {
+      params,
+    });
   }
 }

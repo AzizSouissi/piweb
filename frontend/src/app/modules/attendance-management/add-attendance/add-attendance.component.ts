@@ -75,12 +75,6 @@ export class AddAttendanceComponent implements OnInit {
           if (attendanceRecord) {
             console.log(attendanceRecord.id);
 
-            // Check if status is "present"
-
-            // Ensure selectedDuration is one of the enum values
-
-            console.log('kkk', this.selectedDuration);
-
             const updateDto: CreateAttendanceTrackingDto = {
               date: dateStr,
               absent_reason: null,
@@ -99,6 +93,29 @@ export class AddAttendanceComponent implements OnInit {
                 },
                 (error) => {
                   console.error('Error updating attendance record:', error);
+                }
+              );
+          } else {
+            const createDto: CreateAttendanceTrackingDto = {
+              date: dateStr,
+              shiftType: this.selectedDuration,
+              status: Status.PRESENT,
+              absent_reason: null,
+              userId: this.user.id,
+            };
+
+            this.attendanceService
+              .createAttendance(createDto.userId, createDto)
+              .subscribe(
+                (response) => {
+                  console.log(
+                    'Attendance record created successfully:',
+                    response
+                  );
+                  // Optionally, perform any other actions upon successful creation
+                },
+                (error) => {
+                  console.error('Error creating attendance record:', error);
                 }
               );
           }
@@ -167,43 +184,52 @@ export class AddAttendanceComponent implements OnInit {
 
     this.attendanceService
       .getAttendanceByUserIdAndDate(this.user.id, dateStr)
-      .subscribe(
-        (attendanceRecord: AttendanceRecord | null) => {
-          console.log(this.user.id);
-          console.log(dateStr);
-          if (attendanceRecord) {
-            const updateDto: CreateAttendanceTrackingDto = {
-              date: dateStr,
-              shiftType: null,
-              status: Status.ABSENT,
-              absent_reason: this.absenceReason,
-              userId: this.user.id,
-            };
+      .subscribe((attendanceRecord: AttendanceRecord | null) => {
+        console.log(this.user.id);
+        console.log(dateStr);
+        if (attendanceRecord) {
+          const updateDto: CreateAttendanceTrackingDto = {
+            date: dateStr,
+            shiftType: null, // Change this as needed
+            status: Status.ABSENT,
+            absent_reason: this.absenceReason,
+            userId: this.user.id,
+          };
 
-            this.attendanceService
-              .update(attendanceRecord.id, updateDto)
-              .subscribe(
-                (response) => {
-                  console.log(
-                    'Attendance record updated successfully:',
-                    response
-                  );
-                  // Optionally, perform any other actions upon successful update
-                },
-                (error) => {
-                  console.error('Error updating attendance record:', error);
-                }
-              );
-          } else {
-            console.error(
-              'Attendance record not found for the selected day and employee.'
+          this.attendanceService.update(this.user.id, updateDto).subscribe(
+            (response) => {
+              console.log('Attendance record updated successfully:', response);
+              // Optionally, perform any other actions upon successful update
+            },
+            (error) => {
+              console.error('Error updating attendance record:', error);
+            }
+          );
+        } else {
+          const createDto: CreateAttendanceTrackingDto = {
+            date: dateStr,
+            shiftType: null, // Change this as needed
+            status: Status.ABSENT,
+            absent_reason: this.absenceReason,
+            userId: this.user.id,
+          };
+
+          this.attendanceService
+            .createAttendance(createDto.userId, createDto)
+            .subscribe(
+              (response) => {
+                console.log(
+                  'Attendance record created successfully:',
+                  response
+                );
+                // Optionally, perform any other actions upon successful creation
+              },
+              (error) => {
+                console.error('Error creating attendance record:', error);
+              }
             );
-          }
-        },
-        (error) => {
-          console.error('Error fetching attendance record:', error);
         }
-      );
+      });
   }
 }
 

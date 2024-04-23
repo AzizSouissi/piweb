@@ -12,7 +12,7 @@
           </button>
         </div>
         <div class="table-responsive">
-          <table class="table table-bordered">
+          <table class="table table-bordered smaller-table">
             <thead>
               <tr>
                 <th>Name</th>
@@ -27,9 +27,9 @@
                   <td class="employee-column">{{ employee.firstname }}</td>
                   @for(day of daysInMonth;track day){
                   <td>
-                    <div>
+                    <div class="button-container">
                       <button
-                        class="btn btn-primary"
+                        class="btn btn-primary small-button"
                         data-bs-toggle="modal"
                         data-bs-target="#myModal"
                         (click)="openModal(employee, day)"
@@ -102,63 +102,61 @@
                       </div>
                     </div>
                     <br />
-                    <div>
-                      <div>
-                        <button
-                          class="btn btn-danger"
-                          data-bs-toggle="modal"
-                          data-bs-target="#myModal2"
-                          (click)="openModal(employee, day)"
-                        >
-                          A
-                        </button>
+                    <div class="button-container">
+                      <button
+                        class="btn btn-danger small-button"
+                        data-bs-toggle="modal"
+                        data-bs-target="#myModal2"
+                        (click)="openModal(employee, day)"
+                      >
+                        A
+                      </button>
 
-                        <div class="modal fade" id="myModal2">
-                          <div class="modal-dialog">
-                            <div class="modal-content">
-                              <!-- Modal Header -->
-                              <div class="modal-header">
-                                <h4 class="modal-title">Modal Heading</h4>
-                                <button
-                                  type="button"
-                                  class="btn-close"
-                                  data-bs-dismiss="modal"
-                                ></button>
-                              </div>
+                      <div class="modal fade" id="myModal2">
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                            <!-- Modal Header -->
+                            <div class="modal-header">
+                              <h4 class="modal-title">Modal Heading</h4>
+                              <button
+                                type="button"
+                                class="btn-close"
+                                data-bs-dismiss="modal"
+                              ></button>
+                            </div>
 
-                              <!-- Modal body -->
-                              <div class="modal-body">
-                                <div class="mb-3">
-                                  <label for="absenceReason" class="form-label"
-                                    >Reason for Absence:</label
-                                  >
-                                  <input
-                                    type="text"
-                                    class="form-control"
-                                    id="absenceReason"
-                                    name="absenceReason"
-                                    [(ngModel)]="absenceReason"
-                                  />
-                                </div>
-                              </div>
-
-                              <!-- Modal footer -->
-                              <div class="modal-footer">
-                                <button
-                                  type="button"
-                                  class="btn btn-danger"
-                                  data-bs-dismiss="modal"
+                            <!-- Modal body -->
+                            <div class="modal-body">
+                              <div class="mb-3">
+                                <label for="absenceReason" class="form-label"
+                                  >Reason for Absence:</label
                                 >
-                                  Close
-                                </button>
-                                <button
-                                  type="button"
-                                  class="btn btn-primary"
-                                  (click)="updateAttendanceRecord()"
-                                >
-                                  Update
-                                </button>
+                                <input
+                                  type="text"
+                                  class="form-control"
+                                  id="absenceReason"
+                                  name="absenceReason"
+                                  [(ngModel)]="absenceReason"
+                                />
                               </div>
+                            </div>
+
+                            <!-- Modal footer -->
+                            <div class="modal-footer">
+                              <button
+                                type="button"
+                                class="btn btn-danger"
+                                data-bs-dismiss="modal"
+                              >
+                                Close
+                              </button>
+                              <button
+                                type="button"
+                                class="btn btn-primary"
+                                (click)="updateAttendanceRecord()"
+                              >
+                                Update
+                              </button>
                             </div>
                           </div>
                         </div>
