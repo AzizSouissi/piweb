@@ -8,10 +8,20 @@ import { Userprofile } from './dtos/userprofile';
 
 @Injectable()
 export class UsersService {
+ 
   constructor(
     private prisma: PrismaService,
     private mailerService: MailerService,
   ) {}
+
+  async uploadImage(email: string, image: string) {
+    return await this.prisma.user.update({
+      where : {email: email},
+      data : {
+        image: image
+      }
+    })
+  }
 
   async updateUser(userId: string, updateUserDto: any) {
     return await this.prisma.user.update({
@@ -54,6 +64,7 @@ export class UsersService {
         degree: true,
         number: true,
         job: true,
+        image: true
       },
     });
   }

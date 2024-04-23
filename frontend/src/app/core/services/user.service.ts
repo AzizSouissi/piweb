@@ -35,4 +35,15 @@ export class UserService {
   updateUser(id: string, user: any) {
     return this._http.patch(this.URL + `/${id}`, user);
   }
+  uploadImage(image : any)
+  {
+    return this._http.post(this.URL+"/upload",image);
+  }
+  uploadProfileImage(email: string , image : string)
+  {
+    const body ={
+      image : image
+    }
+    return this._http.patch(this.URL+`/uploadImage/${email}`,body)
+  }
 }
