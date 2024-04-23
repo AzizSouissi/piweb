@@ -7,19 +7,17 @@ import {
   Delete,
   Put,
 } from '@nestjs/common';
-import { CreateConfigDto } from './dto/create-config.dto';
-import { UpdateConfigDto } from './dto/update-config.dto';
 import { Config } from '@prisma/client';
 import { ConfigsService } from './configs.service';
+import { Public } from 'src/auth/common/decorators';
 
+@Public()
 @Controller('configs')
 export class ConfigsController {
   constructor(private readonly configsService: ConfigsService) {}
 
   @Post()
-  async createConfig(
-    @Body() createConfigDto: CreateConfigDto,
-  ): Promise<Config> {
+  async createConfig(@Body() createConfigDto: Config): Promise<Config> {
     return this.configsService.createConfig(createConfigDto);
   }
 
@@ -34,7 +32,7 @@ export class ConfigsController {
   }
 
   @Put(':id')
-  update(@Param('id') id: string, @Body() updateConfigDto: UpdateConfigDto) {
+  update(@Param('id') id: string, @Body() updateConfigDto: Config) {
     return this.configsService.update(id, updateConfigDto);
   }
 

@@ -1,6 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { CreateDeductionDto } from './dto/create-deduction.dto';
-import { UpdateDeductionDto } from './dto/update-deduction.dto';
 import { PrismaService } from 'src/prisma.service';
 import { Deduction } from '@prisma/client';
 
@@ -9,14 +7,15 @@ export class DeductionsService {
   constructor(private readonly prisma: PrismaService) {}
 
   async createDeduction(
-    createDeductionDto: CreateDeductionDto,
+    createDeductionDto: Deduction,
   ): Promise<Deduction> {
-    const { payrollId, description, amount } = createDeductionDto;
+    const { userId, description, amount, date } = createDeductionDto;
     return this.prisma.deduction.create({
       data: {
-        payrollId,
+        userId,
         description,
         amount,
+        date
       },
     });
   }
@@ -33,9 +32,10 @@ export class DeductionsService {
         },
         select: {
           id: true,
-          payrollId: true,
+          userId: true,
           description: true,
           amount: true,
+          date: true,
         },
       });
 
@@ -52,21 +52,23 @@ export class DeductionsService {
 
   async update(
     id: string,
-    updateDeductionDto: UpdateDeductionDto,
+    updateDeductionDto: Deduction,
   ): Promise<Deduction | any> {
     try {
       const updatedDeduction = await this.prisma.deduction.update({
         where: { id: id },
         data: {
-          payrollId: updateDeductionDto.payrollId,
+          userId: updateDeductionDto.userId,
           description: updateDeductionDto.description,
           amount: updateDeductionDto.amount,
+          date: updateDeductionDto.date,
         },
         select: {
           id: true,
-          payrollId: true,
+          userId: true,
           description: true,
           amount: true,
+          date: true,
         },
       });
       return updatedDeduction;

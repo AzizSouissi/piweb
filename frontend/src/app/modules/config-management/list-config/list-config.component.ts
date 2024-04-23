@@ -34,7 +34,6 @@ export class ListConfigComponent implements OnInit {
     this.configService.deleteConfig(id).subscribe((response) => {
       alert(' Announcement deleted Successfully!');
 
-      // this.router.navigate(['admin/carpooling/announcement/addAnn']);
       this.ngOnInit();
     });
   }

@@ -1,6 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { CreateConfigDto } from './dto/create-config.dto';
-import { UpdateConfigDto } from './dto/update-config.dto';
 import { PrismaService } from 'src/prisma.service';
 import { Config } from '@prisma/client';
 
@@ -8,7 +6,7 @@ import { Config } from '@prisma/client';
 export class ConfigsService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async createConfig(createConfigDto: CreateConfigDto): Promise<Config> {
+  async createConfig(createConfigDto: Config): Promise<Config> {
     const {
       companyName,
       companyLogo,
@@ -69,7 +67,7 @@ export class ConfigsService {
 
   async update(
     id: string,
-    updateConfigDto: UpdateConfigDto,
+    updateConfigDto: Config,
   ): Promise<Config | any> {
     try {
       const updatedConfig = await this.prisma.config.update({

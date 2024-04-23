@@ -1,5 +1,1 @@
-export class CreateDeductionDto {
-  payrollId: string;
-  description: string;
-  amount: number;
-}
+export class CreateDeductionDto {}

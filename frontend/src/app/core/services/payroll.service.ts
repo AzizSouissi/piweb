@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Payroll } from '../models/payroll';
+import { User } from '../models/User';
 
 @Injectable({
   providedIn: 'root',
@@ -34,6 +35,20 @@ export class PayrollService {
   getPayrollsByUserId(userId: string) {
     return this.http.get<Payroll[]>(
       `${this.URL}/user/${userId}`,
+      this.httpOptions
+    );
+  }
+
+  getUserIdByEmail(email: string) {
+    return this.http.get<User>(
+      `${this.URL}/getUserByEmail/${email}`,
+      this.httpOptions
+    );
+  }
+
+  getAllUsers() {
+    return this.http.get<User[]>(
+      `${this.URL}/getAllUsers`,
       this.httpOptions
     );
   }

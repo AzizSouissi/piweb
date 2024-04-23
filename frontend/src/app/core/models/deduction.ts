@@ -1,9 +1,7 @@
-import { Payroll } from './payroll';
-
 export class Deduction {
   id!: string;
-  payroll!: Payroll;
-  payrollId!: string;
+  userId!: string;
   description!: string;
   amount!: number;
+  date!: string;
 }

@@ -4,6 +4,7 @@ import { AuthService } from '../../core/services/auth.service';
 import { Router } from '@angular/router';
 import { Notification } from '../../core/models/notification';
 import { DatePipe } from '@angular/common';
+import { PayrollService } from '../../core/services/payroll.service';
 
 @Component({
   selector: 'app-navbar',
@@ -14,18 +15,22 @@ export class NavbarComponent implements OnInit {
   constructor(
     private router: Router,
     private notificationsService: NotificationsService,
+    private payrollService: PayrollService,
     private datePipe: DatePipe,
-    private authService: AuthService
+    private authService: AuthService,
   ) {}
   user: string = '';
   data: Notification[] = [];
-  id: string = '60957d882b8e761e9860e9a5';
+  id!: any;
   readStatus: boolean[] = [];
   ngOnInit(): void {
     const userProfileString = localStorage.getItem('user');
     if (userProfileString) {
       const userProfile = JSON.parse(userProfileString);
       this.user = userProfile['firstname'] + ' ' + userProfile['lastname'];
+      this.payrollService.getUserIdByEmail(userProfile['email']).subscribe((data) => {
+        this.id = data.id;
+      });
     }
     console.log(this.readStatus);
     this.notificationsService
@@ -150,4 +155,7 @@ export class NavbarComponent implements OnInit {
       }
     });
   }
+  approveNotification() {}
+  disapproveNotification() {}
+
 }
