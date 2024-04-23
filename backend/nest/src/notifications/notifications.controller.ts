@@ -2,7 +2,9 @@ import { Controller, Get, Patch, Param, Body, Post } from '@nestjs/common';
 import { NotificationsService } from './notifications.service';
 import { Notification } from '@prisma/client';
 import { CreateNotificationDto } from './dto/create-notification.dto';
+import { Public } from 'src/auth/common/decorators';
 
+@Public()
 @Controller('notifications')
 export class NotificationsController {
   constructor(private readonly notificationsService: NotificationsService) {}

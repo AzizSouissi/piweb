@@ -155,4 +155,7 @@ export class NavbarComponent implements OnInit {
       }
     });
   }
+  approveNotification() {}
+  disapproveNotification() {}
+
 }

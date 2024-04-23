@@ -10,12 +10,13 @@ export class NotificationsService {
   async createNotification(
     createNotificationDto: CreateNotificationDto,
   ): Promise<Notification> {
-    const { recipientId, content, category } = createNotificationDto;
+    const { recipientId, content, category, action } = createNotificationDto;
     return this.prisma.notification.create({
       data: {
         recipientId,
         content,
         category,
+        action,
       },
     });
   }

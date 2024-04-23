@@ -56,7 +56,7 @@ export class AddAllowanceComponent implements OnInit {
       this.allowanceService.createAllowance(allowance).subscribe(
         () => {
           alert('Allowance added successfully!');
-          this.router.navigate(['allowance']);
+          this.router.navigate(['home/allowance']);
         },
         (error) => {
           console.error(error);
