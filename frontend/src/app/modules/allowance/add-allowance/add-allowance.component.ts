@@ -51,9 +51,9 @@ export class AddAllowanceComponent implements OnInit {
         description: form.value.description,
         category: form.value.category,
         amount: form.value.amount,
-        date: form.value.date,
+        date: new Date().toISOString().toString(),
       };
-      this.allowanceService.createAllowance(this.allowance).subscribe(
+      this.allowanceService.createAllowance(allowance).subscribe(
         () => {
           alert('Allowance added successfully!');
           this.router.navigate(['allowance']);

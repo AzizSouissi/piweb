@@ -7,13 +7,14 @@ export class PayrollService {
   constructor(private readonly prisma: PrismaService) {}
 
   async createPayroll(createPayrollDto: Payroll): Promise<Payroll> {
-    const { userId, month, cnssdeduction, irpp, css, netSalary } =
+    const { userId, month, taxableSalary, cnssdeduction, irpp, css, netSalary } =
       createPayrollDto;
 
     return this.prisma.payroll.create({
       data: {
         userId,
         month,
+        taxableSalary,
         cnssdeduction,
         irpp,
         css,

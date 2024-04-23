@@ -98,7 +98,7 @@ model Payroll {
   cnssdeduction Float
   irpp          Float
   css           Float
-  netSalary     Int
+  netSalary     Float
 }
 
 model Allowance {

@@ -6,6 +6,6 @@ export class Config {
   cnssAffiliation!: string;
   payDay!: number;
   delayBeforePayment!: number;
-  cnssRate!: number;
-  cssRate!: number;
+  cnssrate!: number;
+  cssrate!: number;
 }

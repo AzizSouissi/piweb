@@ -6,6 +6,7 @@ import { Payroll } from '../../../core/models/payroll';
 import { PayrollService } from '../../../core/services/payroll.service';
 import { User } from '../../../core/models/User';
 import { Allowance } from '../../../core/models/allowance';
+import { validateHeaderValue } from 'http';
 
 @Component({
   selector: 'app-list-payroll',
@@ -18,8 +19,13 @@ export class ListPayrollComponent implements OnInit {
   users!: User[];
   totalAllowances!: number;
   totalDeductions!: number;
-  cssrate!: number;
-  cnssrate!: number;
+  cssr!: number;
+  cnssr!: number;
+  taxableBase!: number;
+  taxAmount!: number;
+  taxableS!: number;
+  css!: number;
+  netSalary!: number;
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -33,8 +39,8 @@ export class ListPayrollComponent implements OnInit {
     const currentDate = new Date();
     const currentMonth = currentDate.getMonth() + 1;
     this.configService.getConfig().subscribe((config) => {
-      this.cssrate = config[0].cssRate;
-      this.cnssrate = config[0].cnssRate;
+      this.cssr = config[0].cssrate;
+      this.cnssr = config[0].cnssrate;
       let jour = Number(config[0].payDay);
       const currentDate = new Date();
       const currentYear = currentDate.getFullYear();
@@ -85,44 +91,61 @@ export class ListPayrollComponent implements OnInit {
   public pay() {
     this.payrollService.getAllUsers().subscribe((users) => {
       for (const user of users) {
-        const basicSalary = user.basicSalary;
-        const allowances = user.allowances;
-        for (const allowance of allowances) {
+        this.totalAllowances = 0;
+        this.totalDeductions = 0;
+
+        // Calculate total allowances
+        for (const allowance of user.allowances) {
           this.totalAllowances += allowance.amount;
         }
-        const deductions = user.deductions;
-        for (const deduction of deductions) {
+
+        // Calculate total deductions
+        for (const deduction of user.deductions) {
           this.totalDeductions += deduction.amount;
         }
-        const taxableSalary =
-          (user.basicSalary + this.totalAllowances - this.totalDeductions) * (1 - this.cnssrate);
-        let taxableBase = taxableSalary * 12 - 2000;
-        if (user.familySituation === 1) {
-          taxableBase -= 300;
-          taxableBase -= user.childrenNumber * 100;
+
+        // Calculate taxable salary
+        this.taxableS =
+          (user.basicSalary + this.totalAllowances - this.totalDeductions) *
+          (1 - this.cnssr);
+
+        // Calculate taxable base
+        this.taxableBase = this.taxableS * 12 - 2000;
+        if (user.familySituation == 1) {
+          this.taxableBase -= 300;
+          this.taxableBase -= user.childrenNumber * 100;
         }
-        let taxAmount = 0;
-        if (taxableBase <= 5000) {
-          taxAmount = 0;
-        } else if (taxableBase <= 20000) {
-          taxAmount = (taxableBase - 5000) * 0.26;
-        } else if (taxableBase <= 30000) {
-          taxAmount = 3900 + (taxableBase - 20000) * 0.28;
-        } else if (taxableBase <= 50000) {
-          taxAmount = 5600 + (taxableBase - 30000) * 0.32;
+
+        // Calculate tax amount
+        this.taxAmount = 0;
+        if (this.taxableBase <= 5000) {
+          this.taxAmount = 0;
+        } else if (this.taxableBase <= 20000) {
+          this.taxAmount = (this.taxableBase - 5000) * 0.26;
+        } else if (this.taxableBase <= 30000) {
+          this.taxAmount = 3900 + (this.taxableBase - 20000) * 0.28;
+        } else if (this.taxableBase <= 50000) {
+          this.taxAmount = 5600 + (this.taxableBase - 30000) * 0.32;
         } else {
-          taxAmount = 11920 + (taxableBase - 50000) * 0.35;
+          this.taxAmount = 11920 + (this.taxableBase - 50000) * 0.35;
         }
+
+        // Calculate CSS (Contribution sociale de solidarité)
+        this.css = this.taxableBase * this.cssr / 12;
+
+        // Create payroll object
         const payroll: Payroll = {
-          id: '',
+          id: '', // You can generate a unique ID here if needed
           userId: user.id,
           month: new Date().toISOString(),
-          taxableSalary: taxableSalary,
-          cnssdeduction: (user.basicSalary + this.totalAllowances - this.totalDeductions) * this.cnssrate,
-          irpp: taxAmount/12,
-          css: (taxableBase/this.cssrate)/12,
-          netSalary: taxableSalary - taxAmount/12 - (taxableBase/this.cssrate)/12,
+          taxableSalary: this.taxableS,
+          cnssdeduction:(user.basicSalary + this.totalAllowances - this.totalDeductions) * this.cnssr,
+          irpp: this.taxAmount / 12,
+          css: this.css,
+          netSalary: this.taxableS - this.taxAmount / 12 - this.css,
         };
+
+        // Create payroll entry
         this.payrollService.createPayroll(payroll).subscribe(
           () => {
             console.log('Payroll created successfully for user: ', user.id);
