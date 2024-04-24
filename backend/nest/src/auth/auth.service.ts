@@ -16,7 +16,7 @@ export class AuthService {
     private jwtService : JwtService,
     
   ) {
-    this.client = Twilio(process.env.Account_SID_Twillio,process.env.Auth_Token_Twillio );
+    this.client = Twilio(process.env.Account_SID_Twillio, process.env.Auth_Token_Twillio);
   }
 
    generateSixDigitCode(): string {
@@ -86,7 +86,7 @@ export class AuthService {
             const number = "+216"+user.number.toString()
             await this.client.messages.create({
               body: "Your verification code  "+code,
-              from: "+12563226071", 
+              from: "+12563054184", 
               to : number
             });
             const expiryDate = new Date();
