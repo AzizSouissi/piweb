@@ -67,13 +67,29 @@ export class SendcodeComponent implements OnInit {
 
  
   sendVerificationCode(email: string): void {
-    this.authService.sendVerificationCode(email).subscribe(
-      (response : any) => {
+    if(this.method == "sms")
+      {
+        this.authService.sendVerificationCode(email).subscribe(
+          (response : any) => {
+    
+          },
+          (error) => {
+          }
+        );
 
-      },
-      (error) => {
       }
-    );
+    if(this.method == "mail")
+      {
+        this.authService.sendVerificationCodeMail(email).subscribe(
+          (response : any) => {
+    
+          },
+          (error) => {
+          }
+        );
+
+      }
+    
   }
 
   async sendCode()

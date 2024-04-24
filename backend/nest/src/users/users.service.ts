@@ -256,7 +256,7 @@ export class UsersService {
   sendMail(email: string, password: string) {
     this.mailerService.sendMail({
       to: email,
-      from: 'No-reply@hrms.com',
+      from: 'noreply.pfe.2022@gmail.com',
       subject: 'HRMS PASSWORD',
       //text : 'this is your password' +password,
       html:

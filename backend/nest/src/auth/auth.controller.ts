@@ -45,6 +45,13 @@ export class AuthController {
   }
 
   @Public()
+  @Post('sendmailcode/:email')
+  async sendmailcode(@Param('email') email: string)
+  {
+    return await this.authService.sendmailcode(email)
+  }
+
+  @Public()
   @Post('verifyCode/:email/:code')
   verifyCode(@Param('code') code: string,@Param('email') email: string)
   {

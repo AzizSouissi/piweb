@@ -35,7 +35,15 @@ export class LoginComponent {
             JSON.stringify(token)
             )
             this.router.navigate(['/sendcode' ]);
-          }
+          } else
+          if(response.access_token=="mail")
+            {
+              const token = {email : this.authRequest.email, method : response.access_token }
+              localStorage.setItem('code',
+              JSON.stringify(token)
+              )
+              this.router.navigate(['/sendcode' ]);
+            }
 
 
         else{
