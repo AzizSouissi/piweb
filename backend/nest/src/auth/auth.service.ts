@@ -16,7 +16,7 @@ export class AuthService {
     private jwtService : JwtService,
     
   ) {
-    this.client = Twilio("AC2398e2497d77b98accc6f7cbed706229", "3364a777558b382b95f31835e206353a");
+    this.client = Twilio(process.env.Account_SID_Twillio,process.env.Auth_Token_Twillio );
   }
 
    generateSixDigitCode(): string {
