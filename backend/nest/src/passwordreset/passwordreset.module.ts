@@ -6,13 +6,14 @@ import { MailerModule } from '@nestjs-modules/mailer';
 @Module({
   imports :[
     MailerModule.forRoot({
-      transport : {
-        host : 'sandbox.smtp.mailtrap.io',
-        port : 2525,
-        auth : {
-          user: "7fce47a3e71e8a",
-          pass: "652faca00143cc"
-        }
+      transport: {
+        host: 'smtp.gmail.com',
+        port: 587,
+        secure: false, 
+        auth: {
+          user: "noreply.pfe.2022@gmail.com",
+          pass: "ohqckfohycjdtdff", 
+        },
       }
     })
   ],
