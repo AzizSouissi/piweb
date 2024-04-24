@@ -5,9 +5,16 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class UserService {
+ 
   URL = 'http://localhost:3000/users';
 
   constructor(private _http: HttpClient) {}
+  getSettings(email: string) {
+    return this._http.get<any>(this.URL+`/settings/${email}`)
+  }
+  setSettings(email: string,body: any) {
+    return this._http.patch<any>(this.URL+`/settings/${email}`,body)
+  }
 
   getUser(email: any) {
     return this._http.get<any>(this.URL + '/UserPrivilegesByEmail/' + email);

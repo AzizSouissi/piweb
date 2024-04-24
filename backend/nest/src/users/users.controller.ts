@@ -92,6 +92,15 @@ export class UsersController {
     }
    )
   }
+  @Get('settings/:email')
+  async settings(@Param('email') email: string){
+    return await this.usersService.getSettings(email);
+  }
+  @Patch('settings/:email')
+  async setSettings(@Param('email') email: string,@Body() body : any){
+    return await this.usersService.setSettings(email,body);
+  }
+
 
   @Patch('uploadImage/:email')
   async uploadImage(@Param('email') email: string, @Body() body : any)

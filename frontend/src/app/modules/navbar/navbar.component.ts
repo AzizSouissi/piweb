@@ -4,6 +4,7 @@ import { AuthService } from '../../core/services/auth.service';
 import { Router } from '@angular/router';
 import { Notification } from '../../core/models/notification';
 import { DatePipe } from '@angular/common';
+import { UserService } from '../../core/services/user.service';
 
 @Component({
   selector: 'app-navbar',
@@ -11,22 +12,103 @@ import { DatePipe } from '@angular/common';
   styleUrl: './navbar.component.css',
 })
 export class NavbarComponent implements OnInit {
+  //2FA Auth 
+  email!  : string 
+  smsEnabled!: boolean 
+  emailEnabled!: boolean 
+  getSettings(){
+    this.userService.getSettings(this.email).subscribe(
+      (response : any) => {
+        this.smsEnabled = response.smsEnabled
+        this.emailEnabled = response.emailEnabled
+
+      },
+      (error) => {
+      }
+    );
+  }
+
+  toggleSMS() {
+   if(this.smsEnabled)
+    {
+        this.emailEnabled=false
+        this.userService.setSettings(this.email,{'smsEnabled': this.smsEnabled,'emailEnabled': this.emailEnabled}).subscribe(
+        (response : any) => {
+          this.smsEnabled = response.smsEnabled
+          this.emailEnabled = response.emailEnabled
+  
+        },
+        (error) => {
+        }
+      );
+    }
+    if(!this.smsEnabled){
+      this.userService.setSettings(this.email,{'smsEnabled': this.smsEnabled,'emailEnabled': this.emailEnabled}).subscribe(
+        (response : any) => {
+          this.smsEnabled = response.smsEnabled
+          this.emailEnabled = response.emailEnabled
+  
+        },
+        (error) => {
+        }
+      );
+    }
+
+  }
+
+  toggleEmail() {
+    if(this.emailEnabled){
+      this.smsEnabled=false
+        this.userService.setSettings(this.email,{'smsEnabled': this.smsEnabled,'emailEnabled': this.emailEnabled}).subscribe(
+        (response : any) => {
+          this.smsEnabled = response.smsEnabled
+          this.emailEnabled = response.emailEnabled
+  
+        },
+        (error) => {
+        }
+      );
+
+    }
+    if(!this.emailEnabled){
+      this.userService.setSettings(this.email,{'smsEnabled': this.smsEnabled,'emailEnabled': this.emailEnabled}).subscribe(
+        (response : any) => {
+          this.smsEnabled = response.smsEnabled
+          this.emailEnabled = response.emailEnabled
+  
+        },
+        (error) => {
+        }
+      );
+
+    }
+  }
+
+
   constructor(
     private router: Router,
     private notificationsService: NotificationsService,
     private datePipe: DatePipe,
-    private authService: AuthService
+    private authService: AuthService,
+    private userService : UserService
   ) {}
+
   user: string = '';
   data: Notification[] = [];
   id: string = '60957d882b8e761e9860e9a5';
   readStatus: boolean[] = [];
-  ngOnInit(): void {
-    const userProfileString = localStorage.getItem('user');
+  async ngOnInit(): Promise<void> {
+
+
+
+    const userProfileString =await  localStorage.getItem('user');
     if (userProfileString) {
       const userProfile = JSON.parse(userProfileString);
       this.user = userProfile['firstname'] + ' ' + userProfile['lastname'];
+      this.email = userProfile['email']
     }
+    this.getSettings()
+
     console.log(this.readStatus);
     this.notificationsService
       .getNotificationsByRecipientId(this.id)

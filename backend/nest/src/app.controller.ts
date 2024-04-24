@@ -1,5 +1,5 @@
 import { AppService } from './app.service';
-import { Controller, Get, Post, Render, UploadedFile, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Get, Post, Render, UploadedFile, UseInterceptors } from '@nestjs/common';
 import { Public } from './auth/common/decorators/public.decorator';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { UploadMetadata, getDownloadURL, getStorage, listAll, ref, uploadBytes } from '@firebase/storage';
@@ -90,6 +90,16 @@ export class AppController {
     }
    )
   }
+
+  @Public()
+  @Post('send-sms')
+  async sendSMS(@Body() body: { to: string, message: string }) {
+    const { to, message } = body;
+    await this.appService.sendSMS(to, message);
+    return { success: true, message: 'SMS sent successfully' };
+  }
+
+ 
 
 }
 

@@ -28,6 +28,17 @@ export class LoginComponent {
       next: (response) => {
         console.log(response);
         this.authResponse = response;
+        if(response.access_token=="sms")
+          {
+            const token = {email : this.authRequest.email, method : response.access_token }
+            localStorage.setItem('code',
+            JSON.stringify(token)
+            )
+            this.router.navigate(['/sendcode' ]);
+          }
+
+
+        else{
         localStorage.setItem('token', response.access_token as string);
         this.userService.getUser(this.authRequest.email).subscribe({
           next: (userData: any) => {
@@ -49,6 +60,7 @@ export class LoginComponent {
             console.error(err);
           },
         });
+      }
       },
       error: (error) => {
         console.error(error);

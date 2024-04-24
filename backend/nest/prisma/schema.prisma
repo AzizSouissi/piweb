@@ -30,6 +30,8 @@ model User {
   hash             String
   hashedAt         String?
   hashedRt         String?
+  smsEnabled       Boolean?
+  emailEnabled     Boolean?
   attendanceRecord AttendanceRecord[]
   roleId           String[]           @db.ObjectId
   roles            Role[]             @relation(fields: [roleId], references: [id])
@@ -46,6 +48,12 @@ model User {
   projects         Project[]          @relation(fields: [projectIds], references: [id])
 
   @@map("users")
+}
+model VerificationCode {
+  id         String @id @default(auto()) @map("_id") @db.ObjectId
+  code      String
+  email      String
+  expiryDate String
 }
 
 model Role {
