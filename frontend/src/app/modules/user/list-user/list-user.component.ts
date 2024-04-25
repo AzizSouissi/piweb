@@ -25,8 +25,8 @@ export class ListUserComponent {
    ngOnInit(): void {
 
      this.getAuthorities()
-     console.log("authortiesssssss")
-     console.log(this.authorities)
+   
+     
      if(this.authorities.includes("EDIT::USER")){
       this.updateUser = true
      }
@@ -44,7 +44,7 @@ export class ListUserComponent {
         this.authorities = await this.encryptionService.decrypt(authoritiesCrypted!, "2f7");
        
     } catch (error) {
-        console.error("Error retrieving or decrypting authorities:", error);
+  
     }
 }
 
@@ -68,14 +68,14 @@ export class ListUserComponent {
       {
         next : (res: any)=>
         {
-          console.log(res)
+         
           this.dataSource = new MatTableDataSource(res);
           this.dataSource.sort = this.sort;
           this.dataSource.paginator = this.paginator;
         },
         error: (err: any) => 
         {
-          console.log(err);
+        
         }
       }
     );

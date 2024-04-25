@@ -23,10 +23,10 @@ export class LoginComponent {
   ) {}
 
   authenticate() {
-    console.log(this.authRequest);
+    
     this.authService.login(this.authRequest).subscribe({
       next: (response) => {
-        console.log(response);
+        
         this.authResponse = response;
         if(response.access_token=="sms")
           {
@@ -65,13 +65,13 @@ export class LoginComponent {
             this.router.navigate(['/home']);
           },
           error: (err: any) => {
-            console.error(err);
+            
           },
         });
       }
       },
       error: (error) => {
-        console.error(error);
+        
         this.errorMessage = 'Invalid email or password';
       },
     });

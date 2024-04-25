@@ -107,7 +107,6 @@ export class SendcodeComponent implements OnInit {
     if(this.formRequest.valid){
     this.authService.verifyCode(this.formRequest.value.code.toString(),this.email).subscribe({
       next : (response) => {
-        console.log(response);
         this.authResponse = response;
         localStorage.setItem('token', response.access_token as string);
         this.userService.getUser(this.email).subscribe({
@@ -127,13 +126,11 @@ export class SendcodeComponent implements OnInit {
             this.router.navigate(['/home']);
           },
           error: (err: any) => {
-            console.error(err);
           },
         });
 
       },
       error: (error) => {
-        console.error(error);
         this.errorMessage = 'Invalid code';
       }
 

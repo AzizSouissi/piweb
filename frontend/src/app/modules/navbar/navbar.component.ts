@@ -109,18 +109,17 @@ export class NavbarComponent implements OnInit {
     }
     this.getSettings()
 
-    console.log(this.readStatus);
+
     this.notificationsService
       .getNotificationsByRecipientId(this.id)
       .subscribe((data) => {
-        console.log(data);
+       
         this.data = data.reverse();
         this.readStatus = data.map((element) => {
           return element.readAt != null;
         });
       }),
       (error: any) => {
-        console.error('Error fetching user by ID:', error);
       };
     this.notificationsService
       .getNotificationsByRecipientId(this.id)
@@ -146,7 +145,6 @@ export class NavbarComponent implements OnInit {
         this.router.navigate(['login']);
       },
       (error) => {
-        console.error('Logout failed:', error);
       }
     );
 
@@ -156,13 +154,11 @@ export class NavbarComponent implements OnInit {
   public changeStatus(id: string, index: number) {
     if (!this.readStatus[index]) {
       this.notificationsService.readNotification(id).subscribe((data) => {
-        console.log(data);
         // Assuming that your API response indicates the notification is read successfully
       });
     } else {
       this.notificationsService.unreadNotification(id).subscribe((data) => {
         if (data) {
-          console.log(data);
         }
       });
     }
