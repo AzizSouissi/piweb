@@ -32,6 +32,8 @@ import { ProfileComponent } from './modules/profile/profile.component';
 import { ConfigManagementModule } from './modules/config-management/config-management.module';
 import { PayrollManagementModule } from './modules/payroll-management/payroll-management.module';
 import { AllowanceModule } from './modules/allowance/allowance.module';
+import { SendcodeComponent } from './modules/sendcode/sendcode.component';
+
 
 @NgModule({
   declarations: [
@@ -45,6 +47,7 @@ import { AllowanceModule } from './modules/allowance/allowance.module';
     EmailsendedComponent,
     NotFoundComponent,
     ProfileComponent,
+    SendcodeComponent,
   ],
   imports: [
     BrowserModule,

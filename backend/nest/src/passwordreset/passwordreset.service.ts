@@ -94,7 +94,7 @@ export class PasswordresetService {
       async sendPasswordResetEmail(email: string, token: string): Promise<void> {
         this.mailerService.sendMail({
             to : email , 
-            from : 'No-reply@hrms.com' ,
+            from : 'noreply.pfe.2022@gmail.com' ,
             subject : 'Password Reset',
             html :  "<html>"+ "\n" +
             "<body marginheight=\"0\" topmargin=\"0\" marginwidth=\"0\" style=\"margin: 0px; background-color: #f2f3f8;\" leftmargin=\"0\">\n" +

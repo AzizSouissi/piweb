@@ -11,10 +11,14 @@ import { HomeGuard } from './core/guards/home-guard.guard';
 import { HomeComponent } from './modules/home/home.component';
 import { ProfileComponent } from './modules/profile/profile.component';
 import { ConfigManagementModule } from './../app/modules/config-management/config-management.module';
+import { SendcodeComponent } from './modules/sendcode/sendcode.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
   { path: 'login', component: LoginComponent },
+  {
+    path : 'sendcode', component : SendcodeComponent
+  },
   {
     path: 'resetpassword',
     component: ResetpasswordComponent,
