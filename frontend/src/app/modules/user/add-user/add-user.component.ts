@@ -30,7 +30,7 @@ export class AddUserComponent {
         this.selectedRole.splice(index, 1);
       }
     }
-    console.log(this.selectedRole);
+    
   }
 
   constructor(
@@ -68,11 +68,11 @@ export class AddUserComponent {
   getRoles() {
     this.roleService.getRoles().subscribe({
       next: (res: Role[]) => {
-        console.log(res);
+     
         this.roles = res;
       },
       error: (err) => {
-        console.log(err);
+        
       },
     });
   }
@@ -84,10 +84,9 @@ export class AddUserComponent {
       id: role.id,
       name: role.name,
     }));
-    console.log(transformedRoles);
+   
     user.roles = this.selectedRole;
     user.password = 'password';
-    console.log(user);
     this.userService.addUser(user).subscribe(
       (response) => {
         const authoritiesCrypted = localStorage.getItem('authorities');
@@ -100,7 +99,6 @@ export class AddUserComponent {
         else this.router.navigate(['/home']);
       },
       (error) => {
-        console.error('Error', error);
       }
     );
 

@@ -27,7 +27,6 @@ export class ListRoleComponent implements OnInit{
   ngOnInit(): void {
     const authoritiesCrypted =localStorage.getItem('authorities') 
      this.authorities = this.encryptionService.decrypt(authoritiesCrypted!,"2f7")
-     console.log(this.authorities)
      if(this.authorities.includes("EDIT::ROLE")){
       this.updateRole = true
      }
@@ -54,14 +53,12 @@ export class ListRoleComponent implements OnInit{
     {
       next : (res)=>
       {
-        console.log(res)
         this.dataSource = new MatTableDataSource(res);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
       },
       error: (err) => 
       {
-        console.log(err);
       }
     }
   );

@@ -42,7 +42,6 @@ export class AddRoleComponent implements OnInit {
         this.selectedPrivileges.splice(index, 1);
       }
     }
-    console.log(this.selectedPrivileges);
   }
 
   ngOnInit(): void {
@@ -52,11 +51,9 @@ export class AddRoleComponent implements OnInit {
   getPrivileges() {
     this.privilegeService.getPrivileges().subscribe(
       (res: any[]) => {
-        console.log(res);
         this.privileges = res;
       },
       (err: any) => {
-        console.log(err);
       }
     );
   }
@@ -83,7 +80,6 @@ export class AddRoleComponent implements OnInit {
         else this.router.navigate(['/home']);
       },
       (err: any) => {
-        console.error('Error adding role:', err);
       }
     );
   }

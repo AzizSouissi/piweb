@@ -58,17 +58,17 @@ export class UpdateUserComponent implements OnInit {
         this.selectedRole.splice(index, 1);
       }
     }
-    console.log(this.selectedRole);
+ 
   }
 
   getRoles() {
     this.roleService.getRoles().subscribe({
       next: (res: Role[]) => {
-        console.log(res);
+   
         this.roles = res;
       },
       error: (err) => {
-        console.log(err);
+     
       },
     });
   }
@@ -88,12 +88,12 @@ export class UpdateUserComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.route.snapshot.paramMap.get('id'));
+    
     const id = this.route.snapshot.paramMap.get('id');
     if (id !== null) {
       this.getUserById(id);
     } else {
-      console.error('ID parameter is null');
+      
     }
     this.getRoles();
   }
@@ -101,7 +101,7 @@ export class UpdateUserComponent implements OnInit {
   getUserById(id: string) {
     this.userService.getUserById(id).subscribe({
       next: (res: any) => {
-        console.log(res);
+     
         this.user = res;
         this.selectedRole = this.user.roleId;
         this.myForm.patchValue({
@@ -117,7 +117,7 @@ export class UpdateUserComponent implements OnInit {
         });
       },
       error: (err: any) => {
-        console.log(err);
+       
       },
     });
   }
@@ -125,7 +125,7 @@ export class UpdateUserComponent implements OnInit {
   onSubmit() {
     const user = this.myForm.value;
     user.roleId = this.selectedRole;
-    console.log(user);
+   
     this.userService.updateUser(user.id, user).subscribe(
       (response) => {
         const authoritiesCrypted = localStorage.getItem('authorities');
@@ -138,7 +138,7 @@ export class UpdateUserComponent implements OnInit {
         else this.router.navigate(['/home']);
       },
       (error) => {
-        console.error('Error', error);
+        
       }
     );
   }

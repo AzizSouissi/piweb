@@ -24,7 +24,6 @@ export class ResetpasswordComponent {
       this.resetpasswordService.request(this.formRequest.value.email).subscribe(
         {
           next : (response: any) => {
-            console.log(response)
             this.router.navigate(['/emailsended']);
           }
         }

@@ -40,29 +40,6 @@ export class ProfileComponent implements OnInit {
 
 
 
-/*
-
-
-  onFileSelected(event: any) {
-    const file: File = event.target.files[0];
-    if (file) {
-      const formData = new FormData();
-      formData.append('image', file);
-
-      this.userService.uploadProfileImage(formData).subscribe(
-        (response: any) => {
-          console.log('File uploaded successfully:', response);
-          this.uploadedImageUrl = response.imageUrl
-          //add check  face detection to uploadedImageUrl
-        },
-        (error) => {
-          console.error('Error uploading file:', error);
-        }
-      );
-    }
-  }
-
-*/
 
 async updateProfileImage() {
   await this.userService.uploadProfileImage(this.user.email, this.uploadedImageUrl).subscribe(
@@ -89,7 +66,7 @@ async onFileSelected(event: any) {
     formData.append('image', file);
     this.userService.uploadImage(formData).subscribe(
       async (response: any) => {
-        console.log('File uploaded successfully:', response);
+        
         this.uploadedImageUrl = response.url;
         this.displayStatusImage=true
 
@@ -98,7 +75,6 @@ async onFileSelected(event: any) {
         
       },
       (error) => {
-        console.error('Error uploading file:', error);
       }
     );
   }
@@ -113,18 +89,15 @@ async detectFaces(imageUrl: string) {
 
   // Load image and perform face detection
   const img = await faceapi.fetchImage(imageUrl);
-  console.log(img)
   const detections = await faceapi.detectAllFaces(img);
   this.displayStatusImage = false
   if (detections.length > 0) {
-    console.log('Face(s) detected in the uploaded image.');
     // Do something if faces are detected
     this.verifiedImageHumain = true;
     this.NotVerifedHumain=false;
     
 
   } else {
-    console.log('No faces detected in the uploaded image.');
     // Do something if no faces are detected
     this.NotVerifedHumain=true;
     this.verifiedImageHumain=false;
