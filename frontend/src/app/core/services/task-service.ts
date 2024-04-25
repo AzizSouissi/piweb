@@ -36,11 +36,11 @@ export class TaskService {
       );
   }
 
-  updateTask(id: string, updateTaskDto: Task): Observable<any> {
-    return this.http.put(`${this.URL}/${id}`, updateTaskDto, this.httpOtions);
+  updateTask(taskId: string, updateTaskDto: Task): Observable<any> {
+    return this.http.put(`${this.URL}/${taskId}`, updateTaskDto, this.httpOtions);
   }
 
-  deleteTask(id: string): Observable<boolean> {
-    return this.http.delete<boolean>(`${this.URL}/${id}`, this.httpOtions);
+  deleteTask(taskId: string): Observable<boolean> {
+    return this.http.delete<boolean>(`${this.URL}/${taskId}`, this.httpOtions);
   }
 }

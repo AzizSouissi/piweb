@@ -10,6 +10,7 @@ import {
 import { TasksService } from './tasks.service';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
+import { title } from 'process';
 import { Task } from '@prisma/client';
 
 @Controller('tasks')
@@ -26,14 +27,14 @@ export class TasksController {
     return this.tasksService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.tasksService.findOne(id);
+  @Get(':title')
+  findOne(@Param('title') title: string) {
+    return this.tasksService.findOne(title);
   }
 
-  @Put(':id')
-  update(@Param('id') id: string, @Body() updateTaskDto: Task) {
-    return this.tasksService.update(id, updateTaskDto);
+  @Put(':title')
+  update(@Param('title') title: string, @Body() updateTaskDto: Task) {
+    return this.tasksService.update(title, updateTaskDto);
   }
 
   @Delete(':id')
@@ -41,8 +42,8 @@ export class TasksController {
     return this.tasksService.remove(id);
   }
 
-  @Put(':idTask/:idUser')
-  assignTaskTo(@Param('idTask') id: string, @Param('idUser') id2: string) {
-    return this.tasksService.assignTaskTo(id, id2);
+  @Put(':title/:email')
+  assignTaskTo(@Param('title') title: string, @Param('email') email: string) {
+    return this.tasksService.assignTaskTo(title, email);
   }
 }

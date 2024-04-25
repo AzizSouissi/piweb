@@ -1,5 +1,5 @@
 
-import { IsNotEmpty, IsEnum } from 'class-validator';
+import { IsNotEmpty, IsEnum, IsEmail } from 'class-validator';
 
 export enum TaskStatus{
     PENDING ='PENDING',
@@ -26,6 +26,9 @@ export class CreateTaskDto {
     
     @IsNotEmpty()
     createBy: string;
+
+    @IsEmail() // Valide que la valeur est une adresse e-mail
+    assignedTo: string;
       
   }
 
