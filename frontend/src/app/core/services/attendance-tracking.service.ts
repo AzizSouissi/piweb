@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Observable, catchError, tap } from 'rxjs';
+import { Observable, Subject, catchError, tap } from 'rxjs';
 import { AttendanceRecord, ShiftType } from '../models/attendanceRecord';
 
 import {
@@ -21,6 +21,10 @@ export class AttendanceTrackingService {
   };
 
   constructor(private http: HttpClient) {}
+  private _refreshNeeded$ = new Subject<void>();
+  get refreshNeeded() {
+    return this._refreshNeeded$;
+  }
 
   create(
     id: string,
@@ -103,11 +107,17 @@ export class AttendanceTrackingService {
     userId: string,
     createAttendanceTrackingDto: CreateAttendanceTrackingDto
   ): Observable<any> {
-    return this.http.post<any>(
-      `${this.URL}/create/${userId}`,
-      createAttendanceTrackingDto,
-      this.httpOptions
-    );
+    return this.http
+      .post<any>(
+        `${this.URL}/create/${userId}`,
+        createAttendanceTrackingDto,
+        this.httpOptions
+      )
+      .pipe(
+        tap(() => {
+          this._refreshNeeded$.next();
+        })
+      );
   }
   getTotalHalfShiftDaysForUserInMonth(
     userId: string,
