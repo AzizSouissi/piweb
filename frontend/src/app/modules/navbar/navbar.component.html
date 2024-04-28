@@ -103,6 +103,21 @@
                 <a href="" class="dropdown-item"><i class="feather icon-mail"></i> My Messages</a>
               </li>
               <li>
+                <a class="dropdown-item">
+                  <i class="feather icon-settings"></i> 2FA with SMS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  <input class="form-check-input" type="checkbox" id="smsToggle" [(ngModel)]="smsEnabled" (change)="toggleSMS()">
+                </a>
+              </li>
+              <li>
+                <a class="dropdown-item">
+                  <i class="feather icon-settings"></i> 2FA with Email&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  <input class="form-check-input" type="checkbox" id="emailToggle" [(ngModel)]="emailEnabled" (change)="toggleEmail()">
+                </a>
+              </li>
+              
+              
+
+              <li>
                 <a (click)="logout()" class="dropdown-item"><i class="feather icon-lock"></i> Logout</a>
               </li>
             </ul>

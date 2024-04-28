@@ -31,6 +31,9 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { ProfileComponent } from './modules/profile/profile.component';
 import { ConfigManagementModule } from './modules/config-management/config-management.module';
 import { PayrollManagementModule } from './modules/payroll-management/payroll-management.module';
+import { AllowanceModule } from './modules/allowance/allowance.module';
+import { SendcodeComponent } from './modules/sendcode/sendcode.component';
+
 import { ToastModule } from 'primeng/toast';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
@@ -49,6 +52,7 @@ import { StoreModule } from '@ngrx/store';
     EmailsendedComponent,
     NotFoundComponent,
     ProfileComponent,
+    SendcodeComponent,
   ],
   imports: [
     BrowserModule,
@@ -68,6 +72,7 @@ import { StoreModule } from '@ngrx/store';
     HolidayManagementModule,
     TaskManagementModule,
     DragDropModule,
+    AllowanceModule,
     ToastModule,
     BrowserAnimationsModule,
     StoreModule.forRoot({}),

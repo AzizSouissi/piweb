@@ -4,6 +4,8 @@ import { AuthService } from '../../core/services/auth.service';
 import { Router } from '@angular/router';
 import { Notification } from '../../core/models/notification';
 import { DatePipe } from '@angular/common';
+import { PayrollService } from '../../core/services/payroll.service';
+import { UserService } from '../../core/services/user.service';
 
 @Component({
   selector: 'app-navbar',
@@ -11,34 +13,118 @@ import { DatePipe } from '@angular/common';
   styleUrl: './navbar.component.css',
 })
 export class NavbarComponent implements OnInit {
+  //2FA Auth 
+  email!  : string 
+  smsEnabled!: boolean 
+  emailEnabled!: boolean 
+  getSettings(){
+    this.userService.getSettings(this.email).subscribe(
+      (response : any) => {
+        this.smsEnabled = response.smsEnabled
+        this.emailEnabled = response.emailEnabled
+
+      },
+      (error) => {
+      }
+    );
+  }
+
+  toggleSMS() {
+   if(this.smsEnabled)
+    {
+        this.emailEnabled=false
+        this.userService.setSettings(this.email,{'smsEnabled': this.smsEnabled,'emailEnabled': this.emailEnabled}).subscribe(
+        (response : any) => {
+          this.smsEnabled = response.smsEnabled
+          this.emailEnabled = response.emailEnabled
+  
+        },
+        (error) => {
+        }
+      );
+    }
+    if(!this.smsEnabled){
+      this.userService.setSettings(this.email,{'smsEnabled': this.smsEnabled,'emailEnabled': this.emailEnabled}).subscribe(
+        (response : any) => {
+          this.smsEnabled = response.smsEnabled
+          this.emailEnabled = response.emailEnabled
+  
+        },
+        (error) => {
+        }
+      );
+    }
+
+  }
+
+  toggleEmail() {
+    if(this.emailEnabled){
+      this.smsEnabled=false
+        this.userService.setSettings(this.email,{'smsEnabled': this.smsEnabled,'emailEnabled': this.emailEnabled}).subscribe(
+        (response : any) => {
+          this.smsEnabled = response.smsEnabled
+          this.emailEnabled = response.emailEnabled
+  
+        },
+        (error) => {
+        }
+      );
+
+    }
+    if(!this.emailEnabled){
+      this.userService.setSettings(this.email,{'smsEnabled': this.smsEnabled,'emailEnabled': this.emailEnabled}).subscribe(
+        (response : any) => {
+          this.smsEnabled = response.smsEnabled
+          this.emailEnabled = response.emailEnabled
+  
+        },
+        (error) => {
+        }
+      );
+
+    }
+  }
+
+
   constructor(
     private router: Router,
     private notificationsService: NotificationsService,
+    private payrollService: PayrollService,
     private datePipe: DatePipe,
-    private authService: AuthService
+    private authService: AuthService,
+    private userService : UserService
   ) {}
+
   user: string = '';
   data: Notification[] = [];
-  id: string = '60957d882b8e761e9860e9a5';
+  id!: any;
   readStatus: boolean[] = [];
-  ngOnInit(): void {
-    const userProfileString = localStorage.getItem('user');
+  async ngOnInit(): Promise<void> {
+
+
+
+    const userProfileString =await  localStorage.getItem('user');
     if (userProfileString) {
       const userProfile = JSON.parse(userProfileString);
       this.user = userProfile['firstname'] + ' ' + userProfile['lastname'];
+      this.payrollService.getUserIdByEmail(userProfile['email']).subscribe((data) => {
+        this.id = data.id;
+      });
+      this.email = userProfile['email']
     }
-    console.log(this.readStatus);
+    this.getSettings()
+
+
     this.notificationsService
       .getNotificationsByRecipientId(this.id)
       .subscribe((data) => {
-        console.log(data);
+       
         this.data = data.reverse();
         this.readStatus = data.map((element) => {
           return element.readAt != null;
         });
       }),
       (error: any) => {
-        console.error('Error fetching user by ID:', error);
       };
     this.notificationsService
       .getNotificationsByRecipientId(this.id)
@@ -64,7 +150,6 @@ export class NavbarComponent implements OnInit {
         this.router.navigate(['login']);
       },
       (error) => {
-        console.error('Logout failed:', error);
       }
     );
 
@@ -74,13 +159,11 @@ export class NavbarComponent implements OnInit {
   public changeStatus(id: string, index: number) {
     if (!this.readStatus[index]) {
       this.notificationsService.readNotification(id).subscribe((data) => {
-        console.log(data);
         // Assuming that your API response indicates the notification is read successfully
       });
     } else {
       this.notificationsService.unreadNotification(id).subscribe((data) => {
         if (data) {
-          console.log(data);
         }
       });
     }
@@ -150,4 +233,7 @@ export class NavbarComponent implements OnInit {
       }
     });
   }
+  approveNotification() {}
+  disapproveNotification() {}
+
 }

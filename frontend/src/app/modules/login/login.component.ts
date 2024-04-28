@@ -23,11 +23,30 @@ export class LoginComponent {
   ) {}
 
   authenticate() {
-    console.log(this.authRequest);
+    
     this.authService.login(this.authRequest).subscribe({
       next: (response) => {
-        console.log(response);
+        
         this.authResponse = response;
+        if(response.access_token=="sms")
+          {
+            const token = {email : this.authRequest.email, method : response.access_token }
+            localStorage.setItem('code',
+            JSON.stringify(token)
+            )
+            this.router.navigate(['/sendcode' ]);
+          } else
+          if(response.access_token=="mail")
+            {
+              const token = {email : this.authRequest.email, method : response.access_token }
+              localStorage.setItem('code',
+              JSON.stringify(token)
+              )
+              this.router.navigate(['/sendcode' ]);
+            }
+
+
+        else{
         localStorage.setItem('token', response.access_token as string);
         this.userService.getUser(this.authRequest.email).subscribe({
           next: (userData: any) => {
@@ -46,12 +65,13 @@ export class LoginComponent {
             this.router.navigate(['/home']);
           },
           error: (err: any) => {
-            console.error(err);
+            
           },
         });
+      }
       },
       error: (error) => {
-        console.error(error);
+        
         this.errorMessage = 'Invalid email or password';
       },
     });

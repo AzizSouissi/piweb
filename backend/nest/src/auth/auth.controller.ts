@@ -4,6 +4,7 @@ import {
     Get,
     HttpCode,
     HttpStatus,
+    Param,
     Post,
     Req,
     UseGuards,
@@ -35,6 +36,29 @@ export class AuthController {
   signinLocal(@Body() dto: AuthDto) :Promise<Tokens> {
     return this.authService.signinLocal(dto);
   }
+
+  @Public()
+  @Post('sendsmscode/:email')
+  async sendsmscode(@Param('email') email: string)
+  {
+    return await this.authService.sendsmscode(email)
+  }
+
+  @Public()
+  @Post('sendmailcode/:email')
+  async sendmailcode(@Param('email') email: string)
+  {
+    return await this.authService.sendmailcode(email)
+  }
+
+  @Public()
+  @Post('verifyCode/:email/:code')
+  verifyCode(@Param('code') code: string,@Param('email') email: string)
+  {
+    return this.authService.verifyCode(code,email);
+  }
+
+
 
   
   @UseGuards(AtGuard)

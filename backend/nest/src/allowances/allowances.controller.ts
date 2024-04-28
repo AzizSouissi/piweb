@@ -7,18 +7,18 @@ import {
   Delete,
   Put,
 } from '@nestjs/common';
-import { CreateAllowanceDto } from './dto/create-allowance.dto';
-import { UpdateAllowanceDto } from './dto/update-allowance.dto';
-import { Allowance } from '@prisma/client';
+import { Allowance, User } from '@prisma/client';
 import { AllowancesService } from './allowances.service';
+import { Public } from 'src/auth/common/decorators';
 
+@Public()
 @Controller('allowances')
 export class AllowancesController {
   constructor(private readonly allowancesService: AllowancesService) {}
 
   @Post()
   async createAllowance(
-    @Body() createAllowanceDto: CreateAllowanceDto,
+    @Body() createAllowanceDto: Allowance,
   ): Promise<Allowance> {
     return this.allowancesService.createAllowance(createAllowanceDto);
   }
@@ -36,7 +36,7 @@ export class AllowancesController {
   @Put(':id')
   update(
     @Param('id') id: string,
-    @Body() updateAllowanceDto: UpdateAllowanceDto,
+    @Body() updateAllowanceDto: Allowance,
   ) {
     return this.allowancesService.update(id, updateAllowanceDto);
   }
@@ -44,5 +44,10 @@ export class AllowancesController {
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.allowancesService.remove(id);
+  }
+
+  @Get('/getUser/:id')
+  find(@Param('id') id: string): Promise<User> {
+    return this.allowancesService.find(id);
   }
 }

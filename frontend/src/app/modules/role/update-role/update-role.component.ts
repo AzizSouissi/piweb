@@ -32,14 +32,12 @@ export class UpdateRoleComponent implements OnInit {
 
   ngOnInit(): void {
     this.id = this.route.snapshot.paramMap.get('id')!;
-    console.log(this.id);
     this.getRoleById(this.id);
     this.getPrivileges();
   }
   getPrivileges() {
     this.privilegeService.getPrivileges().subscribe(
       (res: any[]) => {
-        console.log(res);
         this.privileges = res;
         this.myForm.patchValue({
           id: this.role.id,
@@ -47,7 +45,6 @@ export class UpdateRoleComponent implements OnInit {
         });
       },
       (err: any) => {
-        console.log(err);
       }
     );
   }
@@ -55,7 +52,6 @@ export class UpdateRoleComponent implements OnInit {
   getRoleById(id: string) {
     this.roleService.getRoleById(id).subscribe({
       next: (res: any) => {
-        console.log(res);
         this.role = res;
         this.selectedPrivileges = this.role.privilegeId;
         this.myForm.patchValue({
@@ -63,7 +59,6 @@ export class UpdateRoleComponent implements OnInit {
         });
       },
       error: (err: any) => {
-        console.log(err);
       },
     });
   }
@@ -81,7 +76,6 @@ export class UpdateRoleComponent implements OnInit {
         this.selectedPrivileges.splice(index, 1);
       }
     }
-    console.log(this.selectedPrivileges);
   }
 
   onSubmit() {
@@ -98,7 +92,6 @@ export class UpdateRoleComponent implements OnInit {
         this.router.navigate(['/home/roles']);
       },
       (err: any) => {
-        console.error('Error adding role:', err);
       }
     );
   }

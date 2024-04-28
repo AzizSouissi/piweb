@@ -9,8 +9,7 @@ export class Task {
   createBy!: string;
   createdAt!: Date;
   updatedAt!: Date;
-  usersIDs!: string[];
-  users!: User[];
+  assignedToEmail!: string
 }
 
 enum TaskStatus {

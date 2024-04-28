@@ -137,7 +137,7 @@ export class AttendanceTrackingService {
       )
       .pipe(
         tap(() => {
-          this._refreshNeeded$.next(); // Emit refresh event after creating a new attendance record
+          this._refreshNeeded$.next();
         })
       );
   }

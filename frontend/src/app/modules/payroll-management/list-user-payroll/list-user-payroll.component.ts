@@ -8,18 +8,19 @@ import { PayrollService } from '../../../core/services/payroll.service';
   styleUrl: './list-user-payroll.component.css',
 })
 export class ListUserPayrollComponent implements OnInit {
-  data: Payroll[] = [];
+  data!: Payroll[];
+  id!: any;
   constructor(private payrollService: PayrollService) {}
 
   ngOnInit() {
-    /* this.payrollService.getAllPayrolls().subscribe((data) => {
-      this.data = data;
-    }),
-      (error: any) => {
-        console.error('Error fetching payrolls:', error);
-      };
-      */
-    this.getDataByUser('660eb4a61dbf9e0ddc017b26');
+    let p = localStorage.getItem('user');
+    if (p) {
+      let email = JSON.parse(p)['email'];
+      this.payrollService.getUserIdByEmail(email).subscribe((data) => {
+        this.id = data.id;
+        this.getDataByUser(this.id);
+      });
+    }
   }
 
   public getDataByUser(id: string) {

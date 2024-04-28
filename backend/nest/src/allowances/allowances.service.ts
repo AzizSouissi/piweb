@@ -1,6 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { CreateAllowanceDto } from './dto/create-allowance.dto';
-import { UpdateAllowanceDto } from './dto/update-allowance.dto';
 import { PrismaService } from 'src/prisma.service';
 import { Allowance } from '@prisma/client';
 
@@ -8,15 +6,15 @@ import { Allowance } from '@prisma/client';
 export class AllowancesService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async createAllowance(
-    createAllowanceDto: CreateAllowanceDto,
-  ): Promise<Allowance> {
-    const { payrollId, description, amount } = createAllowanceDto;
+  async createAllowance(createAllowanceDto: Allowance): Promise<Allowance> {
+    const { userId, category, description, amount, date } = createAllowanceDto;
     return this.prisma.allowance.create({
       data: {
-        payrollId,
+        userId,
+        category,
         description,
         amount,
+        date,
       },
     });
   }
@@ -33,9 +31,11 @@ export class AllowancesService {
         },
         select: {
           id: true,
-          payrollId: true,
+          userId: true,
+          category: true,
           description: true,
           amount: true,
+          date: true,
         },
       });
 
@@ -52,21 +52,25 @@ export class AllowancesService {
 
   async update(
     id: string,
-    updateAllowanceDto: UpdateAllowanceDto,
+    updateAllowanceDto: Allowance,
   ): Promise<Allowance | any> {
     try {
       const updatedAllowance = await this.prisma.allowance.update({
         where: { id: id },
         data: {
-          payrollId: updateAllowanceDto.payrollId,
+          userId: updateAllowanceDto.userId,
+          category: updateAllowanceDto.category,
           description: updateAllowanceDto.description,
           amount: updateAllowanceDto.amount,
+          date: updateAllowanceDto.date,
         },
         select: {
           id: true,
-          payrollId: true,
+          userId: true,
+          category: true,
           description: true,
           amount: true,
+          date: true,
         },
       });
       return updatedAllowance;
@@ -89,5 +93,20 @@ export class AllowancesService {
       console.error('Error deleting allowance:', error);
       throw new Error('Failed to delete allowance');
     }
+  }
+
+  find(id: string): Promise<any> {
+    return this.prisma.user.findUnique({
+      where: {
+        id: id,
+      },
+      select: {
+        id: true,
+        firstname: true,
+        lastname: true,
+        allowances: true,
+        projectIds: true,
+      },
+    });
   }
 }

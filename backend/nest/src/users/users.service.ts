@@ -8,10 +8,46 @@ import { Userprofile } from './dtos/userprofile';
 
 @Injectable()
 export class UsersService {
+ 
+ 
+ 
   constructor(
     private prisma: PrismaService,
     private mailerService: MailerService,
   ) {}
+
+  async setSettings(email: string, body: any) {
+    return  await  this.prisma.user.update({
+      where : {
+        email : email
+      },
+      data: {
+        emailEnabled: body.emailEnabled,
+        smsEnabled : body.smsEnabled
+      }
+    })
+  }
+
+  async getSettings(email: string) {
+    return await this.prisma.user.findUnique({
+      where : {
+        email : email
+      },
+      select : {
+        emailEnabled: true,
+        smsEnabled : true
+      }
+    })
+  }
+
+  async uploadImage(email: string, image: string) {
+    return await this.prisma.user.update({
+      where : {email: email},
+      data : {
+        image: image
+      }
+    })
+  }
 
   async updateUser(userId: string, updateUserDto: any) {
     return await this.prisma.user.update({
@@ -54,6 +90,7 @@ export class UsersService {
         degree: true,
         number: true,
         job: true,
+        image: true,
       },
     });
   }
@@ -81,6 +118,8 @@ export class UsersService {
         number: registerRequest.number,
         job: registerRequest.job,
         hash: hash,
+        smsEnabled : false,
+        emailEnabled : false,
         roles: {
           connect: registerRequest.roles.map((role) => ({ id: role.id })),
         },
@@ -217,7 +256,7 @@ export class UsersService {
   sendMail(email: string, password: string) {
     this.mailerService.sendMail({
       to: email,
-      from: 'No-reply@hrms.com',
+      from: 'noreply.pfe.2022@gmail.com',
       subject: 'HRMS PASSWORD',
       //text : 'this is your password' +password,
       html:
