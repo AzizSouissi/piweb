@@ -12,6 +12,10 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { CreateAttendanceComponent } from './create-attendance/create-attendance.component';
 import { AttendanceTrackingService } from '../../core/services/attendance-tracking.service';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableModule } from '@angular/material/table';
 
 @NgModule({
   declarations: [
@@ -26,7 +30,10 @@ import { AttendanceTrackingService } from '../../core/services/attendance-tracki
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    ToastModule,
+    MatPaginator,
+    MatTableModule,
   ],
-  providers: [AttendanceTrackingService],
+  providers: [AttendanceTrackingService, MessageService],
 })
 export class AttendanceManagementModule {}

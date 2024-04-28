@@ -5,6 +5,9 @@ import {
   AttendanceRecord,
   ShiftType,
 } from '../../../core/models/attendanceRecord';
+import { CreateAttendanceTrackingDto } from '../../../core/models/Dto/CreateAttendanceTrackingDto';
+import { interval, switchMap } from 'rxjs';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-update-attendance',
@@ -18,7 +21,10 @@ export class UpdateAttendanceComponent implements OnInit {
   currentMonthYear: string = '';
   selectedDate: Date = new Date();
 
-  constructor(private attendanceService: AttendanceTrackingService) {}
+  constructor(
+    private attendanceService: AttendanceTrackingService,
+    private messageService: MessageService
+  ) {}
 
   ngOnInit() {
     this.generateMonthData(this.selectedDate);
@@ -31,6 +37,22 @@ export class UpdateAttendanceComponent implements OnInit {
         console.error('There was an error!', error);
       },
     });
+  }
+
+  choose(i: number) {
+    console.log(i);
+    if (i == 1) {
+      this.status = Status.PRESENT;
+      this.selectedDuration = ShiftType.HALF_DAY;
+    } else if (i == 2) {
+      this.status = Status.PRESENT;
+      this.selectedDuration = ShiftType.QUARTER_SHIFT;
+    } else if (i == 3) {
+      this.status = Status.PRESENT;
+      this.selectedDuration = ShiftType.FULL_DAY;
+    } else {
+      this.status = Status.ABSENT;
+    }
   }
 
   getStatusForDay(user: User, day: number, monthIndex: number): string {

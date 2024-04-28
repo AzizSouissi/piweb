@@ -21,16 +21,29 @@ export class AttendanceTrackingService {
   };
 
   constructor(private http: HttpClient) {}
+<<<<<<< Updated upstream
+=======
+  private _refreshNeeded$ = new Subject<void>();
+  get refreshNeeded(): Observable<void> {
+    return this._refreshNeeded$.asObservable();
+  }
+>>>>>>> Stashed changes
 
   create(
     id: string,
     createAttendanceTrackingDto: CreateAttendanceTrackingDto
-  ): Observable<AttendanceRecord | any> {
-    return this.http.post<AttendanceRecord>(
-      `${this.URL}/${id}`,
-      createAttendanceTrackingDto,
-      this.httpOptions
-    );
+  ): Observable<any> {
+    return this.http
+      .post<any>(
+        `${this.URL}/${id}`,
+        createAttendanceTrackingDto,
+        this.httpOptions
+      )
+      .pipe(
+        tap(() => {
+          this._refreshNeeded$.next(); // Emit refresh event after creating a new attendance record
+        })
+      );
   }
 
   findAll(): Observable<AttendanceRecord[]> {

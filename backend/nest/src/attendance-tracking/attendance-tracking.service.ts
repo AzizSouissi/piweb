@@ -174,8 +174,6 @@ export class AttendanceTrackingService {
         },
       });
 
-      console.log('Fetched records:', records);
-
       const halfShiftRecords = records.filter(
         (record) => record.shiftType === 'HALF_DAY',
       );
