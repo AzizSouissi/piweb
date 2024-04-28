@@ -4,7 +4,7 @@ import { RegisterRequest } from './dtos/RegisterRequest.dto';
 import * as bcrypt from 'bcrypt';
 import { MailerService } from '@nestjs-modules/mailer';
 import { Observable } from 'rxjs';
-import { Userprofile } from './dtos/userprofile';
+import { Userprofile } from './dtos/Userprofile';
 
 @Injectable()
 export class UsersService {
