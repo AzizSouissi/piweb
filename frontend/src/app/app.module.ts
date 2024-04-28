@@ -33,6 +33,9 @@ import { ConfigManagementModule } from './modules/config-management/config-manag
 import { PayrollManagementModule } from './modules/payroll-management/payroll-management.module';
 import { ToastModule } from 'primeng/toast';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreModule } from '@ngrx/store';
 
 @NgModule({
   declarations: [
@@ -67,6 +70,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     DragDropModule,
     ToastModule,
     BrowserAnimationsModule,
+    StoreModule.forRoot({}),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25, // Retains last 25 states
+      // logOnly: environment.production, // Restrict extension to log-only mode
+      autoPause: true, // Pauses recording actions and state changes when the extension window is not open
+    }),
+    EffectsModule.forRoot([]),
   ],
   providers: [
     provideClientHydration(),
