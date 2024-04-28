@@ -64,62 +64,131 @@
                   <td class="employee-column">{{ employee.firstname }}</td>
                   <ng-container *ngFor="let month of monthData">
                     <td *ngFor="let day of month.days">
-                      <div class="status-container">
-                        <ng-container *ngIf="isWeekend(day)">
-                          <span
-                            class="holiday-icon bi bi-star-fill text-warning"
-                          ></span>
-                        </ng-container>
-                        <ng-container
-                          *ngIf="
-                            getStatusForDay(employee, day, month.monthIndex) ===
-                              'PRESENT' &&
-                            getShiftTypeForDay(
-                              employee,
-                              day,
-                              month.monthIndex
-                            ) === 'FULL_DAY' &&
-                            !isWeekend(day)
-                          "
-                        >
-                          <span class="far fa-check-circle text-success"></span>
-                        </ng-container>
-                        <ng-container
-                          *ngIf="
-                            getStatusForDay(employee, day, month.monthIndex) ===
-                              'PRESENT' &&
-                            getShiftTypeForDay(
-                              employee,
-                              day,
-                              month.monthIndex
-                            ) === 'QUARTER_SHIFT' &&
-                            !isWeekend(day)
-                          "
-                        >
-                          <span class="bi bi-clock-history text-dark"></span>
-                        </ng-container>
-                        <ng-container
-                          *ngIf="
-                            getStatusForDay(employee, day, month.monthIndex) ===
-                              'PRESENT' &&
-                            getShiftTypeForDay(
-                              employee,
-                              day,
-                              month.monthIndex
-                            ) === 'HALF_DAY' &&
-                            !isWeekend(day)
-                          "
-                        >
-                          <span class="fas fa-adjust col-orange"></span>
-                        </ng-container>
-                        <ng-container
-                          *ngIf="
-                            getStatusForDay(employee, day, month.monthIndex) ===
-                            'ABSENT'
-                          "
-                        >
-                          <span class="far fa-times-circle text-danger"></span>
-                        </ng-container>
+                      @if (isWeekend(day)){
+                      <span
+                        class="holiday-icon bi bi-star-fill text-warning"
+                      ></span>
+                      } @else if( getStatusForDay(employee, day,
+                      month.monthIndex) === 'PRESENT' && getShiftTypeForDay(
+                      employee, day, month.monthIndex ) === 'FULL_DAY' &&
+                      !isWeekend(day)){
+                      <span
+                        class="far fa-check-circle text-success"
+                        data-bs-toggle="modal"
+                        data-bs-target="#myModal"
+                        (click)="openModal(employee, day, 'PRESENT')"
+                      ></span>
+
+                      } @else if (getStatusForDay(employee, day,
+                      month.monthIndex) === 'PRESENT' && getShiftTypeForDay(
+                      employee, day, month.monthIndex ) === 'QUARTER_SHIFT' &&
+                      !isWeekend(day) ){
+                      <span
+                        class="bi bi-clock-history text-dark"
+                        data-bs-toggle="modal"
+                        data-bs-target="#myModal"
+                        (click)="openModal(employee, day, 'PRESENT')"
+                      ></span>
+
+                      } @else if(getStatusForDay(employee, day,
+                      month.monthIndex) === 'PRESENT' && getShiftTypeForDay(
+                      employee, day, month.monthIndex ) === 'HALF_DAY' &&
+                      !isWeekend(day) ){
+
+                      <span
+                        class="fas fa-adjust col-orange"
+                        data-bs-toggle="modal"
+                        data-bs-target="#myModal"
+                        (click)="openModal(employee, day, 'PRESENT')"
+                      ></span>
+                      } @else if(getStatusForDay(employee, day,
+                      month.monthIndex) === 'ABSENT'){
+                      <span
+                        class="far fa-times-circle text-danger"
+                        data-bs-toggle="modal"
+                        data-bs-target="#myModal"
+                        (click)="openModal(employee, day, 'ABSENT')"
+                      ></span>
+                      } @else {
+                      <span
+                        data-bs-toggle="modal"
+                        data-bs-target="#myModal"
+                        (click)="openModal(employee, day, '')"
+                        >-</span
+                      >
+                      }
+                      <div class="modal fade" id="myModal">
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                            <!-- Modal Header -->
+                            <div class="modal-header">
+                              <h4 class="modal-title">Modal Heading</h4>
+                              <button
+                                type="button"
+                                class="btn-close"
+                                data-bs-dismiss="modal"
+                              ></button>
+                            </div>
+                            <!-- Modal body -->
+                            <p>Select Shift type please :</p>
+                            <div>
+                              <div>
+                                <input
+                                  type="radio"
+                                  id="quarterDayRadio"
+                                  name="durationRadio"
+                                  (change)="choose(0)"
+                                />
+                                <label for="quarterDayRadio">Absent</label>
+                              </div>
+                              <input
+                                type="radio"
+                                id="halfDayRadio"
+                                name="durationRadio"
+                                (change)="choose(1)"
+                              />
+                              <label for="halfDayRadio">Half Day</label>
+                            </div>
+
+                            <div>
+                              <input
+                                type="radio"
+                                id="quarterDayRadio"
+                                name="durationRadio"
+                                (change)="choose(2)"
+                              />
+                              <label for="quarterDayRadio">Quarter Day</label>
+                            </div>
+
+                            <div>
+                              <input
+                                type="radio"
+                                id="fullDayRadio"
+                                name="durationRadio"
+                                (change)="choose(3)"
+                              />
+                              <label for="fullDayRadio">Full Day</label>
+                            </div>
+
+                            <!-- Modal footer -->
+                            <div class="modal-footer">
+                              <button
+                                type="button"
+                                class="btn btn-danger"
+                                data-bs-dismiss="modal"
+                              >
+                                Close
+                              </button>
+                              <button
+                                type="button"
+                                class="btn btn-primary"
+                                (click)="handleUpdate(selectedDuration)"
+                              >
+                                Update
+                              </button>
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     </td>
                   </ng-container>

@@ -7,20 +7,32 @@
         </div>
         <span class="b-title">HRMS</span>
       </a>
-      <a class="mobile-menu" id="mobile-collapse" href="javascript:"><span></span></a>
+      <a class="mobile-menu" id="mobile-collapse" href="javascript:"
+        ><span></span
+      ></a>
     </div>
-    <div class="slimScrollDiv" style="
+    <div
+      class="slimScrollDiv"
+      style="
         position: relative;
         overflow: hidden;
         width: 100%;
         height: calc(-70px + 100vh);
-      ">
-      <div class="navbar-content scroll-div" style="overflow: hidden; width: 100%; height: calc(-70px + 100vh)">
-
+      "
+    >
+      <div
+        class="navbar-content scroll-div"
+        style="overflow: hidden; width: 100%; height: calc(-70px + 100vh)"
+      >
         <ul class="nav pcoded-inner-navbar">
-          <li data-username="Table bootstrap datatable footable" class="nav-item">
+          <li
+            data-username="Table bootstrap datatable footable"
+            class="nav-item"
+          >
             <a routerLink="/home" class="nav-link">
-              <span class="pcoded-micon"><i class="feather icon-server"></i></span>
+              <span class="pcoded-micon"
+                ><i class="feather icon-server"></i
+              ></span>
               <span class="pcoded-mtext">Home</span>
             </a>
           </li>
@@ -28,73 +40,97 @@
             <label>Navigation</label>
           </li>
 
-
-          <li *ngIf="visibiliyProjectManagment" data-username="Table bootstrap datatable footable" class="nav-item">
+          <li
+            *ngIf="visibiliyProjectManagment"
+            data-username="Table bootstrap datatable footable"
+            class="nav-item"
+          >
             <a routerLink="projects" class="nav-link">
-              <span class="pcoded-micon"><i class="feather icon-server"></i></span>
+              <span class="pcoded-micon"
+                ><i class="feather icon-server"></i
+              ></span>
               <span class="pcoded-mtext">Projects</span>
             </a>
           </li>
-          <li *ngIf="visibiliyTaskManagment" data-username="Table bootstrap datatable footable" class="nav-item">
+          <li
+            *ngIf="visibiliyTaskManagment"
+            data-username="Table bootstrap datatable footable"
+            class="nav-item"
+          >
             <a routerLink="tasks" class="nav-link">
-              <span class="pcoded-micon"><i class="feather icon-server"></i></span>
+              <span class="pcoded-micon"
+                ><i class="feather icon-server"></i
+              ></span>
               <span class="pcoded-mtext">Tasks</span>
             </a>
           </li>
 
-          <li *ngIf="visibiliyPayrollManagment" data-username="Table bootstrap datatable footable" class="nav-item">
+          <li
+            *ngIf="visibiliyPayrollManagment"
+            data-username="Table bootstrap datatable footable"
+            class="nav-item"
+          >
             <a routerLink="payroll" class="nav-link">
-              <span class="pcoded-micon"><i class="feather icon-server"></i></span>
+              <span class="pcoded-micon"
+                ><i class="feather icon-server"></i
+              ></span>
               <span class="pcoded-mtext">Payroll</span>
             </a>
           </li>
-          <li *ngIf="visibiliyPayrollManagment" data-username="Table bootstrap datatable footable" class="nav-item">
+          <li
+            *ngIf="visibiliyPayrollManagment"
+            data-username="Table bootstrap datatable footable"
+            class="nav-item"
+          >
             <a routerLink="payroll/payslip" class="nav-link">
-              <span class="pcoded-micon"><i class="feather icon-server"></i></span>
+              <span class="pcoded-micon"
+                ><i class="feather icon-server"></i
+              ></span>
               <span class="pcoded-mtext">Payslip</span>
             </a>
           </li>
-          <li *ngIf="visibiliyConfigManagment" data-username="Table bootstrap datatable footable" class="nav-item">
+          <li
+            *ngIf="visibiliyConfigManagment"
+            data-username="Table bootstrap datatable footable"
+            class="nav-item"
+          >
             <a routerLink="config" class="nav-link">
-              <span class="pcoded-micon"><i class="feather icon-server"></i></span>
+              <span class="pcoded-micon"
+                ><i class="feather icon-server"></i
+              ></span>
               <span class="pcoded-mtext">Configuration</span>
             </a>
           </li>
 
-
-
-          <li *ngIf="visibiliyHolidayManagment" data-username="Table bootstrap datatable footable" class="nav-item">
+          <li
+            *ngIf="visibiliyHolidayManagment"
+            data-username="Table bootstrap datatable footable"
+            class="nav-item"
+          >
             <a routerLink="holiday" class="nav-link">
-              <span class="pcoded-micon"><i class="feather icon-server"></i></span>
+              <span class="pcoded-micon"
+                ><i class="feather icon-server"></i
+              ></span>
               <span class="pcoded-mtext">Holiday</span>
             </a>
           </li>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-          <li *ngIf="visibiliyEmployeeManagment" class="nav-item pcoded-hasmenu" (click)="toggleDropdownEmployee()">
+          <li
+            *ngIf="visibiliyEmployeeManagment"
+            class="nav-item pcoded-hasmenu"
+            (click)="toggleDropdownEmployee()"
+          >
             <a class="nav-item dropdown-toggle">
-              <span class="pcoded-micon"><i class="feather icon-server"></i></span> Employee Management
-
+              <span class="pcoded-micon"
+                ><i class="feather icon-server"></i
+              ></span>
+              Employee Management
             </a>
-            <ul class="nav-dropdown" [style.display]="EmployeeManagment ? 'block' : 'none'" style="width: 250px">
+            <ul
+              class="nav-dropdown"
+              [style.display]="EmployeeManagment ? 'block' : 'none'"
+              style="width: 250px"
+            >
               <li *ngIf="displayEmployeeList" class="nav-item">
                 <a class="nav-link" routerLink="users/">
                   <span> &nbsp; &nbsp;Employees</span>
@@ -108,18 +144,22 @@
             </ul>
           </li>
 
-
-
-
-
-
-
-          <li *ngIf="visibiliyRoleManagment" class="nav-item pcoded-hasmenu" (click)="toggleDropdownRole()">
+          <li
+            *ngIf="visibiliyRoleManagment"
+            class="nav-item pcoded-hasmenu"
+            (click)="toggleDropdownRole()"
+          >
             <a class="nav-item dropdown-toggle">
-              <span class="pcoded-micon"><i class="feather icon-server"></i></span> Role Management
-
+              <span class="pcoded-micon"
+                ><i class="feather icon-server"></i
+              ></span>
+              Role Management
             </a>
-            <ul class="nav-dropdown" [style.display]="roleManagment ? 'block' : 'none'" style="width: 250px">
+            <ul
+              class="nav-dropdown"
+              [style.display]="roleManagment ? 'block' : 'none'"
+              style="width: 250px"
+            >
               <li *ngIf="displayRoleList" class="nav-item">
                 <a class="nav-link" routerLink="roles/">
                   <span> &nbsp; &nbsp;Roles</span>
@@ -132,43 +172,28 @@
               </li>
             </ul>
           </li>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-          <li *ngIf="visibiliyAttendanceManagment" class="nav-item pcoded-hasmenu" (click)="toggleDropdownAttendance()">
+          <li
+            *ngIf="visibiliyAttendanceManagment"
+            class="nav-item pcoded-hasmenu"
+            (click)="toggleDropdownAttendance()"
+          >
             <a class="nav-item dropdown-toggle">
-              <span class="pcoded-micon"><i class="feather icon-server"></i></span> Attendances Management
-
+              <span class="pcoded-micon"
+                ><i class="feather icon-server"></i
+              ></span>
+              Attendances Management
             </a>
-            <ul class="nav-dropdown" [style.display]="AttendanceManagment ? 'block' : 'none'" style="width: 250px">
-              <li *ngIf="displayAttendanceList" class="nav-item">
-                <a class="nav-link" routerLink="attendance/ListAttendance">
-                  <span> &nbsp; &nbsp;Attendances</span>
-                </a>
-              </li>
-
+            <ul
+              class="nav-dropdown"
+              [style.display]="AttendanceManagment ? 'block' : 'none'"
+              style="width: 250px"
+            >
               <li *ngIf="displayAttendanceUpdate" class="nav-item">
                 <a class="nav-link" routerLink="attendance/updateAttendance">
                   <span> &nbsp; &nbsp;Attendance Sheet</span>
                 </a>
               </li>
 
-              <li *ngIf="displayAttendanceAdd" class="nav-item">
-                <a class="nav-link" routerLink="attendance/addAttendance">
-                  <span> &nbsp; &nbsp;Update Attendance</span>
-                </a>
-              </li>
               <li *ngIf="displayAttendanceCreate" class="nav-item">
                 <a class="nav-link" routerLink="attendance/createAttendance">
                   <span> &nbsp; &nbsp;Create Attendance</span>
@@ -176,15 +201,11 @@
               </li>
             </ul>
           </li>
-
-
-
-
-
-
         </ul>
       </div>
-      <div class="slimScrollBar" style="
+      <div
+        class="slimScrollBar"
+        style="
           background: rgba(0, 0, 0, 0.5);
           width: 5px;
           position: absolute;
@@ -195,8 +216,11 @@
           z-index: 99;
           right: 1px;
           height: 634.318px;
-        "></div>
-      <div class="slimScrollRail" style="
+        "
+      ></div>
+      <div
+        class="slimScrollRail"
+        style="
           width: 5px;
           height: 100%;
           position: absolute;
@@ -207,7 +231,8 @@
           opacity: 0.2;
           z-index: 90;
           right: 1px;
-        "></div>
+        "
+      ></div>
     </div>
   </div>
 </nav>

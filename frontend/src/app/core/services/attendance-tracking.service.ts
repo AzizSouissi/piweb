@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Observable, catchError, tap } from 'rxjs';
+import { Observable, Subject, catchError, tap } from 'rxjs';
 import { AttendanceRecord, ShiftType } from '../models/attendanceRecord';
 
 import {
@@ -21,13 +21,10 @@ export class AttendanceTrackingService {
   };
 
   constructor(private http: HttpClient) {}
-<<<<<<< Updated upstream
-=======
   private _refreshNeeded$ = new Subject<void>();
   get refreshNeeded(): Observable<void> {
     return this._refreshNeeded$.asObservable();
   }
->>>>>>> Stashed changes
 
   create(
     id: string,

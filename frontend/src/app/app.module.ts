@@ -31,13 +31,8 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { ProfileComponent } from './modules/profile/profile.component';
 import { ConfigManagementModule } from './modules/config-management/config-management.module';
 import { PayrollManagementModule } from './modules/payroll-management/payroll-management.module';
-<<<<<<< Updated upstream
-=======
-import { AllowanceModule } from './modules/allowance/allowance.module';
-import { SendcodeComponent } from './modules/sendcode/sendcode.component';
 import { ToastModule } from 'primeng/toast';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
->>>>>>> Stashed changes
 
 @NgModule({
   declarations: [
@@ -53,7 +48,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ProfileComponent,
   ],
   imports: [
-    ToastModule,
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
@@ -71,11 +65,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     HolidayManagementModule,
     TaskManagementModule,
     DragDropModule,
-<<<<<<< Updated upstream
-=======
-    AllowanceModule,
+    ToastModule,
     BrowserAnimationsModule,
->>>>>>> Stashed changes
   ],
   providers: [
     provideClientHydration(),
