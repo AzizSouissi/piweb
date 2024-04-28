@@ -45,15 +45,14 @@ export class ProjectManagementService {
     });
   }
 
-  async update(projectId: string, updateProjectDto: Project) {
-    const { usersIds, ...rest } = updateProjectDto;
+  async update(projectId: string, updateProjectDto: Project): Promise<Project> {
+    const { usersIds, id = projectId, ...rest } = updateProjectDto;
     console.log(usersIds);
 
     // Check if users is defined before mapping over it
     const usersConnect = usersIds
       ? usersIds.map((userId) => ({ id: userId.toString() }))
       : [];
-
     return await this.prisma.project.update({
       where: { id: projectId }, // Provide the project ID to identify the project to update
       data: {
@@ -64,6 +63,13 @@ export class ProjectManagementService {
       },
       select: {
         id: true,
+        name: true,
+        description: true,
+        usersIds: true,
+        leader: true,
+        startDate: true,
+        endDate: true,
+        projectStatus: true,
       },
     });
   }

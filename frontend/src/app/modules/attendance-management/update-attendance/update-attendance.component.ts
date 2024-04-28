@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AttendanceTrackingService } from '../../../core/services/attendance-tracking.service';
 import { User } from '../../../core/models/User';
 import {
@@ -7,14 +7,16 @@ import {
   Status,
 } from '../../../core/models/attendanceRecord';
 import { CreateAttendanceTrackingDto } from '../../../core/models/Dto/CreateAttendanceTrackingDto';
-import { interval, switchMap } from 'rxjs';
+
+import { Subscription, interval, switchMap } from 'rxjs';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-update-attendance',
   templateUrl: './update-attendance.component.html',
   styleUrls: ['./update-attendance.component.css'],
 })
-export class UpdateAttendanceComponent implements OnInit {
+export class UpdateAttendanceComponent implements OnInit, OnDestroy {
   monthData: MonthData[] = [];
   users: User[] = [];
   daysInMonth: number[] = [];
@@ -25,19 +27,43 @@ export class UpdateAttendanceComponent implements OnInit {
   isModalOpened: boolean = false;
   status!: string;
   selectedDuration!: ShiftType;
+  private refreshSubscription: Subscription;
 
-  constructor(private attendanceService: AttendanceTrackingService) {}
+  constructor(
+    private attendanceService: AttendanceTrackingService,
+    private messageService: MessageService
+  ) {
+    this.refreshSubscription = this.attendanceService.refreshNeeded.subscribe(
+      () => {
+        this.loadAttendanceRecords();
+      }
+    );
+  }
+  ngOnDestroy(): void {
+    this.refreshSubscription.unsubscribe();
+  }
 
   ngOnInit() {
     this.generateMonthData(this.selectedDate);
-    this.attendanceService.findAllUsers().subscribe({
-      next: (data: User[]) => {
-        console.log(data);
-        this.users = data;
-      },
-      error: (error) => {
-        console.error('There was an error!', error);
-      },
+    this.loadAttendanceRecords();
+  }
+  showWarningToast(message: string): void {
+    this.messageService.add({
+      severity: 'warn',
+      summary: 'Warning',
+      detail: message,
+      life: 5000,
+      styleClass: 'custom-toast',
+    });
+  }
+
+  showSuccessToast(message: string): void {
+    this.messageService.add({
+      severity: 'success',
+      summary: 'Success',
+      detail: message,
+      life: 5000,
+      styleClass: 'custom-toast',
     });
   }
   choose(i: number) {
@@ -54,6 +80,17 @@ export class UpdateAttendanceComponent implements OnInit {
     } else {
       this.status = Status.ABSENT;
     }
+  }
+  loadAttendanceRecords() {
+    this.attendanceService.findAllUsers().subscribe({
+      next: (data: User[]) => {
+        console.log(data);
+        this.users = data;
+      },
+      error: (error) => {
+        console.error('There was an error!', error);
+      },
+    });
   }
   getStatusForDay(user: User, day: number, monthIndex: number): string {
     // Filter attendance records for the current month and user
@@ -171,11 +208,10 @@ export class UpdateAttendanceComponent implements OnInit {
               .update(attendanceRecord.id, updateDto)
               .subscribe(
                 (response) => {
-                  console.log(this.user, 'succesfully');
-                  // Optionally, perform any other actions upon successful update
+                  this.showSuccessToast('Attendance updated successfully!');
                 },
                 (error) => {
-                  console.error('Error updating attendance record:', error);
+                  this.showWarningToast('Failed to update attendance.');
                 }
               );
           } else if (attendanceRecord && this.status == 'ABSENT') {
@@ -191,11 +227,10 @@ export class UpdateAttendanceComponent implements OnInit {
               .update(attendanceRecord.id, updateDto)
               .subscribe(
                 (response) => {
-                  console.log(this.user, 'succesfully');
-                  // Optionally, perform any other actions upon successful update
+                  this.showSuccessToast('Attendance updated successfully!');
                 },
                 (error) => {
-                  console.error('Error updating attendance record:', error);
+                  this.showWarningToast('Failed to update attendance.');
                 }
               );
           } else {
@@ -211,20 +246,16 @@ export class UpdateAttendanceComponent implements OnInit {
               .createAttendance(createDto.userId, createDto)
               .subscribe(
                 (response) => {
-                  console.log(
-                    'Attendance record created successfully:',
-                    response
-                  );
-                  // Optionally, perform any other actions upon successful creation
+                  this.showSuccessToast('Attendance updated successfully!');
                 },
                 (error) => {
-                  console.error('Error creating attendance record:', error);
+                  this.showWarningToast('Failed to update attendance.');
                 }
               );
           }
         },
         (error) => {
-          console.error('Error fetching attendance record:', error);
+          this.showWarningToast(error);
         }
       );
   }

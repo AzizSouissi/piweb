@@ -7,6 +7,19 @@ import {
 
 import { ProjectManagementService } from '../../../core/services/projectManagement.service'; // Assuming ProjectManagementService is imported
 import { Project, ProjectStatus } from '../../../core/models/project';
+import {
+  ProjectsState,
+  ProjectsStateEnum,
+} from '../../../core/state/project.reducers';
+import Swal from 'sweetalert2';
+import {
+  GetAllProjectsAction,
+  NewProjectAction,
+  ProjectsActionTypes,
+  UpdateProjectAction,
+} from '../../../core/state/project.actions';
+import { Store } from '@ngrx/store';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-ListProjects',
@@ -22,28 +35,30 @@ export class ListProjectsComponent implements OnInit {
   numProjectsDone!: number;
   numProjectsFinished!: number;
 
-  constructor(private projectService: ProjectManagementService) {}
+  ////////////// State Management Attributes //////////////////////////////
+
+  state!: ProjectsState;
+  readonly ProjectsActionTypes = ProjectsActionTypes;
+  readonly ProjectsStateEnum = ProjectsStateEnum;
+
+  //////////////////////////////////////////////////////////////////////////
+
+  constructor(
+    private projectService: ProjectManagementService,
+    private store: Store<any>
+  ) {}
+
   ngOnInit() {
-    this.projectService.getAllProjects().subscribe((allProjects) => {
-      this.projects = allProjects;
-      this.todo = this.projects.filter(
-        (project) => project.projectStatus === 'ON_HOLD'
-      );
-      this.done = this.projects.filter(
-        (project) => project.projectStatus === 'RUNNING'
-      );
-      this.finished = this.projects.filter(
-        (project) => project.projectStatus === 'FINISHED'
-      );
-      this.numProjectsTodo = this.todo.length;
-      this.numProjectsDone = this.done.length;
-      this.numProjectsFinished = this.finished.length;
-    });
+    this.store.dispatch(new NewProjectAction({}));
+    this.subscribeToStateChanges();
+    this.onGetAllProjects();
   }
+
   handleDrop(event: CdkDragDrop<Project[]>, newStatus: string) {
     const newK = this.stringToProjectStatus(newStatus);
     this.drop(event, newK);
   }
+
   stringToProjectStatus(statusString: string): ProjectStatus {
     switch (statusString) {
       case 'ON_HOLD':
@@ -56,8 +71,45 @@ export class ListProjectsComponent implements OnInit {
         throw new Error(`Invalid project status: ${statusString}`);
     }
   }
+
+  /////////////////////// Dispatch services /////////////////////////////////////////////////
+
+  onGetAllProjects() {
+    this.store.dispatch(new GetAllProjectsAction({}));
+  }
+
+  private subscribeToStateChanges(): void {
+    this.store.select('projectState').subscribe((state) => {
+      this.state = state;
+      if (this.state.dataState === ProjectsStateEnum.LOADED) {
+        this.updateProjectLists();
+      }
+      if (this.state?.dataState === ProjectsStateEnum.NEW) {
+        // this.initializeForm();
+      } else if (this.state?.dataState === ProjectsStateEnum.ERROR) {
+        this.showMessage(ProjectsStateEnum.ERROR);
+      } else if (this.state?.dataState === ProjectsStateEnum.UPDATED) {
+        this.showMessage(ProjectsStateEnum.UPDATED);
+        this.store.dispatch(new NewProjectAction({}));
+      } else if (this.state?.dataState === ProjectsStateEnum.DELETED) {
+        this.showMessage(ProjectsStateEnum.DELETED);
+        this.store.dispatch(new NewProjectAction({}));
+      } else if (this.state?.dataState === ProjectsStateEnum.LOADED) {
+        this.showMessage(ProjectsStateEnum.LOADED);
+        this.store.dispatch(new NewProjectAction({}));
+      }
+    });
+  }
+  updateProjectLists() {
+    this.todo = this.state.todo;
+    this.done = this.state.done;
+    this.finished = this.state.finished;
+    this.numProjectsTodo = this.state.numProjectsTodo;
+    this.numProjectsDone = this.state.numProjectsDone;
+    this.numProjectsFinished = this.state.numProjectsFinished;
+  }
+
   drop(event: CdkDragDrop<Project[]>, newStatus: ProjectStatus) {
-    console.log('jjznakjznkajznza', newStatus);
     if (event.previousContainer === event.container) {
       moveItemInArray(
         event.container.data,
@@ -68,9 +120,7 @@ export class ListProjectsComponent implements OnInit {
       const movedProject: Project =
         event.previousContainer.data[event.previousIndex];
       if (movedProject && movedProject.id) {
-        console.log('id ta3 il project', movedProject.id);
-        movedProject.projectStatus = newStatus;
-        const updateDto: Project = {
+        const updatedProject = {
           name: movedProject.name,
           description: movedProject.description,
           projectStatus: newStatus,
@@ -79,21 +129,66 @@ export class ListProjectsComponent implements OnInit {
           startDate: movedProject.startDate,
           endDate: movedProject.endDate,
         };
-        this.projectService
-          .updateProject(movedProject.id, updateDto)
-          .subscribe(() => {
-            transferArrayItem(
-              event.previousContainer.data,
-              event.container.data,
-              event.previousIndex,
-              event.currentIndex
-            );
-            console.log('successfully');
-            this.ngOnInit();
-          });
+
+        // Dispatch action to update project status
+        if (updatedProject) {
+          this.store.dispatch(
+            new UpdateProjectAction({
+              id: movedProject.id,
+              project: updatedProject,
+            })
+          );
+        }
+        transferArrayItem(
+          event.previousContainer.data,
+          event.container.data,
+          event.previousIndex,
+          event.currentIndex
+        );
       } else {
-        console.error('Error: Project or project id is undefined');
+        this.showMessage(ProjectsStateEnum.ERROR);
       }
     }
+  }
+
+  ///////////////////////////////////////////////////////////////////////////////////////
+
+  showMessage(dataState: ProjectsStateEnum, message?: string) {
+    let msg = '';
+    let type = 'success';
+
+    switch (dataState) {
+      case ProjectsStateEnum.LOADED:
+        msg = message || 'Project added successfully!';
+        break;
+      case ProjectsStateEnum.ERROR:
+        msg = message || 'An error occurred!';
+        type = 'error';
+        break;
+      case ProjectsStateEnum.UPDATED:
+        msg = message || 'Project updated successfully!';
+        break;
+      case ProjectsStateEnum.NEW:
+        msg = message || 'Operation successful!';
+        break;
+      case ProjectsStateEnum.DELETED:
+        msg = message || 'Project deleted successfully!';
+        break;
+      default:
+        break;
+    }
+
+    const toast: any = Swal.mixin({
+      toast: true,
+      position: 'top',
+      showConfirmButton: false,
+      timer: 3000,
+      customClass: { container: 'toast' },
+    });
+    toast.fire({
+      icon: type,
+      title: msg,
+      padding: '10px 20px',
+    });
   }
 }

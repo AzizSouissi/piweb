@@ -12,7 +12,8 @@ import { ProjectManagementService } from './project-management.service';
 import { CreateProjectManagementDto } from './dto/create-project-management.dto';
 import { UpdateProjectManagementDto } from './dto/update-project-management.dto';
 import { Project } from '@prisma/client';
-
+import { Public } from 'src/auth/common/decorators/public.decorator';
+@Public()
 @Controller('project-management')
 export class ProjectManagementController {
   constructor(
@@ -35,7 +36,10 @@ export class ProjectManagementController {
   }
 
   @Put(':id')
-  update(@Param('id') id: string, @Body() updateProjectManagementDto: Project) {
+  update(
+    @Param('id') id: string,
+    @Body() updateProjectManagementDto: Project,
+  ): Promise<Project> {
     return this.projectManagementService.update(id, updateProjectManagementDto);
   }
 

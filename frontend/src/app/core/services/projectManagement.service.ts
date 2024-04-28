@@ -23,7 +23,7 @@ export class ProjectManagementService {
     return this.http.get<any>(`${this.URL}${id}`);
   }
 
-  updateProject(id: string, updateProjectDto: Project): Observable<any> {
+  updateProject(id: string, updateProjectDto: Project): Observable<Project> {
     return this.http.put<any>(`${this.URL}/${id}`, updateProjectDto);
   }
 
