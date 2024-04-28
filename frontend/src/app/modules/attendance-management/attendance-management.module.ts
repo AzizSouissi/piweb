@@ -15,7 +15,11 @@ import { AttendanceTrackingService } from '../../core/services/attendance-tracki
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { MatPaginator } from '@angular/material/paginator';
-import { MatTableModule } from '@angular/material/table';
+import {
+  MatHeaderCell,
+  MatHeaderRow,
+  MatTableModule,
+} from '@angular/material/table';
 
 @NgModule({
   declarations: [
@@ -33,6 +37,8 @@ import { MatTableModule } from '@angular/material/table';
     ToastModule,
     MatPaginator,
     MatTableModule,
+    MatHeaderCell,
+    MatHeaderRow,
   ],
   providers: [AttendanceTrackingService, MessageService],
 })

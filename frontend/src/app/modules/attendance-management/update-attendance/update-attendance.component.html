@@ -117,6 +117,7 @@
                         >-</span
                       >
                       }
+
                       <div class="modal fade" id="myModal">
                         <div class="modal-dialog">
                           <div class="modal-content">
@@ -149,7 +150,6 @@
                               />
                               <label for="halfDayRadio">Half Day</label>
                             </div>
-
                             <div>
                               <input
                                 type="radio"
@@ -170,7 +170,6 @@
                               <label for="fullDayRadio">Full Day</label>
                             </div>
 
-                            <!-- Modal footer -->
                             <div class="modal-footer">
                               <button
                                 type="button"
@@ -179,10 +178,12 @@
                               >
                                 Close
                               </button>
+
                               <button
                                 type="button"
                                 class="btn btn-primary"
                                 (click)="handleUpdate(selectedDuration)"
+                                data-bs-dismiss="modal"
                               >
                                 Update
                               </button>
@@ -201,3 +202,4 @@
     </div>
   </div>
 </div>
+<p-toast></p-toast>

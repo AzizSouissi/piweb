@@ -71,6 +71,7 @@ export class ListProjectsComponent implements OnInit {
         console.log('id ta3 il project', movedProject.id);
         movedProject.projectStatus = newStatus;
         const updateDto: Project = {
+          id: movedProject.id,
           name: movedProject.name,
           description: movedProject.description,
           projectStatus: newStatus,
@@ -79,18 +80,16 @@ export class ListProjectsComponent implements OnInit {
           startDate: movedProject.startDate,
           endDate: movedProject.endDate,
         };
-        this.projectService
-          .updateProject(movedProject.id, updateDto)
-          .subscribe(() => {
-            transferArrayItem(
-              event.previousContainer.data,
-              event.container.data,
-              event.previousIndex,
-              event.currentIndex
-            );
-            console.log('successfully');
-            this.ngOnInit();
-          });
+        this.projectService.updateProject(updateDto).subscribe(() => {
+          transferArrayItem(
+            event.previousContainer.data,
+            event.container.data,
+            event.previousIndex,
+            event.currentIndex
+          );
+          console.log('successfully');
+          this.ngOnInit();
+        });
       } else {
         console.error('Error: Project or project id is undefined');
       }

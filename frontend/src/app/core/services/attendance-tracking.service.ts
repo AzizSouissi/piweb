@@ -58,18 +58,28 @@ export class AttendanceTrackingService {
     id: string,
     updateAttendanceTrackingDto: CreateAttendanceTrackingDto
   ): Observable<any> {
-    return this.http.put(
-      `${this.URL}/updateAttendance/${id}`,
-      updateAttendanceTrackingDto,
-      this.httpOptions
-    );
+    return this.http
+      .put(
+        `${this.URL}/updateAttendance/${id}`,
+        updateAttendanceTrackingDto,
+        this.httpOptions
+      )
+      .pipe(
+        tap(() => {
+          this._refreshNeeded$.next(); // Emit refresh event after creating a new attendance record
+        })
+      );
   }
   updateUserAndAttendance(
     userId: string,
     updateUserDto: User
   ): Observable<User> {
     const url = `${this.URL}/updateUser/${userId}`;
-    return this.http.put<User>(url, updateUserDto);
+    return this.http.put<User>(url, updateUserDto).pipe(
+      tap(() => {
+        this._refreshNeeded$.next(); // Emit refresh event after creating a new attendance record
+      })
+    );
   }
 
   remove(id: string): Observable<boolean> {
@@ -84,7 +94,13 @@ export class AttendanceTrackingService {
     updateDto: CreateAttendanceTrackingDto
   ): Observable<AttendanceRecord> {
     const url = `${this.URL}/${id}`;
-    return this.http.put<AttendanceRecord>(url, updateDto, this.httpOptions);
+    return this.http
+      .put<AttendanceRecord>(url, updateDto, this.httpOptions)
+      .pipe(
+        tap(() => {
+          this._refreshNeeded$.next(); // Emit refresh event after creating a new attendance record
+        })
+      );
   }
   findAllUsers(): Observable<User[]> {
     return this.http.get<User[]>(`${this.URL}/users`, this.httpOptions).pipe(
@@ -113,11 +129,17 @@ export class AttendanceTrackingService {
     userId: string,
     createAttendanceTrackingDto: CreateAttendanceTrackingDto
   ): Observable<any> {
-    return this.http.post<any>(
-      `${this.URL}/create/${userId}`,
-      createAttendanceTrackingDto,
-      this.httpOptions
-    );
+    return this.http
+      .post<any>(
+        `${this.URL}/create/${userId}`,
+        createAttendanceTrackingDto,
+        this.httpOptions
+      )
+      .pipe(
+        tap(() => {
+          this._refreshNeeded$.next(); // Emit refresh event after creating a new attendance record
+        })
+      );
   }
   getTotalHalfShiftDaysForUserInMonth(
     userId: string,
