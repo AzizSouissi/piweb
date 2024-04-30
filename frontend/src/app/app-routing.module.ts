@@ -12,12 +12,13 @@ import { HomeComponent } from './modules/home/home.component';
 import { ProfileComponent } from './modules/profile/profile.component';
 import { ConfigManagementModule } from './../app/modules/config-management/config-management.module';
 import { SendcodeComponent } from './modules/sendcode/sendcode.component';
-
+import { RecruitementAssistantComponent } from './modules/recruitement-assistant/recruitement-assistant.component';
 const routes: Routes = [
   { path: '', component: LoginComponent },
   { path: 'login', component: LoginComponent },
   {
-    path : 'sendcode', component : SendcodeComponent
+    path: 'sendcode',
+    component: SendcodeComponent,
   },
   {
     path: 'resetpassword',
@@ -97,9 +98,9 @@ const routes: Routes = [
       {
         path: 'allowance',
         loadChildren: () =>
-          import(
-            './../app/modules/allowance/allowance-routing.module'
-          ).then((m) => m.AllowanceRoutingModule),
+          import('./../app/modules/allowance/allowance-routing.module').then(
+            (m) => m.AllowanceRoutingModule
+          ),
       },
     ],
   },

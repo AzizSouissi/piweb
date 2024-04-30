@@ -61,7 +61,7 @@
             <tbody>
               <ng-container *ngFor="let employee of users">
                 <tr>
-                  <td class="employee-column">{{ employee.firstname }}</td>
+                  <td class="employee-column">{{ employee.firstname }} {{employee.lastname}}</td>
                   <ng-container *ngFor="let month of monthData">
                     <td *ngFor="let day of month.days">
                       @if (isWeekend(day)){
@@ -116,7 +116,7 @@
                         (click)="openModal(employee, day, '')"
                         >-</span
                       >
-                      } <<<<<<< HEAD ======= >>>>>>> Haythem_twilio
+                      }
                       <div class="modal fade" id="myModal">
                         <div class="modal-dialog">
                           <div class="modal-content">
@@ -149,7 +149,6 @@
                               />
                               <label for="halfDayRadio">Half Day</label>
                             </div>
-                            <<<<<<< HEAD ======= >>>>>>> Haythem_twilio
                             <div>
                               <input
                                 type="radio"
@@ -170,9 +169,6 @@
                               <label for="fullDayRadio">Full Day</label>
                             </div>
 
-                            <<<<<<< HEAD
-                            <!-- Modal footer -->
-                            ======= >>>>>>> Haythem_twilio
                             <div class="modal-footer">
                               <button
                                 type="button"
@@ -181,7 +177,7 @@
                               >
                                 Close
                               </button>
-                              <<<<<<< HEAD ======= >>>>>>> Haythem_twilio
+
                               <button
                                 type="button"
                                 class="btn btn-primary"

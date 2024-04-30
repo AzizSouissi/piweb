@@ -151,7 +151,6 @@ export class ListProjectsComponent implements OnInit {
     }
   }
 
-  ///////////////////////////////////////////////////////////////////////////////////////
 
   showMessage(dataState: ProjectsStateEnum, message?: string) {
     let msg = '';

@@ -5,7 +5,12 @@
         <div cdkDropListGroup *ngIf="state">
           <div class="example-container">
             <h2>To do ({{ state.numProjectsTodo }})</h2>
-
+            <p-toast
+              [showTransformOptions]="'translateY(100%)'"
+              [showTransitionOptions]="'1000ms'"
+              [hideTransitionOptions]="'1000ms'"
+              [showTransformOptions]="'translateX(100%)'"
+            ></p-toast>
             <div
               cdkDropList
               [cdkDropListData]="state.todo"
