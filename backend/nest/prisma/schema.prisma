@@ -49,9 +49,10 @@ model User {
 
   @@map("users")
 }
+
 model VerificationCode {
   id         String @id @default(auto()) @map("_id") @db.ObjectId
-  code      String
+  code       String
   email      String
   expiryDate String
 }
@@ -83,6 +84,24 @@ model PasswordResetToken {
   email      String
   expiryDate String
 }
+
+model Thread {
+  id       String    @id @default(auto()) @map("_id") @db.ObjectId
+  threadId String    @unique
+  messages Message[]
+}
+
+model Message {
+  id       String @id @default(auto()) @map("_id") @db.ObjectId
+  content  String
+  thread   Thread @relation(fields: [threadId], references: [threadId])
+  threadId String
+  role     String
+}
+ model Resume {
+  id       String @id @default(auto()) @map("_id") @db.ObjectId
+  url     String
+ }
 
 model AttendanceRecord {
   id            String     @id @default(auto()) @map("_id") @db.ObjectId

@@ -15,6 +15,7 @@ import { AllowancesModule } from './allowances/allowances.module';
 import { DeductionsModule } from './deductions/deductions.module';
 import { ConfigsModule } from './configs/configs.module';
 import { NotificationsModule } from './notifications/notifications.module';
+import { CvassistantModule } from './cvassistant/cvassistant.module';
 
 @Module({
   imports: [
@@ -34,6 +35,7 @@ import { NotificationsModule } from './notifications/notifications.module';
     ConfigsModule,
     ConfigsModule,
     NotificationsModule,
+    CvassistantModule,
   ],
   controllers: [AppController],
   providers: [AppService],
