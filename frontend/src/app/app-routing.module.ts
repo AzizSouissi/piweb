@@ -12,9 +12,10 @@ import { HomeComponent } from './modules/home/home.component';
 import { ProfileComponent } from './modules/profile/profile.component';
 import { ConfigManagementModule } from './../app/modules/config-management/config-management.module';
 import { SendcodeComponent } from './modules/sendcode/sendcode.component';
+import { WelcomeComponent } from './modules/welcome/welcome.component';
 
 const routes: Routes = [
-  { path: '', component: LoginComponent },
+  { path: '', component: WelcomeComponent },
   { path: 'login', component: LoginComponent },
   {
     path : 'sendcode', component : SendcodeComponent

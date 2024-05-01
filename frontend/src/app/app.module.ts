@@ -32,6 +32,7 @@ import { ProfileComponent } from './modules/profile/profile.component';
 import { ConfigManagementModule } from './modules/config-management/config-management.module';
 import { PayrollManagementModule } from './modules/payroll-management/payroll-management.module';
 import { SendcodeComponent } from './modules/sendcode/sendcode.component';
+import { WelcomeComponent } from './modules/welcome/welcome.component';
 
 
 @NgModule({
@@ -47,6 +48,7 @@ import { SendcodeComponent } from './modules/sendcode/sendcode.component';
     NotFoundComponent,
     ProfileComponent,
     SendcodeComponent,
+    WelcomeComponent,
   ],
   imports: [
     BrowserModule,
