@@ -47,7 +47,7 @@ export class UpdateConfigComponent implements OnInit {
       companyLogo: '',
     };
 
-    this.configService.updateConfig(updatedConfig).subscribe(
+    this.configService.updateConfig(this.config.id, updatedConfig).subscribe(
       () => {
         alert('Config updated successfully!');
       },
