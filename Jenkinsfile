@@ -10,7 +10,9 @@ pipeline {
                 }
             }
         }
-        
+        stage('Unit Test'){
+            
+        }
         stage('Build application') {
             steps {
                 dir('/var/lib/jenkins/workspace/PI-DEV-V0_Project-Management/frontend') {
