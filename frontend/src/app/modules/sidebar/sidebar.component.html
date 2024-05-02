@@ -27,7 +27,8 @@
                 ><i class="feather icon-server"></i
               ></span>
               <span class="pcoded-mtext">Dashboard</span>
-
+              </a>
+              </li>
           <li class="nav-item pcoded-menu-caption">
             <label>Navigation</label>
           </li>
@@ -83,7 +84,6 @@
             </a>
           </li>
 
-
           <li
             data-username="Table bootstrap datatable footable"
             class="nav-item"
@@ -101,9 +101,7 @@
             class="nav-item pcoded-hasmenu"
             (click)="toggleDropdownEmployee()"
           >
-
           <li *ngIf="visibiliyEmployeeManagment" class="nav-item pcoded-hasmenu" (click)="toggleDropdownEmployee()">
-
             <a class="nav-item dropdown-toggle">
               <span class="pcoded-micon"><i class="feather icon-server"></i></span>
               Employee Management
@@ -141,15 +139,12 @@
             </ul>
           </li>
 
-
           <li
             *ngIf="visibiliyAttendanceManagment"
             class="nav-item pcoded-hasmenu"
             (click)="toggleDropdownAttendance()"
           >
-
           <li *ngIf="visibiliyAttendanceManagment" class="nav-item pcoded-hasmenu" (click)="toggleDropdownAttendance()">
-
             <a class="nav-item dropdown-toggle">
               <span class="pcoded-micon"><i class="feather icon-server"></i></span>
               Attendances Management
