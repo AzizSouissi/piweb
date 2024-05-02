@@ -56,6 +56,7 @@
                         </div>
                       </th>
                       <th class="sort align-middle" data-sort="name">Name</th>
+                      <th class="sort align-middle" data-sort="name">Detail_department</th>
                       <th class="sort text-end align-middle pe-0" scope="col">
                         ACTION
                       </th>
@@ -76,7 +77,8 @@
                       </td>
 
                       <td class="align-middle name">{{ department?.name }}</td>
-                     
+                      <td class="align-middle name">{{ department?.Detail_department }}</td>
+
                       <td>
                         <button (click)="navigateToUpdate(department.id)" class="btn btn-success btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Edit" >
                           <i class="fa fa-edit"></i>

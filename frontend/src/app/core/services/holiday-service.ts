@@ -20,8 +20,6 @@ export class HolidayService {
   getAll():Observable<Holiday[]> { // Change method name
     return this.http.get<Holiday[]>(this.URL, this.httpOtions);
   }
-
-
   addHoliday( 
     createholidaydto: Holiday): Observable<Holiday> {
       return this.http.post<Holiday>(
@@ -30,6 +28,10 @@ export class HolidayService {
         this.httpOtions
       );
   }
+
+
+
+
 
   getHolidayById(id: String):Observable<Holiday | string >  { // Change method name
     return this.http.get<Holiday | string>(`${this.URL}/${id}`,this.httpOtions).pipe(
@@ -40,6 +42,10 @@ export class HolidayService {
     );
   }
 
+  
+  
+
+ 
 
   updateHoliday(    id: string,
     updateHolidayDto:Holiday
@@ -50,6 +56,8 @@ export class HolidayService {
       this.httpOtions
     );
   }
+
+
 
   deleteHoliday(id: string):Observable<boolean> { 
     return this.http.delete<boolean>(`${this.URL}/${id}`, this.httpOtions);

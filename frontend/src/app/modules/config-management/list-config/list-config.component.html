@@ -1,0 +1,47 @@
+<div class="pcoded-main-container">
+    <div class="pcoded-wrapper">
+        <div class="pcoded-content">
+            <div class="pcoded-inner-content">
+
+                <div class="main-body">
+                    <div class="page-wrapper">
+                        <!-- [ Main Content ] start -->
+                        <div class="row justify-content-center">
+                            <div class="col-lg-8">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h5> {{data[0].companyName}}</h5>
+                                        <button type="button" class="btn btn-success btn-sm float-right mr-2"
+                                            data-bs-toggle="modal" data-bs-target="#exampleModalupdate"
+                                            data-toggle="tooltip" data-placement="top" title="Edit">
+                                            <i class="fa fa-edit"></i>
+                                        </button>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-12 mb-4" *ngFor="let item of data; let i = index">
+                                                <div class="card custom-card">
+                                                    <div class="card-body">
+                                                        <p class="card-text">companyName: {{item.companyName}}</p>
+                                                        <p class="card-text">adress: {{item.address}}</p>
+                                                        <p class="card-text">Pay Day: {{item.payDay}}</p>
+                                                        <p class="card-text">delay before payement: {{item.delayBeforePayment}}</p>
+                                                        <p class="card-text">cnss affiliation: {{item.cnssAffiliation}}</p>
+                                                        <p class="card-text">cnss rate: {{item.cnssrate}}</p>
+                                                        <p class="card-text">css rate: {{item.cssrate}}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Input group -->
+                            </div>
+                        </div>
+                        <!-- [ Main Content ] end -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

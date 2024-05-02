@@ -5,7 +5,7 @@
         <div class="b-bg">
           <i class="feather icon-trending-up"></i>
         </div>
-        <span class="b-title">Datta Able</span>
+        <span class="b-title">HRMS</span>
       </a>
       <a class="mobile-menu" id="mobile-collapse" href="javascript:"
         ><span></span
@@ -25,48 +25,201 @@
         style="overflow: hidden; width: 100%; height: calc(-70px + 100vh)"
       >
         <ul class="nav pcoded-inner-navbar">
+          <li
+            data-username="Table bootstrap datatable footable"
+            class="nav-item"
+          >
+            <a routerLink="/home" class="nav-link">
+              <span class="pcoded-micon"
+                ><i class="feather icon-server"></i
+              ></span>
+              <span class="pcoded-mtext">Home</span>
+            </a>
+          </li>
           <li class="nav-item pcoded-menu-caption">
             <label>Navigation</label>
           </li>
+
           <li
-            data-username="dashboard Default Ecommerce CRM Analytics Crypto Project"
-            class="nav-item active"
+            *ngIf="visibiliyProjectManagment"
+            data-username="Table bootstrap datatable footable"
+            class="nav-item"
           >
-            <a href="index.html" class="nav-link"
-              ><span class="pcoded-micon"
-                ><i class="feather icon-home"></i></span
-              ><span class="pcoded-mtext">Dashboard</span></a
-            >
-          </li>
-          <li class="nav-item pcoded-menu-caption">
-            <label>UI Element</label>
+            <a routerLink="projects" class="nav-link">
+              <span class="pcoded-micon"
+                ><i class="feather icon-server"></i
+              ></span>
+              <span class="pcoded-mtext">Projects</span>
+            </a>
           </li>
           <li
-            data-username="basic components Button Alert Badges breadcrumb Paggination progress Tooltip popovers Carousel Cards Collapse Tabs pills Modal Grid System Typography Extra Shadows Embeds"
+            *ngIf="visibiliyTaskManagment"
+            data-username="Table bootstrap datatable footable"
+            class="nav-item"
+          >
+            <a routerLink="tasks" class="nav-link">
+              <span class="pcoded-micon"
+                ><i class="feather icon-server"></i
+              ></span>
+              <span class="pcoded-mtext">Tasks</span>
+            </a>
+          </li>
+
+          <li
+            *ngIf="visibiliyPayrollManagment"
+            data-username="Table bootstrap datatable footable"
+            class="nav-item"
+          >
+            <a routerLink="payroll" class="nav-link">
+              <span class="pcoded-micon"
+                ><i class="feather icon-server"></i
+              ></span>
+              <span class="pcoded-mtext">Payroll</span>
+            </a>
+          </li>
+          <li
+            *ngIf="visibiliyPayrollManagment"
+            data-username="Table bootstrap datatable footable"
+            class="nav-item"
+          >
+            <a routerLink="payroll/payslip" class="nav-link">
+              <span class="pcoded-micon"
+                ><i class="feather icon-server"></i
+              ></span>
+              <span class="pcoded-mtext">Payslip</span>
+            </a>
+          </li>
+          <li
+            *ngIf="visibiliyConfigManagment"
+            data-username="Table bootstrap datatable footable"
+            class="nav-item"
+          >
+            <a routerLink="config" class="nav-link">
+              <span class="pcoded-micon"
+                ><i class="feather icon-server"></i
+              ></span>
+              <span class="pcoded-mtext">Configuration</span>
+            </a>
+          </li>
+
+          <li
+            *ngIf="visibiliyHolidayManagment"
+            data-username="Table bootstrap datatable footable"
+            class="nav-item"
+          >
+            <a routerLink="holiday" class="nav-link">
+              <span class="pcoded-micon"
+                ><i class="feather icon-server"></i
+              ></span>
+              <span class="pcoded-mtext">Holiday</span>
+            </a>
+          </li>
+
+          <li
+          data-username="Table bootstrap datatable footable"
+          class="nav-item"
+        >
+          <a routerLink="department" class="nav-link">
+            <span class="pcoded-micon"
+              ><i class="feather icon-server"></i
+            ></span>
+            <span class="pcoded-mtext">Department</span>
+          </a>
+        </li>
+
+
+          <li
+            *ngIf="visibiliyEmployeeManagment"
             class="nav-item pcoded-hasmenu"
+            (click)="toggleDropdownEmployee()"
           >
-            <a href="javascript:" class="nav-link"
-              ><span class="pcoded-micon"><i class="feather icon-box"></i></span
-              ><span class="pcoded-mtext">Components</span></a
+            <a class="nav-item dropdown-toggle">
+              <span class="pcoded-micon"
+                ><i class="feather icon-server"></i
+              ></span>
+              Employee Management
+            </a>
+            <ul
+              class="nav-dropdown"
+              [style.display]="EmployeeManagment ? 'block' : 'none'"
+              style="width: 250px"
             >
-            <ul class="pcoded-submenu">
-              <li class="">
-                <a routerLink="holiday/">Holiday</a>
+              <li *ngIf="displayEmployeeList" class="nav-item">
+                <a class="nav-link" routerLink="users/">
+                  <span> &nbsp; &nbsp;Employees</span>
+                </a>
               </li>
-
-              <li class="">
-                <a routerLink="department/">Department</a>
+              <li *ngIf="displayEmployeeAdd" class="nav-item">
+                <a class="nav-link" routerLink="users/add">
+                  <span> &nbsp; &nbsp;Add Employees</span>
+                </a>
               </li>
-             
             </ul>
-
-
           </li>
-       
 
-         
+          <li
+            *ngIf="visibiliyRoleManagment"
+            class="nav-item pcoded-hasmenu"
+            (click)="toggleDropdownRole()"
+          >
+            <a class="nav-item dropdown-toggle">
+              <span class="pcoded-micon"
+                ><i class="feather icon-server"></i
+              ></span>
+              Role Management
+            </a>
+            <ul
+              class="nav-dropdown"
+              [style.display]="roleManagment ? 'block' : 'none'"
+              style="width: 250px"
+            >
+              <li *ngIf="displayRoleList" class="nav-item">
+                <a class="nav-link" routerLink="roles/">
+                  <span> &nbsp; &nbsp;Roles</span>
+                </a>
+              </li>
+              <li *ngIf="displayRoleAdd" class="nav-item">
+                <a class="nav-link" routerLink="roles/add">
+                  <span> &nbsp; &nbsp;Add Roles</span>
+                </a>
+              </li>
+            </ul>
+          </li>
 
+          <li
+            *ngIf="visibiliyAttendanceManagment"
+            class="nav-item pcoded-hasmenu"
+            (click)="toggleDropdownAttendance()"
+          >
+            <a class="nav-item dropdown-toggle">
+              <span class="pcoded-micon"
+                ><i class="feather icon-server"></i
+              ></span>
+              Attendances Management
+            </a>
+            <ul
+              class="nav-dropdown"
+              [style.display]="AttendanceManagment ? 'block' : 'none'"
+              style="width: 250px"
+            >
+              <li *ngIf="displayAttendanceUpdate" class="nav-item">
+                <a class="nav-link" routerLink="attendance/updateAttendance">
+                  <span> &nbsp; &nbsp;Attendance Sheet</span>
+                </a>
+              </li>
 
+              <li *ngIf="displayAttendanceAdd" class="nav-item">
+                <a class="nav-link" routerLink="attendance/addAttendance">
+                  <span> &nbsp; &nbsp;Update Attendance</span>
+                </a>
+              </li>
+              <li *ngIf="displayAttendanceCreate" class="nav-item">
+                <a class="nav-link" routerLink="attendance/createAttendance">
+                  <span> &nbsp; &nbsp;Create Attendance</span>
+                </a>
+              </li>
+            </ul>
+          </li>
         </ul>
       </div>
       <div
