@@ -40,6 +40,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
+import { RecruitementAssistantService } from './core/services/recruitementAssistant.service';
+import { RecruitementAssistantComponent } from './modules/recruitement-assistant/recruitement-assistant.component';
 
 @NgModule({
   declarations: [
@@ -54,6 +56,7 @@ import { StoreModule } from '@ngrx/store';
     NotFoundComponent,
     ProfileComponent,
     SendcodeComponent,
+    RecruitementAssistantComponent,
   ],
   imports: [
     MatDialogModule,
@@ -94,6 +97,7 @@ import { StoreModule } from '@ngrx/store';
       multi: true,
     },
     DatePipe,
+    RecruitementAssistantService,
   ],
   bootstrap: [AppComponent],
 })
