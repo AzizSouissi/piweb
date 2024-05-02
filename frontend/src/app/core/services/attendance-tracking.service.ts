@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Observable, Subject, catchError, tap } from 'rxjs';
+import { Observable, catchError, tap } from 'rxjs';
 import { AttendanceRecord, ShiftType } from '../models/attendanceRecord';
 
 import {
@@ -21,26 +21,16 @@ export class AttendanceTrackingService {
   };
 
   constructor(private http: HttpClient) {}
-  private _refreshNeeded$ = new Subject<void>();
-  get refreshNeeded(): Observable<void> {
-    return this._refreshNeeded$.asObservable();
-  }
 
   create(
     id: string,
     createAttendanceTrackingDto: CreateAttendanceTrackingDto
-  ): Observable<any> {
-    return this.http
-      .post<any>(
-        `${this.URL}/${id}`,
-        createAttendanceTrackingDto,
-        this.httpOptions
-      )
-      .pipe(
-        tap(() => {
-          this._refreshNeeded$.next(); // Emit refresh event after creating a new attendance record
-        })
-      );
+  ): Observable<AttendanceRecord | any> {
+    return this.http.post<AttendanceRecord>(
+      `${this.URL}/${id}`,
+      createAttendanceTrackingDto,
+      this.httpOptions
+    );
   }
 
   findAll(): Observable<AttendanceRecord[]> {
@@ -58,28 +48,18 @@ export class AttendanceTrackingService {
     id: string,
     updateAttendanceTrackingDto: CreateAttendanceTrackingDto
   ): Observable<any> {
-    return this.http
-      .put(
-        `${this.URL}/updateAttendance/${id}`,
-        updateAttendanceTrackingDto,
-        this.httpOptions
-      )
-      .pipe(
-        tap(() => {
-          this._refreshNeeded$.next(); // Emit refresh event after creating a new attendance record
-        })
-      );
+    return this.http.put(
+      `${this.URL}/updateAttendance/${id}`,
+      updateAttendanceTrackingDto,
+      this.httpOptions
+    );
   }
   updateUserAndAttendance(
     userId: string,
     updateUserDto: User
   ): Observable<User> {
     const url = `${this.URL}/updateUser/${userId}`;
-    return this.http.put<User>(url, updateUserDto).pipe(
-      tap(() => {
-        this._refreshNeeded$.next(); // Emit refresh event after creating a new attendance record
-      })
-    );
+    return this.http.put<User>(url, updateUserDto);
   }
 
   remove(id: string): Observable<boolean> {
@@ -94,13 +74,7 @@ export class AttendanceTrackingService {
     updateDto: CreateAttendanceTrackingDto
   ): Observable<AttendanceRecord> {
     const url = `${this.URL}/${id}`;
-    return this.http
-      .put<AttendanceRecord>(url, updateDto, this.httpOptions)
-      .pipe(
-        tap(() => {
-          this._refreshNeeded$.next(); // Emit refresh event after creating a new attendance record
-        })
-      );
+    return this.http.put<AttendanceRecord>(url, updateDto, this.httpOptions);
   }
   findAllUsers(): Observable<User[]> {
     return this.http.get<User[]>(`${this.URL}/users`, this.httpOptions).pipe(
@@ -129,17 +103,11 @@ export class AttendanceTrackingService {
     userId: string,
     createAttendanceTrackingDto: CreateAttendanceTrackingDto
   ): Observable<any> {
-    return this.http
-      .post<any>(
-        `${this.URL}/create/${userId}`,
-        createAttendanceTrackingDto,
-        this.httpOptions
-      )
-      .pipe(
-        tap(() => {
-          this._refreshNeeded$.next();
-        })
-      );
+    return this.http.post<any>(
+      `${this.URL}/create/${userId}`,
+      createAttendanceTrackingDto,
+      this.httpOptions
+    );
   }
   getTotalHalfShiftDaysForUserInMonth(
     userId: string,

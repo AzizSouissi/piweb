@@ -3,7 +3,9 @@ import { DepartmentManagementService } from './department-management.service';
 import { CreateDepartmentManagementDto } from './dto/create-department-management.dto';
 import { UpdateDepartmentManagementDto } from './dto/update-department-management.dto';
 import { Department } from '@prisma/client';
+import { Public } from 'src/auth/common/decorators';
 
+@Public()
 @Controller('department-management')
 export class DepartmentManagementController {
   constructor(private readonly departmentManagementService: DepartmentManagementService) {}

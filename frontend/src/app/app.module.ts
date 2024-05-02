@@ -5,6 +5,7 @@ import {
 } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
+import { LoginComponent } from './modules/login/login.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
@@ -20,7 +21,6 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { DatePipe } from '@angular/common';
 import { HolidayManagementModule } from './modules/holiday-management/holiday-management.module';
-import { DepartmentManagementModule } from './modules/department-management/department-management.module';
 import { SidebarComponent } from './modules/sidebar/sidebar.component';
 import { HomeComponent } from './modules/home/home.component';
 import { NavbarComponent } from './modules/navbar/navbar.component';
@@ -33,15 +33,8 @@ import { ConfigManagementModule } from './modules/config-management/config-manag
 import { PayrollManagementModule } from './modules/payroll-management/payroll-management.module';
 import { AllowanceModule } from './modules/allowance/allowance.module';
 import { SendcodeComponent } from './modules/sendcode/sendcode.component';
-import { MatDialogModule } from '@angular/material/dialog';
-import { ToastModule } from 'primeng/toast';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { EffectsModule } from '@ngrx/effects';
-import { StoreModule } from '@ngrx/store';
-import { RecruitementAssistantService } from './core/services/recruitementAssistant.service';
-import { RecruitementAssistantComponent } from './modules/recruitement-assistant/recruitement-assistant.component';
-import { LoginComponent } from './modules/login/login.component';
+import { DepartmentManagementModule } from './modules/department-management/department-management.module';
+
 
 @NgModule({
   declarations: [
@@ -56,14 +49,10 @@ import { LoginComponent } from './modules/login/login.component';
     NotFoundComponent,
     ProfileComponent,
     SendcodeComponent,
-    RecruitementAssistantComponent,
   ],
   imports: [
-    MatDialogModule,
     BrowserModule,
     AppRoutingModule,
-    HolidayManagementModule, 
-    DepartmentManagementModule,
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
@@ -80,14 +69,8 @@ import { LoginComponent } from './modules/login/login.component';
     TaskManagementModule,
     DragDropModule,
     AllowanceModule,
-    ToastModule,
-    BrowserAnimationsModule,
-    StoreModule.forRoot({}),
-    StoreDevtoolsModule.instrument({
-      maxAge: 25, 
-      autoPause: true, 
-    }),
-    EffectsModule.forRoot([]),
+    DepartmentManagementModule
+
   ],
   providers: [
     provideClientHydration(),
@@ -98,7 +81,6 @@ import { LoginComponent } from './modules/login/login.component';
       multi: true,
     },
     DatePipe,
-    RecruitementAssistantService,
   ],
   bootstrap: [AppComponent],
 })

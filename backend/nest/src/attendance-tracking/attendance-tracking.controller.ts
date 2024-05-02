@@ -217,17 +217,20 @@ export class AttendanceTrackingController {
           'Hey ' +
           user.firstname +
           "! It seems like you haven't logged your attendance for today yet. Could you please take a moment to do so?";
+        console.log('asaa' + number);
         // User didn't create attendance today, send a reminder message
         this.sendReminderMessage(number);
       }
     }
   }
   private sendReminderMessage(number) {
+    console.log('bonjour'); // Fetch all users
+
     // Download the helper library from https://www.twilio.com/docs/node/install
     // Find your Account SID and Auth Token at twilio.com/console
     // and set the environment variables. See http://twil.io/secure
     const accountSid = 'AC656429b580a8994d0cc560a9ae915228';
-    const authToken = '0d75f491d9b43f0cbeb1cdfebae2987c';
+    const authToken = '1460ba8886e7e2fc6f57b9cd5dd55f8b';
     const client = require('twilio')(accountSid, authToken);
     client.messages
       .create({

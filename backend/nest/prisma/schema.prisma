@@ -168,17 +168,16 @@ model Holiday {
   shift    Shift
 }
 
+model Department {
+  id       String   @id @default(auto()) @map("_id") @db.ObjectId
+  name     String
+  Detail_department  String?
+}
+
 enum Shift {
   DAY_ONLY
   NIGHT_ONLY
   BOTH_SHIFTS
-}
-
-
-model Department {
-  id       String   @id @default(auto()) @map("_id") @db.ObjectId
-  name     String
- 
 }
 
 enum Status {
@@ -200,7 +199,6 @@ model Task {
   status          TaskStatus
   createBy        String
   createdAt       DateTime     @default(now())
-  deadline        DateTime?
   updatedAt       DateTime     @updatedAt
   // usersIDs    String[]     @db.ObjectId
   // users       User[]       @relation(fields: [usersIDs], references: [id])

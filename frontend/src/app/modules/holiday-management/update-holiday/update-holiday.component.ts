@@ -10,28 +10,26 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrl: './update-holiday.component.css',
 })
 export class UpdateHolidayComponent implements OnInit {
-@Input()Id!:string|null;
+  @Input() Id!: string | null;
 
-id !:string|null
-  holiday!:Holiday;
-  updateForm!:FormGroup;
-  constructor(  private route: ActivatedRoute,
+  id!: string | null;
+  holiday!: Holiday;
+  updateForm!: FormGroup;
+  constructor(
+    private route: ActivatedRoute,
     private router: Router,
     private formB: FormBuilder,
-  private holidayService:HolidayService,
-    
-    ) { 
-     }
+    private holidayService: HolidayService
+  ) {}
   ngOnInit() {
-    if(this.Id==null){
-    return
+    if (this.Id == null) {
+      return;
     }
-      this.holidayService.getHolidayById(this.Id).subscribe(
-        (data: Holiday|String) => {
-          
-          if('name' in data){
-            
-            console.log(data);
+    this.holidayService
+      .getHolidayById(this.Id)
+      .subscribe((data: Holiday | String) => {
+        if ('name' in data) {
+          console.log(data);
 
           this.holiday = data;
           this.updateForm = this.formB.group({
@@ -43,27 +41,17 @@ id !:string|null
 
           this.updateForm.patchValue(data);
         }
-        }
-        )
-        ,
-        (error: any) => {
-          console.error('Error fetching user by ID:', error);
-        }
-   }
-  
-  
-  updateholiday(){
- 
-    this.holiday.date=this.updateForm.value.date;
-    this.holiday.duration=this.updateForm.value.duration;
-    this.holiday.shift=this.updateForm.value.shift;
-    this.holiday.name=this.updateForm.value.name;
+      }),
+      (error: any) => {
+        console.error('Error fetching user by ID:', error);
+      };
+  }
 
-    this.holidayService.updateHoliday(this.holiday.id,this.holiday).subscribe(
-    (response) => {
-      alert('User Updated Successfully!');
-      console.log(this.holiday)
-
+  updateholiday() {
+    this.holiday.date = this.updateForm.value.date;
+    this.holiday.duration = this.updateForm.value.duration;
+    this.holiday.shift = this.updateForm.value.shift;
+    this.holiday.name = this.updateForm.value.name;
 
     this.holidayService.updateHoliday(this.holiday.id, this.holiday).subscribe(
       (response) => {
@@ -76,6 +64,4 @@ id !:string|null
       }
     );
   }
-  
-,)}
 }

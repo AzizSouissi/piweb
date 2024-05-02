@@ -19,8 +19,7 @@ export class Task {
   priority :   TaskPriority
   status  :    TaskStatus
   createBy :   string
-  createdAt :  Date  
-  deadline: Date   
+  createdAt :  Date     
   updatedAt :  Date 
  assignedTo  : User  
  assignedToEmail? :string

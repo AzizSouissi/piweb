@@ -116,6 +116,19 @@
           </li>
 
           <li
+          data-username="Table bootstrap datatable footable"
+          class="nav-item"
+        >
+          <a routerLink="department" class="nav-link">
+            <span class="pcoded-micon"
+              ><i class="feather icon-server"></i
+            ></span>
+            <span class="pcoded-mtext">Department</span>
+          </a>
+        </li>
+
+
+          <li
             *ngIf="visibiliyEmployeeManagment"
             class="nav-item pcoded-hasmenu"
             (click)="toggleDropdownEmployee()"
@@ -131,15 +144,6 @@
               [style.display]="EmployeeManagment ? 'block' : 'none'"
               style="width: 250px"
             >
-            <ul class="pcoded-submenu">
-              <li class="">
-                <a routerLink="holiday/">Holiday</a>
-              </li>
-
-              <li class="">
-                <a routerLink="department/">Department</a>
-              </li>
-            </ul>
               <li *ngIf="displayEmployeeList" class="nav-item">
                 <a class="nav-link" routerLink="users/">
                   <span> &nbsp; &nbsp;Employees</span>
@@ -151,8 +155,6 @@
                 </a>
               </li>
             </ul>
-
-
           </li>
 
           <li
@@ -183,6 +185,7 @@
               </li>
             </ul>
           </li>
+
           <li
             *ngIf="visibiliyAttendanceManagment"
             class="nav-item pcoded-hasmenu"
@@ -205,6 +208,11 @@
                 </a>
               </li>
 
+              <li *ngIf="displayAttendanceAdd" class="nav-item">
+                <a class="nav-link" routerLink="attendance/addAttendance">
+                  <span> &nbsp; &nbsp;Update Attendance</span>
+                </a>
+              </li>
               <li *ngIf="displayAttendanceCreate" class="nav-item">
                 <a class="nav-link" routerLink="attendance/createAttendance">
                   <span> &nbsp; &nbsp;Create Attendance</span>

@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { CreateDepartmentManagementDto } from './dto/create-department-management.dto';
 import { UpdateDepartmentManagementDto } from './dto/update-department-management.dto';
 import { PrismaService } from 'src/prisma.service';
-import {Prisma, Department } from '@prisma/client';
+import {Department, Prisma,  } from '@prisma/client';
 
 
 @Injectable()
@@ -15,10 +15,12 @@ export class DepartmentManagementService {
  
  
   async createDepartment(createDepartmentDto: CreateDepartmentManagementDto): Promise<Department> {
-    const {name} = createDepartmentDto;
+    const {name,Detail_department} = createDepartmentDto;
+
     return this.prisma.department.create({
       data: {
         name,
+        Detail_department
       }
     });
   }
@@ -38,6 +40,7 @@ export class DepartmentManagementService {
           select: {
             id:true,
             name:true,
+            Detail_department:true
             
           }
         });
@@ -61,12 +64,14 @@ export class DepartmentManagementService {
           where: { id: id }, // Specify which attendance record to update based on the id
           data: {
             name:updateDepartmentManagementDto.name,
+            Detail_department:updateDepartmentManagementDto.Detail_department
            
             
           },
           select: {
             id: true,
             name:true,
+            Detail_department:true
           }
         });
         return updateDepartment;

@@ -11,15 +11,16 @@ import { Department } from '../../../core/models/Department';
   styleUrl: './add-departement.component.css'
 })
 export class AddDepartementComponent {
-  constructor(private departmentService:DepartmentService,private router:Router) { }
+  constructor(private departmentservice:DepartmentService,private router:Router) { }
 
   add(form: NgForm) {
     if(form.valid){
      const departement: Department ={
       id:'',
        name: form.value.name,
+       Detail_department:form.value.Detail_department
      }
-     this.departmentService.addDepartment(departement).subscribe(
+     this.departmentservice.addDepartment(departement).subscribe(
        () => {
          alert('Added Successfully!');
          this.router.navigate(['department']);

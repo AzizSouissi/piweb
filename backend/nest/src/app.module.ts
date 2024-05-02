@@ -8,7 +8,6 @@ import { UsersModule } from './users/users.module';
 import { PasswordresetModule } from './passwordreset/passwordreset.module';
 import { AttendanceTrackingModule } from './attendance-tracking/attendance-tracking.module';
 import { HolidayManagementModule } from './holiday-management/holiday-management.module';
-import { DepartmentManagementModule } from './department-management/department-management.module';
 import { TasksModule } from './tasks/tasks.module';
 import { ProjectManagementModule } from './project-management/project-management.module';
 import { PayrollModule } from './payroll/payroll.module';
@@ -17,10 +16,10 @@ import { DeductionsModule } from './deductions/deductions.module';
 import { ConfigsModule } from './configs/configs.module';
 import { NotificationsModule } from './notifications/notifications.module';
 import { ScheduleModule } from '@nestjs/schedule/dist/schedule.module';
+import { DepartmentManagementModule } from './department-management/department-management.module';
 
 @Module({
   imports: [
-    DepartmentManagementModule,
     AttendanceTrackingModule,
     AuthModule,
     PrismaModule,
@@ -37,6 +36,7 @@ import { ScheduleModule } from '@nestjs/schedule/dist/schedule.module';
     ConfigsModule,
     ConfigsModule,
     NotificationsModule,
+    DepartmentManagementModule
   ],
   controllers: [AppController],
   providers: [AppService],
