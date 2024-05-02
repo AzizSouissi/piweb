@@ -14,11 +14,12 @@
     border-radius: .65rem 0 0 .65rem;
     }
     .user-message {
-        text-align: right; /* Align user messages to the right */
+        text-align: left; /* Align user messages to the right */
       }
       
       .system-message {
         text-align: left;
+      
       }
     #chat1 .form-outline .form-control~.form-notch .form-notch-middle {
     flex: 0 0 auto;

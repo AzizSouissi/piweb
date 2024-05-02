@@ -20,6 +20,7 @@ import {
 } from '../../../core/state/project.actions';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-ListProjects',
@@ -45,7 +46,8 @@ export class ListProjectsComponent implements OnInit {
 
   constructor(
     private projectService: ProjectManagementService,
-    private store: Store<any>
+    private store: Store<any>,
+    private messageService: MessageService
   ) {}
 
   ngOnInit() {
@@ -150,7 +152,15 @@ export class ListProjectsComponent implements OnInit {
       }
     }
   }
-
+  showSuccessToast(message: string): void {
+    this.messageService.add({
+      severity: 'Info',
+      summary: 'Success',
+      detail: message,
+      life: 5000,
+      styleClass: 'custom-toast',
+    });
+  }
 
   showMessage(dataState: ProjectsStateEnum, message?: string) {
     let msg = '';
@@ -158,7 +168,9 @@ export class ListProjectsComponent implements OnInit {
 
     switch (dataState) {
       case ProjectsStateEnum.LOADED:
-        msg = message || 'Project added successfully!';
+        msg = message || 'Projects Loaded successfully!';
+
+        this.showSuccessToast(msg);
         break;
       case ProjectsStateEnum.ERROR:
         msg = message || 'An error occurred!';
@@ -166,12 +178,15 @@ export class ListProjectsComponent implements OnInit {
         break;
       case ProjectsStateEnum.UPDATED:
         msg = message || 'Project updated successfully!';
+        this.showSuccessToast(msg);
         break;
       case ProjectsStateEnum.NEW:
         msg = message || 'Operation successful!';
+        this.showSuccessToast(msg);
         break;
       case ProjectsStateEnum.DELETED:
         msg = message || 'Project deleted successfully!';
+        this.showSuccessToast(msg);
         break;
       default:
         break;
