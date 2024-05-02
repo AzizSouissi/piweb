@@ -14,6 +14,7 @@ import { ConfigManagementModule } from './../app/modules/config-management/confi
 import { SendcodeComponent } from './modules/sendcode/sendcode.component';
 import { RecruitementAssistantComponent } from './modules/recruitement-assistant/recruitement-assistant.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+
 const routes: Routes = [
   { path: '', component: LoginComponent },
   { path: 'login', component: LoginComponent },
@@ -69,6 +70,14 @@ const routes: Routes = [
             (m) => m.HolidayManagementModule
           ),
       },
+      {
+        path: 'department',
+        loadChildren: () =>
+          import(
+            './modules/department-management/department-management.module'
+          ).then((m) => m.DepartmentManagementModule),
+      },
+
       {
         path: 'attendance',
         loadChildren: () =>

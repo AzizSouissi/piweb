@@ -2,22 +2,17 @@
   <div class="pcoded-wrapper">
     <div class="pcoded-content">
       <div class="calendar-container">
-        <div cdkDropListGroup *ngIf="state">
+        <div cdkDropListGroup>
           <div class="example-container">
-            <h2>To do ({{ state.numProjectsTodo }})</h2>
-            <p-toast
-              [showTransformOptions]="'translateY(100%)'"
-              [showTransitionOptions]="'1000ms'"
-              [hideTransitionOptions]="'1000ms'"
-              [showTransformOptions]="'translateX(100%)'"
-            ></p-toast>
+            <h2>To do ({{ numProjectsTodo }})</h2>
+
             <div
               cdkDropList
-              [cdkDropListData]="state.todo"
+              [cdkDropListData]="todo"
               class="example-list"
               (cdkDropListDropped)="handleDrop($event, 'ON_HOLD')"
             >
-              @for (project of state.todo; track project) {
+              @for (project of todo; track project) {
               <div class="example-box" cdkDrag>
                 <app-projectCard [project]="project"></app-projectCard>
               </div>
@@ -26,15 +21,15 @@
           </div>
 
           <div class="example-container">
-            <h2>Done ({{ state.numProjectsDone }})</h2>
+            <h2>Done ({{ numProjectsDone }})</h2>
 
             <div
               cdkDropList
-              [cdkDropListData]="state.done"
+              [cdkDropListData]="done"
               class="example-list"
               (cdkDropListDropped)="handleDrop($event, 'RUNNING')"
             >
-              @for (project of state.done; track project) {
+              @for (project of done; track project) {
               <div class="example-box" cdkDrag>
                 <app-projectCard [project]="project"></app-projectCard>
               </div>
@@ -42,15 +37,15 @@
             </div>
           </div>
           <div class="example-container">
-            <h2>FINISHED ({{ state.numProjectsFinished }})</h2>
+            <h2>FINISHED ({{ numProjectsFinished }})</h2>
 
             <div
               cdkDropList
-              [cdkDropListData]="state.finished"
+              [cdkDropListData]="finished"
               class="example-list"
               (cdkDropListDropped)="handleDrop($event, 'FINISHED')"
             >
-              @for (project of state.finished; track project) {
+              @for (project of finished; track project) {
               <div class="example-box" cdkDrag>
                 <app-projectCard [project]="project"></app-projectCard>
               </div>

@@ -16,6 +16,7 @@ import { DeductionsModule } from './deductions/deductions.module';
 import { ConfigsModule } from './configs/configs.module';
 import { NotificationsModule } from './notifications/notifications.module';
 import { ScheduleModule } from '@nestjs/schedule/dist/schedule.module';
+import { DepartmentManagementModule } from './department-management/department-management.module';
 
 @Module({
   imports: [
@@ -35,6 +36,7 @@ import { ScheduleModule } from '@nestjs/schedule/dist/schedule.module';
     ConfigsModule,
     ConfigsModule,
     NotificationsModule,
+    DepartmentManagementModule
   ],
   controllers: [AppController],
   providers: [AppService],

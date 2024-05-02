@@ -8,11 +8,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { UpdateTaskComponent } from './update-task/update-task.component';
 import { AuthGuard } from '../../core/guards/auth-guard.guard';
 import { TaskGuard } from '../../core/guards/task-guard.guard';
-import { PopupComponent } from './popup/popup.component';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatInputModule } from '@angular/material/input';
-import { PopupupdateComponent } from './popupupdate/popupupdate.component';
+
 const routes: Routes = [
   { path: '', component: ListTaskComponent , canActivate:[AuthGuard, TaskGuard ] },
   { path: 'AddTask', component: AddTaskComponent },
@@ -23,19 +19,13 @@ const routes: Routes = [
   declarations: [
     AddTaskComponent,
     ListTaskComponent,
-    UpdateTaskComponent,
-    PopupComponent,
-    PopupupdateComponent,  
+    UpdateTaskComponent,   
   ],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
     FormsModule,
-    ReactiveFormsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatDatepickerModule,
-
+    ReactiveFormsModule
   ],
   exports: [RouterModule],
 })
