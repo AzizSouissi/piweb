@@ -8,6 +8,7 @@ export class Task {
   status!: TaskStatus;
   createBy!: string;
   createdAt!: Date;
+  deadline!:Date;
   updatedAt!: Date;
   assignedToEmail!: string
 }

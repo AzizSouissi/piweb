@@ -193,6 +193,7 @@ model Task {
   status          TaskStatus
   createBy        String
   createdAt       DateTime     @default(now())
+  deadline        DateTime?
   updatedAt       DateTime     @updatedAt
   // usersIDs    String[]     @db.ObjectId
   // users       User[]       @relation(fields: [usersIDs], references: [id])

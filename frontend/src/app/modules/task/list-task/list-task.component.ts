@@ -77,6 +77,7 @@ export class ListTaskComponent implements OnInit {
         status: form.value.status,
         createBy: form.value.createBy,
         createdAt: form.value.createdAt,
+        deadline: form.value.deadline,
         updatedAt: new Date(),
         assignedToEmail: form.value.assignedToEmail
       };
@@ -168,6 +169,8 @@ export class ListTaskComponent implements OnInit {
   // Drag and drop functionality
   allowDrop(event: DragEvent) {
     event.preventDefault();
+    this.isDragging = true;
+
   }
 
   onDelete(event : DragEvent): void {
@@ -185,8 +188,12 @@ export class ListTaskComponent implements OnInit {
     event.preventDefault();
     const taskId = event.dataTransfer?.getData('text/plain');
     const task = this.tasks.find(t => t.id === taskId);
+    this.isDragging = false;
     if (task) {
       this.onDelete(event);
     }
+    //this.isDragging = false;
+    this.loadTasks(); // Reload the task list after deletion
+
   }
 }

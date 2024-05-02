@@ -54,6 +54,7 @@ export class PopupComponent implements OnInit{
         status: form.value.status,
         createBy: form.value.createBy,
         createdAt: form.value.createdAt,
+        deadline: form.value.deadline,
         updatedAt: new Date(),
         assignedToEmail : form.value.assignedToEmail
       };

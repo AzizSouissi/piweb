@@ -17,7 +17,7 @@
                                 <thead class="table-dark">
                                     <tr>
                                         <th scope="col">Title</th>
-                                        <th scope="col">Description</th>
+                                        <th scope="col">Deadline</th>
                                         <th scope="col">Priority</th>
                                         <th scope="col">Status</th>
                                         <th scope="col">Assigned To</th>
@@ -27,7 +27,7 @@
                                 <tbody>
                                     <tr *ngFor="let task of tasks" cdkDrag [attr.draggableId]="task.id" (dragstart)="onDragStart($event, task.id)" @itemDrag>
                                         <td>{{ task.title }}</td>
-                                        <td>{{ task.description }}</td>
+                                        <td>{{ task.deadline }}</td>
                                         <td>{{ task.priority }}</td>
                                         <td>{{ task.status }}</td>
                                         <td>{{ task.assignedToEmail }}</td>
