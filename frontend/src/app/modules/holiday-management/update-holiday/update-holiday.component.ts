@@ -7,7 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 @Component({
   selector: 'app-update-holiday',
   templateUrl: './update-holiday.component.html',
-  styleUrl: './update-holiday.component.css'
+  styleUrl: './update-holiday.component.css',
 })
 export class UpdateHolidayComponent implements OnInit {
 @Input()Id!:string|null;
@@ -20,12 +20,11 @@ id !:string|null
     private formB: FormBuilder,
   private holidayService:HolidayService,
     
-    ) {
-     
+    ) { 
      }
   ngOnInit() {
     if(this.Id==null){
-return
+    return
     }
       this.holidayService.getHolidayById(this.Id).subscribe(
         (data: Holiday|String) => {
@@ -34,19 +33,17 @@ return
             
             console.log(data);
 
-            this.holiday = data;
-            this.updateForm = this.formB.group({
-              name: [''],
-              date: [''],
-              duration:[''],
-              shift :['']
-            });
-           
-            this.updateForm.patchValue(data);
-            
-          }
+          this.holiday = data;
+          this.updateForm = this.formB.group({
+            name: [''],
+            date: [''],
+            duration: [''],
+            shift: [''],
+          });
+
+          this.updateForm.patchValue(data);
         }
-       
+        }
         )
         ,
         (error: any) => {
@@ -68,12 +65,17 @@ return
       console.log(this.holiday)
 
 
-    },
-    (error) => {
-      console.error('Update failed:', error);
-    }
-  );
+    this.holidayService.updateHoliday(this.holiday.id, this.holiday).subscribe(
+      (response) => {
+        alert('User Updated Successfully!');
+        console.log(this.holiday);
+        this.router.navigate(['home/holiday']);
+      },
+      (error) => {
+        console.error('Update failed:', error);
+      }
+    );
   }
   
-
+,)}
 }
