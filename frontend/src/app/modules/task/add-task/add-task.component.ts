@@ -22,7 +22,7 @@ export class AddTaskComponent implements OnInit{
   add(form: NgForm) {
     if (form.valid) {
       const task: Task = {
-        taskId: '',
+        id: '',
         title: form.value.title,
         description: form.value.description,
         priority: form.value.priority,

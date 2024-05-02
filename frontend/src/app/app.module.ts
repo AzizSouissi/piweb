@@ -33,6 +33,7 @@ import { ConfigManagementModule } from './modules/config-management/config-manag
 import { PayrollManagementModule } from './modules/payroll-management/payroll-management.module';
 import { AllowanceModule } from './modules/allowance/allowance.module';
 import { SendcodeComponent } from './modules/sendcode/sendcode.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 import { ToastModule } from 'primeng/toast';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -55,6 +56,7 @@ import { StoreModule } from '@ngrx/store';
     SendcodeComponent,
   ],
   imports: [
+    MatDialogModule,
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
