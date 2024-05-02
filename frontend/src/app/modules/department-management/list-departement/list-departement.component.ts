@@ -15,13 +15,13 @@ export class ListDepartementComponent {
     }
     navigateToUpdate(id:string) {
       console.log(id)
-      this.router.navigateByUrl('UpdateDepartment/'+id)
+      this.router.navigateByUrl('home/department/UpdateDepartment/'+id)
     }
       constructor(private departmentService:DepartmentService,private route: ActivatedRoute,
         private router: Router){}
     
     navigatetoAdd() {
-      this.router.navigateByUrl('AddDepartment')
+      this.router.navigateByUrl('home/department/AddDepartment')
       
     }
     departments:Department[]=[];

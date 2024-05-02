@@ -34,6 +34,7 @@ import { PayrollManagementModule } from './modules/payroll-management/payroll-ma
 import { AllowanceModule } from './modules/allowance/allowance.module';
 import { SendcodeComponent } from './modules/sendcode/sendcode.component';
 import { DepartmentManagementModule } from './modules/department-management/department-management.module';
+import { RecruitementAssistantComponent } from './modules/recruitement-assistant/recruitement-assistant.component';
 
 
 @NgModule({
@@ -49,6 +50,7 @@ import { DepartmentManagementModule } from './modules/department-management/depa
     NotFoundComponent,
     ProfileComponent,
     SendcodeComponent,
+    RecruitementAssistantComponent
   ],
   imports: [
     BrowserModule,

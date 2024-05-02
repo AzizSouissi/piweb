@@ -23,7 +23,7 @@ export class AddDepartementComponent {
      this.departmentservice.addDepartment(departement).subscribe(
        () => {
          alert('Added Successfully!');
-         this.router.navigate(['department']);
+         this.router.navigate(['home/department']);
        },
        error => {
          console.error(error);

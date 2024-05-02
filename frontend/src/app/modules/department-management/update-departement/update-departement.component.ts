@@ -66,7 +66,7 @@ export class UpdateDepartementComponent implements OnInit{
         (response) => {
           alert('department Updated Successfully!');
           console.log(this.department)
-          this.router.navigate(['department/']);
+          this.router.navigate(['home/department/']);
     
         },
         (error) => {
