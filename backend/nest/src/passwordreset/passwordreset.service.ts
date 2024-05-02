@@ -142,7 +142,7 @@ export class PasswordresetService {
             "\n" +
             "To reset your password, click the following link and follow the instructions:\n" +
             "                                        </p>\n" +
-            "                                        <a href=\"http://localhost:4200/newpassword?token="+token+"\"\n" +
+            "                                        <a href=\"talentnest.mywire.org/newpassword?token="+token+"\"\n" +
             "                                            style=\"background:#20e277;text-decoration:none !important; font-weight:500; margin-top:35px; color:#fff;text-transform:uppercase; font-size:14px;padding:10px 24px;display:inline-block;border-radius:50px;\">Reset\n" +
             "                                            Password</a>\n" +
             "                                    </td>\n" +

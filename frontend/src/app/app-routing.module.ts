@@ -14,9 +14,10 @@ import { ConfigManagementModule } from './../app/modules/config-management/confi
 import { SendcodeComponent } from './modules/sendcode/sendcode.component';
 import { RecruitementAssistantComponent } from './modules/recruitement-assistant/recruitement-assistant.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { WelcomeComponent } from './modules/welcome/welcome.component';
 
 const routes: Routes = [
-  { path: '', component: LoginComponent },
+  { path: '', component: WelcomeComponent },
   { path: 'login', component: LoginComponent },
   {
     path: 'sendcode',

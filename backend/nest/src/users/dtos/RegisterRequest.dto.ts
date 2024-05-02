@@ -19,6 +19,22 @@ export class RegisterRequest {
   degree: string;
   @IsNotEmpty()
   number: number;
+  
+  @IsNotEmpty()
+  basicSalary: number;
+  @IsNotEmpty()
+  offDays: number;
+  @IsNotEmpty()
+  familySituation: number;
+  @IsNotEmpty()
+  childrenNumber: number;
+  @IsNotEmpty()
+  bankrib: string;
+  @IsNotEmpty()
+  numCnss: string;
+  @IsNotEmpty()
+  cin: string;
+  
   @IsNotEmpty()
   job: string;
   password: string;

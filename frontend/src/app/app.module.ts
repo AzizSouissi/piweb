@@ -36,6 +36,8 @@ import { SendcodeComponent } from './modules/sendcode/sendcode.component';
 import { DepartmentManagementModule } from './modules/department-management/department-management.module';
 import { RecruitementAssistantComponent } from './modules/recruitement-assistant/recruitement-assistant.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { WelcomeComponent } from './modules/welcome/welcome.component';
+
 
 @NgModule({
   declarations: [
@@ -53,6 +55,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     RecruitementAssistantComponent,
     DashboardComponent,
     RecruitementAssistantComponent,
+    WelcomeComponent,
   ],
   imports: [
     BrowserModule,

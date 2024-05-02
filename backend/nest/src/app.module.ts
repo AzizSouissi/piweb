@@ -17,6 +17,7 @@ import { ConfigsModule } from './configs/configs.module';
 import { NotificationsModule } from './notifications/notifications.module';
 import { ScheduleModule } from '@nestjs/schedule/dist/schedule.module';
 import { DepartmentManagementModule } from './department-management/department-management.module';
+import { CvassistantModule } from './cvassistant/cvassistant.module';
 
 @Module({
   imports: [
@@ -36,7 +37,8 @@ import { DepartmentManagementModule } from './department-management/department-m
     ConfigsModule,
     ConfigsModule,
     NotificationsModule,
-    DepartmentManagementModule
+    DepartmentManagementModule,
+    CvassistantModule,
   ],
   controllers: [AppController],
   providers: [AppService],

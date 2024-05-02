@@ -50,6 +50,15 @@ export class AddUserComponent {
       address: ['', [Validators.required]],
       birthday: ['', [this.dateNaissanceValidator(18)]],
       degree: ['', [Validators.required]],
+
+      basicSalary : ['',[Validators.pattern('^[0-9]+$')]],
+      offDays : ['',[Validators.pattern('^[0-9]+$')]],
+      familySituation : ['',[Validators.pattern('^[0-9]+$')]],
+      childrenNumber : ['',[Validators.pattern('^[0-9]+$')]],
+      bankrib :['',[Validators.pattern('^[0-9]+$')]],
+      numCnss : ['',[Validators.pattern('^[0-9]+$')]],
+      cin : ['',[Validators.pattern('^[0-9]+$')]]
+
     });
   }
   dateNaissanceValidator(minYears: number): ValidatorFn {

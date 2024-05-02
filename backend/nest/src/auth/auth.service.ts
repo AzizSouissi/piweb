@@ -17,7 +17,9 @@ export class AuthService {
     private mailerService: MailerService
     
   ) {
-    this.client = Twilio(process.env.Account_SID_Twillio, process.env.Auth_Token_Twillio);
+    const sid = "AC8e69b3895372eec70f9a4da0bd31bdf0"
+    const auth = "1437ce0fc979b5b9a9ed2ffb533c88a6"
+    this.client = Twilio(sid, auth);
   }
   
 
@@ -124,7 +126,7 @@ export class AuthService {
             const number = "+216"+user.number.toString()
             await this.client.messages.create({
               body: "Your verification code  "+code,
-              from: "+12563054184", 
+              from: "+13604064109", 
               to : number
             });
             const expiryDate = new Date();

@@ -12,11 +12,12 @@ import { EncryptionService } from '../../../core/services/encryption.service';
   styleUrl: './list-user.component.css'
 })
 export class ListUserComponent {
-  displayedColumns: string[] = ['firstname', 'lastname' ,'email','address','birthday','degree','Actions'];
+  displayedColumns: string[] = ['photo','firstname', 'lastname' ,'email','address','birthday','degree','Actions'];
   dataSource!: MatTableDataSource<any>;
   authorities = ""
   updateUser =true
   deleteUser =true
+  users = 0
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -68,7 +69,8 @@ export class ListUserComponent {
       {
         next : (res: any)=>
         {
-         
+          res.reverse();
+         this.users = res.length
           this.dataSource = new MatTableDataSource(res);
           this.dataSource.sort = this.sort;
           this.dataSource.paginator = this.paginator;
