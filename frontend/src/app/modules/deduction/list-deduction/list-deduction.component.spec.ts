@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AddConfigComponent } from './add-config.component';
+import { ListDeductionComponent } from './list-deduction.component';
 
-describe('AddConfigComponent', () => {
-  let component: AddConfigComponent;
-  let fixture: ComponentFixture<AddConfigComponent>;
+describe('ListDeductionComponent', () => {
+  let component: ListDeductionComponent;
+  let fixture: ComponentFixture<ListDeductionComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [AddConfigComponent]
+      declarations: [ListDeductionComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(AddConfigComponent);
+    fixture = TestBed.createComponent(ListDeductionComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -20,7 +20,7 @@ export class ConfigService {
   getConfig() {
     return this.http.get<Config[]>(this.URL);
   }
-  updateConfig(config: Config) {
+  updateConfig(id: string, config: Config) {
     return this.http.put(this.URL, config, this.httpOtions);
   }
   deleteConfig(id: number) {

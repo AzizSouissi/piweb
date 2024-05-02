@@ -5,15 +5,8 @@ import { PayrollManagementRoutingModule } from './payroll-management-routing.mod
 import { ListPayrollComponent } from './list-payroll/list-payroll.component';
 import { ListUserPayrollComponent } from './list-user-payroll/list-user-payroll.component';
 
-
 @NgModule({
-  declarations: [
-    ListPayrollComponent,
-    ListUserPayrollComponent
-  ],
-  imports: [
-    CommonModule,
-    PayrollManagementRoutingModule
-  ]
+  declarations: [ListPayrollComponent, ListUserPayrollComponent],
+  imports: [CommonModule, PayrollManagementRoutingModule],
 })
-export class PayrollManagementModule { }
+export class PayrollManagementModule {}

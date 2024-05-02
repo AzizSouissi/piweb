@@ -1,3 +1,5 @@
+import { User } from './User';
+
 export class Allowance {
   id!: string;
   userId!: string;
@@ -5,12 +7,13 @@ export class Allowance {
   category!: AllowanceCategory;
   amount!: number;
   date!: string;
+  user?: User;
 }
 
 export enum AllowanceCategory {
-  FOOD = "FOOD",
-  TRANSPORTATION = "TRANSPORTATION",
-  LODGING = "LODGING",
-  ENTERTAINMENT = "ENTERTAINMENT",
-  MISCELLANEOUS = "MISCELLANEOUS"
+  FOOD = 'FOOD',
+  TRANSPORTATION = 'TRANSPORTATION',
+  LODGING = 'LODGING',
+  ENTERTAINMENT = 'ENTERTAINMENT',
+  MISCELLANEOUS = 'MISCELLANEOUS',
 }

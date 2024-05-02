@@ -114,6 +114,13 @@ const routes: Routes = [
             (m) => m.AllowanceRoutingModule
           ),
       },
+      {
+        path: 'deduction',
+        loadChildren: () =>
+          import('./../app/modules/deduction/deduction-routing.module').then(
+            (m) => m.DeductionRoutingModule
+          ),
+      },
     ],
   },
   { path: '**', component: NotFoundComponent },
