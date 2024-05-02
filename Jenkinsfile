@@ -14,7 +14,7 @@ pipeline {
             steps {
                 dir('/var/lib/jenkins/workspace/PI-DEV-V0_Project-Management/frontend') {
                     script {
-                        sh 'npm test'
+                        sh 'npm test --f'
                     }
                 }
             }
