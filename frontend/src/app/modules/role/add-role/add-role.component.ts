@@ -29,7 +29,7 @@ export class AddRoleComponent implements OnInit {
     private encryptionService: EncryptionService
   ) {
     this.myForm = this.formBuilder.group({
-      roleTitle: ['', [Validators.pattern('[A-Z]+'), Validators.required]],
+      roleTitle: ['', [Validators.pattern('[a-zA-Z]+'), Validators.required]],
     });
   }
 
@@ -64,7 +64,7 @@ export class AddRoleComponent implements OnInit {
       (privilege) => privilege.id
     );
     const role = {
-      name: roleTitle,
+      name: roleTitle.toUpperCase(),
       privileges: selectedPrivilegesIds,
     };
 

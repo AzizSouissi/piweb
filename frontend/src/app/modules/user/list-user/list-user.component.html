@@ -44,10 +44,14 @@
                     
                     
               
-                    <ng-container matColumnDef="photo">
-                      <th mat-header-cell *matHeaderCellDef mat-sort-header> Photo </th>
-                      <td mat-cell *matCellDef="let row"> <img src="http://res.cloudinary.com/de36c4nae/image/upload/v1714123472/sn7nqhmomsvgcikdnfki.jpg" style="border-radius: 50%; width: 30px; height: 30px;" /> </td>
-                    </ng-container>
+                      <ng-container matColumnDef="photo">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Photo </th>
+                        <td mat-cell *matCellDef="let row">
+                          <!-- Check if row.image is truthy (i.e., it exists and is not empty), otherwise use a default image -->
+                          <img src="{{row.image ? row.image : 'assets/images/user/avatar-1.jpg'}}" style="border-radius: 50%; width: 30px; height: 30px;" />
+                        </td>
+                      </ng-container>
+                      
                     <ng-container matColumnDef="firstname">
                       <th mat-header-cell *matHeaderCellDef mat-sort-header> Firstname </th>
                       <td mat-cell *matCellDef="let row"> {{row.firstname}} </td>

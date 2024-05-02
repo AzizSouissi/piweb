@@ -69,6 +69,7 @@ export class ListUserComponent {
       {
         next : (res: any)=>
         {
+          res.reverse();
          this.users = res.length
           this.dataSource = new MatTableDataSource(res);
           this.dataSource.sort = this.sort;
