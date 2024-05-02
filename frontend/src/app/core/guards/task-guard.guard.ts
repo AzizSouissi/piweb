@@ -24,4 +24,5 @@ export class TaskGuard implements CanActivate {
       this.router.navigate(['/notfound']);
       return false;
     }
-  }}
+  }
+}

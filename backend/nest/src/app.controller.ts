@@ -40,8 +40,9 @@ export class AppController {
     return imageUrls;
   }
 
+
   
-/*
+
 
   @Public()
   @Post('upload')
@@ -59,7 +60,7 @@ export class AppController {
       const storageRef = ref(storage, 'images/' + uuidv4());
       
       const metadata: UploadMetadata = {
-        contentType: 'image/png'
+        contentType: 'application/pdf'
       };
 
       await uploadBytes(storageRef, file.buffer, metadata);
@@ -73,7 +74,7 @@ export class AppController {
     }
   }
 
-  */
+  
 
   @Public()
   @Post('upload')
@@ -100,6 +101,8 @@ export class AppController {
   }
 
  
+
+
 
 }
 

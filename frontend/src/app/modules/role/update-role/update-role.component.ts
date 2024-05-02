@@ -26,7 +26,7 @@ export class UpdateRoleComponent implements OnInit {
     private route: ActivatedRoute
   ) {
     this.myForm = this.fb.group({
-      roleTitle: ['', [Validators.pattern('[A-Z]+'), Validators.required]],
+      roleTitle: ['', [Validators.pattern('[a-zA-Z]+'), Validators.required]],
     });
   }
 
@@ -83,7 +83,7 @@ export class UpdateRoleComponent implements OnInit {
 
     const role = {
       id: this.id,
-      name: roleTitle,
+      name: roleTitle.toUpperCase(),
       privilegeId: this.selectedPrivileges,
     };
 

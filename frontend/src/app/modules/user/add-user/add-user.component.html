@@ -188,6 +188,171 @@
                           <span class="error-message">Degree invalid.</span>
                         </div>
                       </div>
+
+
+                      <div class="form-group">
+                        <label for="basicSalary">Basic Salary</label>
+                        <input
+                          type="number"
+                          class="form-control"
+                          id="basicSalary"
+                          formControlName="basicSalary"
+                          placeholder="Ex. 777"
+                        />
+                        <div
+                          *ngIf="
+                            myForm.get('basicSalary')?.invalid &&
+                            (myForm.get('basicSalary')?.dirty ||
+                              myForm.get('basicSalary')?.touched)
+                          "
+                        >
+                          <span class="error-message"
+                            >Number positive</span
+                          >
+                        </div>
+                      </div>
+
+                      
+                      <div class="form-group">
+                        <label for="offDays">Off Days</label>
+                        <input
+                          type="number"
+                          class="form-control"
+                          id="offDays"
+                          formControlName="offDays"
+                          placeholder="Ex. 777"
+                        />
+                        <div
+                          *ngIf="
+                            myForm.get('offDays')?.invalid &&
+                            (myForm.get('offDays')?.dirty ||
+                              myForm.get('offDays')?.touched)
+                          "
+                        >
+                          <span class="error-message"
+                            >Number positive</span
+                          >
+                        </div>
+                      </div>
+                      
+                      <div class="form-group">
+                        <label for="familySituation">family Situation</label>
+                        <input
+                          type="number"
+                          class="form-control"
+                          id="familySituation"
+                          formControlName="familySituation"
+                          placeholder="Ex. 0"
+                        />
+                        <div
+                          *ngIf="
+                            myForm.get('familySituation')?.invalid &&
+                            (myForm.get('familySituation')?.dirty ||
+                              myForm.get('familySituation')?.touched)
+                          "
+                        >
+                          <span class="error-message"
+                            >Number positive</span
+                          >
+                        </div>
+                      </div>
+
+
+                      
+                      <div class="form-group">
+                        <label for="childrenNumber">Children Number</label>
+                        <input
+                          type="number"
+                          class="form-control"
+                          id="childrenNumber"
+                          formControlName="childrenNumber"
+                          placeholder="Ex. 0"
+                        />
+                        <div
+                          *ngIf="
+                            myForm.get('childrenNumber')?.invalid &&
+                            (myForm.get('childrenNumber')?.dirty ||
+                              myForm.get('childrenNumber')?.touched)
+                          "
+                        >
+                          <span class="error-message"
+                            >Number positive</span
+                          >
+                        </div>
+                      </div>
+
+                      <div class="form-group">
+                        <label for="bankrib">Bank Rib</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="bankrib"
+                          formControlName="bankrib"
+                          placeholder="Ex. 0"
+                        />
+                        <div
+                          *ngIf="
+                            myForm.get('bankrib')?.invalid &&
+                            (myForm.get('bankrib')?.dirty ||
+                              myForm.get('bankrib')?.touched)
+                          "
+                        >
+                          <span class="error-message"
+                            >Number positive</span
+                          >
+                        </div>
+                      </div>
+
+                      <div class="form-group">
+                        <label for="numCnss">num Cnss</label>
+                        <input
+                          type="string"
+                          class="form-control"
+                          id="numCnss"
+                          formControlName="numCnss"
+                          placeholder="Ex. 0"
+                        />
+                        <div
+                          *ngIf="
+                            myForm.get('numCnss')?.invalid &&
+                            (myForm.get('numCnss')?.dirty ||
+                              myForm.get('numCnss')?.touched)
+                          "
+                        >
+                          <span class="error-message"
+                            >Number positive</span
+                          >
+                        </div>
+                      </div>
+
+                      <div class="form-group">
+                        <label for="cin">cin</label>
+                        <input
+                          type="string"
+                          class="form-control"
+                          id="cin"
+                          formControlName="cin"
+                          placeholder="Ex. 0"
+                        />
+                        <div
+                          *ngIf="
+                            myForm.get('cin')?.invalid &&
+                            (myForm.get('cin')?.dirty ||
+                              myForm.get('cin')?.touched)
+                          "
+                        >
+                          <span class="error-message"
+                            >Number positive</span
+                          >
+                        </div>
+                      </div>
+
+
+                      
+                    
+                    
+
+
                       <label for="degree">Roles</label>
                       <div *ngFor="let role of roles">
                         <label class="checkbox-label">

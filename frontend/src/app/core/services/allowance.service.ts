@@ -25,16 +25,10 @@ export class AllowanceService {
   }
 
   getAllowancesByMonth(month: string) {
-    return this.http.get<Allowance[]>(
-      `${this.URL}/month/${month}`,
-      this.httpOptions
-    );
+    return this.http.get<Allowance[]>(`${this.URL}/month/${month}`, this.httpOptions);
   }
 
   getAllowancesByUserId(userId: string) {
-    return this.http.get<Allowance[]>(
-      `${this.URL}/user/${userId}`,
-      this.httpOptions
-    );
+    return this.http.get<Allowance[]>(`${this.URL}/user/${userId}`, this.httpOptions);
   }
 }

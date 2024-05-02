@@ -23,6 +23,8 @@ export class UpdateUserComponent implements OnInit {
   user!: any;
   roles: Role[] = [];
   selectedRole: string[] = [];
+  currentUserEmail =""
+  redirection =false
 
   constructor(
     private fb: FormBuilder,
@@ -87,7 +89,13 @@ export class UpdateUserComponent implements OnInit {
     };
   }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
+    const userString = await localStorage.getItem('user');
+
+    if (userString) {
+      const user = JSON.parse(userString);
+      this.currentUserEmail = user["email"]
+    }
     
     const id = this.route.snapshot.paramMap.get('id');
     if (id !== null) {
@@ -123,16 +131,29 @@ export class UpdateUserComponent implements OnInit {
   }
 
   onSubmit() {
+
     const user = this.myForm.value;
     user.roleId = this.selectedRole;
+    if(this.currentUserEmail === user.email)
+      {
+        this.redirection=true
+        console.log("redirection activated")
+        console.log(this.redirection)
+      }
    
     this.userService.updateUser(user.id, user).subscribe(
-      (response) => {
+      async (response) => {
         const authoritiesCrypted = localStorage.getItem('authorities');
         const authorities = this.encryptionService.decrypt(
           authoritiesCrypted!,
           '2f7'
         );
+        if(this.redirection)
+          {
+            this.router.navigate(['/login']);
+          }else
+      
+        
         if (authorities.includes('READ::USER'))
           this.router.navigate(['/home/users']);
         else this.router.navigate(['/home']);

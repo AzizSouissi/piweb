@@ -96,7 +96,7 @@ export class UsersService {
   }
 
   deteteUser(id: string) {
-    return this.prisma.user.deleteMany({
+    return this.prisma.user.delete({
       where: {
         id: id,
       },
@@ -116,6 +116,13 @@ export class UsersService {
         birthday: registerRequest.birthday,
         degree: registerRequest.degree,
         number: registerRequest.number,
+        basicSalary : registerRequest.basicSalary,
+        offDays : registerRequest.offDays,
+        familySituation : registerRequest.familySituation,
+        childrenNumber  : registerRequest.childrenNumber,
+        bankrib  : registerRequest.bankrib,
+        numCnss  : registerRequest.numCnss,
+        cin  : registerRequest.cin,
         job: registerRequest.job,
         hash: hash,
         smsEnabled : false,

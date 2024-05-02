@@ -13,8 +13,11 @@ import { ProfileComponent } from './modules/profile/profile.component';
 import { ConfigManagementModule } from './../app/modules/config-management/config-management.module';
 import { SendcodeComponent } from './modules/sendcode/sendcode.component';
 import { RecruitementAssistantComponent } from './modules/recruitement-assistant/recruitement-assistant.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { WelcomeComponent } from './modules/welcome/welcome.component';
+
 const routes: Routes = [
-  { path: '', component: LoginComponent },
+  { path: '', component: WelcomeComponent },
   { path: 'login', component: LoginComponent },
   {
     path: 'sendcode',
@@ -41,6 +44,7 @@ const routes: Routes = [
     component: HomeComponent,
     canActivate: [HomeGuard],
     children: [
+      { path: 'dashboard', component: DashboardComponent },
       { path: 'profile', component: ProfileComponent },
       {
         path: 'users',
@@ -67,6 +71,14 @@ const routes: Routes = [
             (m) => m.HolidayManagementModule
           ),
       },
+      {
+        path: 'department',
+        loadChildren: () =>
+          import(
+            './modules/department-management/department-management.module'
+          ).then((m) => m.DepartmentManagementModule),
+      },
+
       {
         path: 'attendance',
         loadChildren: () =>

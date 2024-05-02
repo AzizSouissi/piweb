@@ -19,6 +19,7 @@ export class ListRoleComponent implements OnInit{
    authorities = ""
    updateRole =false
    deleteRole =false
+   roles = 0
 
   
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -53,6 +54,8 @@ export class ListRoleComponent implements OnInit{
     {
       next : (res)=>
       {
+        res.reverse();
+        this.roles = res.length
         this.dataSource = new MatTableDataSource(res);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
