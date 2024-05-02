@@ -12,6 +12,7 @@ import { User } from '../../../core/models/User';
   styleUrls: ['./add-allowance.component.css'],
 })
 export class AddAllowanceComponent implements OnInit {
+
   allowance: Allowance = new Allowance();
   allUsers: User[] = [];
   categories: any[] = [
@@ -56,7 +57,7 @@ export class AddAllowanceComponent implements OnInit {
       this.allowanceService.createAllowance(allowance).subscribe(
         () => {
           alert('Allowance added successfully!');
-          this.router.navigate(['home/allowance']);
+          this.allowanceService.filter('RegisterClick')
         },
         (error) => {
           console.error(error);

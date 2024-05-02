@@ -20,7 +20,17 @@ export class AllowancesService {
   }
 
   async findAll(): Promise<Allowance[]> {
-    return this.prisma.allowance.findMany();
+    return this.prisma.allowance.findMany({
+      select: {
+        id: true,
+        userId: true,
+        category: true,
+        description: true,
+        amount: true,
+        date: true,
+        user: true,
+      },
+    });
   }
 
   async findOne(id: string): Promise<Allowance | string> {
@@ -36,6 +46,7 @@ export class AllowancesService {
           description: true,
           amount: true,
           date: true,
+          user: true,
         },
       });
 

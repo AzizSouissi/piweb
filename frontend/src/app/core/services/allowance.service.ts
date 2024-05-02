@@ -1,40 +1,38 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
+import { Observable, Subject } from 'rxjs';
 import { Allowance } from '../models/allowance';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AllowanceService {
-  URL = 'http://localhost:3000/allowances';
+  private URL = 'http://localhost:3000/allowances';
+  private _listners = new Subject<any>();
+   listen(): Observable<any> {
+    return this._listners.asObservable();
+  }
+  filter(filterBy:string){
+    this._listners.next(filterBy);
+  }
 
   constructor(private http: HttpClient) {}
 
-  httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-    }),
-  };
-
-  createAllowance(allowance: Allowance) {
-    return this.http.post<Allowance>(this.URL, allowance, this.httpOptions);
+  createAllowance(allowance: Allowance): Observable<Allowance> {
+    return this.http.post<Allowance>(this.URL, allowance);
   }
 
-  getAllAllowances() {
-    return this.http.get<Allowance[]>(this.URL, this.httpOptions);
+  getAllAllowances(): Observable<Allowance[]> {
+    return this.http.get<Allowance[]>(this.URL);
   }
 
-  getAllowancesByMonth(month: string) {
-    return this.http.get<Allowance[]>(
-      `${this.URL}/month/${month}`,
-      this.httpOptions
-    );
+  updateAllowance(id: string, allowance: Allowance): Observable<Allowance> {
+    const updateUrl = `${this.URL}/${id}`;
+    return this.http.put<Allowance>(updateUrl, allowance);
   }
 
-  getAllowancesByUserId(userId: string) {
-    return this.http.get<Allowance[]>(
-      `${this.URL}/user/${userId}`,
-      this.httpOptions
-    );
+  deleteAllowance(id: string): Observable<void> {
+    const deleteUrl = `${this.URL}/${id}`;
+    return this.http.delete<void>(deleteUrl);
   }
 }

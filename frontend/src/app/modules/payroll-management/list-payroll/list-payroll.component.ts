@@ -131,7 +131,7 @@ export class ListPayrollComponent implements OnInit {
         }
 
         // Calculate CSS (Contribution sociale de solidarité)
-        this.css = this.taxableBase * this.cssr / 12;
+        this.css = (this.taxableBase * this.cssr) / 12;
 
         // Create payroll object
         const payroll: Payroll = {
@@ -139,7 +139,9 @@ export class ListPayrollComponent implements OnInit {
           userId: user.id,
           month: new Date().toISOString(),
           taxableSalary: this.taxableS,
-          cnssdeduction:(user.basicSalary + this.totalAllowances - this.totalDeductions) * this.cnssr,
+          cnssdeduction:
+            (user.basicSalary + this.totalAllowances - this.totalDeductions) *
+            this.cnssr,
           irpp: this.taxAmount / 12,
           css: this.css,
           netSalary: this.taxableS - this.taxAmount / 12 - this.css,
@@ -156,5 +158,145 @@ export class ListPayrollComponent implements OnInit {
         );
       }
     });
+  }
+
+  public print(item: Payroll) {
+    // Open a new window for printing
+    const printWindow = window.open('', '_blank');
+    if (printWindow) {
+      // Construct the HTML content
+      const payslipContent = `
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payslip</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+</head>
+
+<body>
+    <div class="container mt-5 mb-5">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="text-center lh-1 mb-2">
+                    <h6 class="fw-bold">Payslip</h6>
+                    <span class="fw-normal">Payment slip for the month of June 2021</span>
+                </div>
+                <div class="d-flex justify-content-end">
+                    <span>Working Branch:ROHINI</span>
+                </div>
+                <div class="row">
+                    <div class="col-md-10">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div> <span class="fw-bolder">EMP Code</span> <small class="ms-3">39124</small> </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div> <span class="fw-bolder">EMP Name</span> <small class="ms-3">Ashok</small> </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div> <span class="fw-bolder">PF No.</span> <small class="ms-3">101523065714</small> </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div> <span class="fw-bolder">NOD</span> <small class="ms-3">28</small> </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div> <span class="fw-bolder">ESI No.</span> <small class="ms-3"></small> </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div> <span class="fw-bolder">Mode of Pay</span> <small class="ms-3">SBI</small> </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div> <span class="fw-bolder">Designation</span> <small class="ms-3">Marketing Staff (MK)</small> </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div> <span class="fw-bolder">Ac No.</span> <small class="ms-3">*******0701</small> </div>
+                            </div>
+                        </div>
+                    </div>
+                    <table class="mt-4 table table-bordered">
+                        <thead class="bg-dark text-white">
+                            <tr>
+                                <th scope="col">Label</th>
+                                <th scope="col">Number</th>
+                                <th scope="col">Salary/Allowance</th>
+                                <th scope="col">Deduction</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row">Basic Salary</th>
+                                <td>16250.00</td>
+                                <td>PF</td>
+                                <td>1800.00</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">allowances</th>
+                                <td>550.00</td>
+                                <td>ESI</td>
+                                <td>142.00</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Gross Salary</th>
+                                <td>1650.00 </td>
+                                <td>TDS</td>
+                                <td>0.00</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">CNSS</th>
+                                <td>120.00 </td>
+                                <td>LOP</td>
+                                <td>0.00</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Taxable Salary</th>
+                                <td>0.00 </td>
+                                <td>PT</td>
+                                <td>0.00</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Total Taxes</th>
+                                <td>0.00 </td>
+                                <td>SPL. Deduction</td>
+                                <td>500.00</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Net Salary</th>
+                                <td>3000.00</td>
+                                <td>EWF</td>
+                                <td>0.00</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="row">
+                    <div class="col-md-4"> <br> <span class="fw-bold">Net Pay : 24528.00</span> </div>
+                    <div class="border col-md-8"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+
+      `;
+
+      // Write the HTML content to the print window
+      printWindow.document.write(payslipContent);
+
+      // Close the document and print
+      printWindow.document.close();
+      printWindow.print();
+    } else {
+      console.error('Error: Failed to open print window.');
+    }
   }
 }
