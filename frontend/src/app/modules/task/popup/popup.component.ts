@@ -62,7 +62,7 @@ export class PopupComponent implements OnInit{
       this.taskService.addTask(task).subscribe(
         () => {
           alert('Added Successfully!');
-          console.log('Saving data...');
+          console.log(task);
     this.ref.close('Closed using function');
     window.location.reload();
           this.router.navigate(['/home/tasks/']);

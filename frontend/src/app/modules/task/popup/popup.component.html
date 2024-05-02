@@ -85,7 +85,7 @@
                                                     <div class="form-group">
                                                         <mat-form-field appearance="fill" style="width: 100%;">
                                                             <mat-label>Deadline</mat-label>
-                                                            <input matInput [matDatepicker]="createdAtPicker" placeholder="Choose a date and time" name="deadline" ngModel required>
+                                                            <input matInput [matDatepicker]="createdAtPicker" placeholder="Choose a date and time" name="deadline" id="deadline" ngModel required>
                                                             <mat-datepicker-toggle matSuffix [for]="createdAtPicker"></mat-datepicker-toggle>
                                                             <mat-datepicker #createdAtPicker></mat-datepicker>
                                                             <mat-error *ngIf="addForm.controls['deadline'].invalid && (addForm.controls['deadline'].dirty || addForm.controls['deadline'].touched)">Deadline is required</mat-error>

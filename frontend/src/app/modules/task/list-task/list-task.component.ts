@@ -11,6 +11,7 @@ import { PopupComponent } from '../popup/popup.component';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { trigger, transition, style, animate } from '@angular/animations';
 import { UpdateTaskComponent } from '../update-task/update-task.component';
+import { PopupupdateComponent } from '../popupupdate/popupupdate.component';
 
 @Component({
   selector: 'app-list-task',
@@ -140,7 +141,7 @@ export class ListTaskComponent implements OnInit {
     this.isAddTaskModalOpen = false;
   }
   Openpopupupdate() {
-    var _popup = this.dialog.open(UpdateTaskComponent, {
+    var _popup = this.dialog.open(PopupupdateComponent, {
       width: '60%',
       enterAnimationDuration: '1000ms',
       exitAnimationDuration: '1000ms',
@@ -178,6 +179,7 @@ export class ListTaskComponent implements OnInit {
     if (taskId){
     this.taskService.deleteTask(taskId).subscribe(() => {
       this.loadTasks(); // Reload the task list after deletion
+      this.isDragging = false;
     }, (error) => {
       console.error('Error deleting task:', error);
       // Optionally, show a message to the user indicating that deletion failed
@@ -193,7 +195,7 @@ export class ListTaskComponent implements OnInit {
       this.onDelete(event);
     }
     //this.isDragging = false;
-    this.loadTasks(); // Reload the task list after deletion
+    //this.loadTasks(); // Reload the task list after deletion
 
   }
 }

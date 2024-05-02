@@ -10,7 +10,7 @@ export class TasksService {
 
   async createTask(createTaskDto: Task): Promise<Task> {
     try {
-      const { title, description, priority, status, createBy, assignedToEmail } = createTaskDto;
+      const { title, description, priority, status, createBy, assignedToEmail,deadline } = createTaskDto;
 
       // Find the user by their email
       const assignedUser = await this.prisma.user.findUnique({
@@ -30,6 +30,7 @@ export class TasksService {
           description,
           priority,
           status,
+          deadline,
           createBy,
           assignedTo: {
             connect: {
