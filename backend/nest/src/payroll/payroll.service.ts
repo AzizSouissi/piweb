@@ -47,9 +47,16 @@ export class PayrollService {
   }
 
   async getPayrollsByMonth(month: Date): Promise<Payroll[]> {
+    const targetMonth = month.getMonth() + 1;
+    const year = month.getFullYear();
+    const firstDayOfMonth = new Date(year, targetMonth - 1, 1);
+    const lastDayOfMonth = new Date(year, targetMonth, 0);
     return this.prisma.payroll.findMany({
       where: {
-        month: month,
+        month: {
+          gte: firstDayOfMonth,
+          lt: lastDayOfMonth,
+        },
       },
       select: {
         id: true,
@@ -69,6 +76,17 @@ export class PayrollService {
     return this.prisma.payroll.findMany({
       where: {
         userId: userId,
+      },
+      select: {
+        id: true,
+        userId: true,
+        month: true,
+        taxableSalary: true,
+        cnssdeduction: true,
+        irpp: true,
+        css: true,
+        netSalary: true,
+        user: true,
       },
     });
   }

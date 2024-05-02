@@ -36,11 +36,11 @@ model User {
   basicSalary      Float?
   offDays          Int?
   payrolls         Payroll[]
-  cin              String?
   familySituation  Int?
   childrenNumber   Int?
   bankrib          String?
   numCnss          String?
+  cin              String?
   tasks            Task[] //@relation(fields: [email], references: [assignedToEmail])
   //taskId           String[]           @db.ObjectId
   projectIds       String[]           @db.ObjectId

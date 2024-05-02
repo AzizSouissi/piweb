@@ -17,7 +17,8 @@ const routes: Routes = [
   { path: '', component: LoginComponent },
   { path: 'login', component: LoginComponent },
   {
-    path : 'sendcode', component : SendcodeComponent
+    path: 'sendcode',
+    component: SendcodeComponent,
   },
   {
     path: 'resetpassword',
@@ -97,9 +98,16 @@ const routes: Routes = [
       {
         path: 'allowance',
         loadChildren: () =>
-          import(
-            './../app/modules/allowance/allowance-routing.module'
-          ).then((m) => m.AllowanceRoutingModule),
+          import('./../app/modules/allowance/allowance-routing.module').then(
+            (m) => m.AllowanceRoutingModule
+          ),
+      },
+      {
+        path: 'deduction',
+        loadChildren: () =>
+          import('./../app/modules/deduction/deduction-routing.module').then(
+            (m) => m.DeductionRoutingModule
+          ),
       },
     ],
   },

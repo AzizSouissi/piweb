@@ -39,6 +39,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
+import { DeductionModule } from './modules/deduction/deduction.module';
 
 @NgModule({
   declarations: [
@@ -73,6 +74,7 @@ import { StoreModule } from '@ngrx/store';
     TaskManagementModule,
     DragDropModule,
     AllowanceModule,
+    DeductionModule,
     ToastModule,
     BrowserAnimationsModule,
     StoreModule.forRoot({}),

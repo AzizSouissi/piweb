@@ -38,14 +38,14 @@ export class UpdateAllowanceComponent implements OnInit {
     this.allowance.description = this.updateForm.value.descriptionAllowance;
     this.allowance.amount = this.updateForm.value.ammountAllowance;
     this.allowance.category = this.updateForm.value.categoryAllowance;
+    this.allowance.date = new Date().toISOString().toString();
 
     this.allowanceService
       .updateAllowance(this.allowance.id, this.allowance)
       .subscribe(
         async (response) => {
-          //remove addresses no longer in use
-
           alert('Updated Successfully!');
+          console.log('allowance',this.allowance)
         },
         (error) => {
           console.error('Update failed:', error);

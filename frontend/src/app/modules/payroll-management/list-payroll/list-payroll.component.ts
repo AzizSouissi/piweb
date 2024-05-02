@@ -5,8 +5,6 @@ import { FormBuilder } from '@angular/forms';
 import { Payroll } from '../../../core/models/payroll';
 import { PayrollService } from '../../../core/services/payroll.service';
 import { User } from '../../../core/models/User';
-import { Allowance } from '../../../core/models/allowance';
-import { validateHeaderValue } from 'http';
 
 @Component({
   selector: 'app-list-payroll',
@@ -14,6 +12,7 @@ import { validateHeaderValue } from 'http';
   styleUrls: ['./list-payroll.component.css'],
 })
 export class ListPayrollComponent implements OnInit {
+  currMonth = new Date().getMonth() + 1;
   data: Payroll[] = [];
   isDate: boolean = false;
   users!: User[];
@@ -94,14 +93,22 @@ export class ListPayrollComponent implements OnInit {
         this.totalAllowances = 0;
         this.totalDeductions = 0;
 
-        // Calculate total allowances
+        // Calculate total allowances for the current month
         for (const allowance of user.allowances) {
-          this.totalAllowances += allowance.amount;
+          const allowanceMonth = new Date(allowance.date).getMonth() + 1; // Get month of allowance date
+          if (allowanceMonth === this.currMonth) {
+            // Check if the allowance is in the current month
+            this.totalAllowances += allowance.amount;
+          }
         }
 
-        // Calculate total deductions
+        // Calculate total deductions for the current month
         for (const deduction of user.deductions) {
-          this.totalDeductions += deduction.amount;
+          const deductionMonth = new Date(deduction.date).getMonth() + 1; // Get month of deduction date
+          if (deductionMonth === this.currMonth) {
+            // Check if the deduction is in the current month
+            this.totalDeductions += deduction.amount;
+          }
         }
 
         // Calculate taxable salary
@@ -160,143 +167,74 @@ export class ListPayrollComponent implements OnInit {
     });
   }
 
-  public print(item: Payroll) {
-    // Open a new window for printing
+  print(payroll: Payroll) {
     const printWindow = window.open('', '_blank');
     if (printWindow) {
-      // Construct the HTML content
-      const payslipContent = `
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Payslip</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-
-</head>
-
-<body>
-    <div class="container mt-5 mb-5">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="text-center lh-1 mb-2">
-                    <h6 class="fw-bold">Payslip</h6>
-                    <span class="fw-normal">Payment slip for the month of June 2021</span>
-                </div>
-                <div class="d-flex justify-content-end">
-                    <span>Working Branch:ROHINI</span>
-                </div>
-                <div class="row">
-                    <div class="col-md-10">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div> <span class="fw-bolder">EMP Code</span> <small class="ms-3">39124</small> </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div> <span class="fw-bolder">EMP Name</span> <small class="ms-3">Ashok</small> </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div> <span class="fw-bolder">PF No.</span> <small class="ms-3">101523065714</small> </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div> <span class="fw-bolder">NOD</span> <small class="ms-3">28</small> </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div> <span class="fw-bolder">ESI No.</span> <small class="ms-3"></small> </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div> <span class="fw-bolder">Mode of Pay</span> <small class="ms-3">SBI</small> </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div> <span class="fw-bolder">Designation</span> <small class="ms-3">Marketing Staff (MK)</small> </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div> <span class="fw-bolder">Ac No.</span> <small class="ms-3">*******0701</small> </div>
-                            </div>
-                        </div>
-                    </div>
-                    <table class="mt-4 table table-bordered">
-                        <thead class="bg-dark text-white">
-                            <tr>
-                                <th scope="col">Label</th>
-                                <th scope="col">Number</th>
-                                <th scope="col">Salary/Allowance</th>
-                                <th scope="col">Deduction</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <th scope="row">Basic Salary</th>
-                                <td>16250.00</td>
-                                <td>PF</td>
-                                <td>1800.00</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">allowances</th>
-                                <td>550.00</td>
-                                <td>ESI</td>
-                                <td>142.00</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Gross Salary</th>
-                                <td>1650.00 </td>
-                                <td>TDS</td>
-                                <td>0.00</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">CNSS</th>
-                                <td>120.00 </td>
-                                <td>LOP</td>
-                                <td>0.00</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Taxable Salary</th>
-                                <td>0.00 </td>
-                                <td>PT</td>
-                                <td>0.00</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Total Taxes</th>
-                                <td>0.00 </td>
-                                <td>SPL. Deduction</td>
-                                <td>500.00</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Net Salary</th>
-                                <td>3000.00</td>
-                                <td>EWF</td>
-                                <td>0.00</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="row">
-                    <div class="col-md-4"> <br> <span class="fw-bold">Net Pay : 24528.00</span> </div>
-                    <div class="border col-md-8"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-</body>
-
-</html>
-
-      `;
-
-      // Write the HTML content to the print window
-      printWindow.document.write(payslipContent);
-
-      // Close the document and print
+      printWindow.document.write(`
+        <html>
+          <head>
+            <title>Payroll Details</title>
+            <style>
+              body {
+                font-family: Arial, sans-serif;
+              }
+              table {
+                width: 100%;
+                border-collapse: collapse;
+              }
+              th, td {
+                border: 1px solid #dddddd;
+                text-align: left;
+                padding: 8px;
+              }
+              th {
+                background-color: #f2f2f2;
+              }
+            </style>
+          </head>
+          <body>
+            <h2>Payroll Details</h2>
+            <table>
+              <tr>
+                <th>Attribute</th>
+                <th>Value</th>
+              </tr>
+              <tr>
+                <td>User ID</td>
+                <td>${payroll.userId}</td>
+              </tr>
+              <tr>
+                <td>Month</td>
+                <td>${new Date(payroll.month).toLocaleDateString()}</td>
+              </tr>
+              <tr>
+                <td>Taxable Salary</td>
+                <td>${payroll.taxableSalary}</td>
+              </tr>
+              <tr>
+                <td>CNSS Deduction</td>
+                <td>${payroll.cnssdeduction}</td>
+              </tr>
+              <tr>
+                <td>IRPP</td>
+                <td>${payroll.irpp}</td>
+              </tr>
+              <tr>
+                <td>CSS</td>
+                <td>${payroll.css}</td>
+              </tr>
+              <tr>
+                <td>Net Salary</td>
+                <td>${payroll.netSalary}</td>
+              </tr>
+            </table>
+          </body>
+        </html>
+      `);
       printWindow.document.close();
       printWindow.print();
     } else {
-      console.error('Error: Failed to open print window.');
+      console.error('Failed to open print window.');
     }
   }
 }
