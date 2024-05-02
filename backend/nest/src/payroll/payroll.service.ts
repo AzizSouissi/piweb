@@ -31,21 +31,43 @@ export class PayrollService {
   }
 
   async getAllPayrolls(): Promise<Payroll[]> {
-    return this.prisma.payroll.findMany();
+    return this.prisma.payroll.findMany({
+      select: {
+        id: true,
+        userId: true,
+        month: true,
+        taxableSalary: true,
+        cnssdeduction: true,
+        irpp: true,
+        css: true,
+        netSalary: true,
+        user: true,
+      },
+    });
   }
 
   async getPayrollsByMonth(month: Date): Promise<Payroll[]> {
-    const targetMonth = month.getMonth() + 1; // JavaScript months are 0-indexed, Prisma uses 1-indexed months
+    const targetMonth = month.getMonth() + 1;
     const year = month.getFullYear();
     const firstDayOfMonth = new Date(year, targetMonth - 1, 1);
-    const lastDayOfMonth = new Date(year, targetMonth, 0); // 0 as the day will give the last day of the previous month
+    const lastDayOfMonth = new Date(year, targetMonth, 0);
     return this.prisma.payroll.findMany({
       where: {
         month: {
-          // Using Prisma's date filtering functions to filter by a specific month
           gte: firstDayOfMonth,
           lt: lastDayOfMonth,
         },
+      },
+      select: {
+        id: true,
+        userId: true,
+        month: true,
+        taxableSalary: true,
+        cnssdeduction: true,
+        irpp: true,
+        css: true,
+        netSalary: true,
+        user: true,
       },
     });
   }
@@ -54,6 +76,17 @@ export class PayrollService {
     return this.prisma.payroll.findMany({
       where: {
         userId: userId,
+      },
+      select: {
+        id: true,
+        userId: true,
+        month: true,
+        taxableSalary: true,
+        cnssdeduction: true,
+        irpp: true,
+        css: true,
+        netSalary: true,
+        user: true,
       },
     });
   }

@@ -38,6 +38,12 @@ import { RecruitementAssistantComponent } from './modules/recruitement-assistant
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { WelcomeComponent } from './modules/welcome/welcome.component';
 
+import { ToastModule } from 'primeng/toast';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreModule } from '@ngrx/store';
+import { DeductionModule } from './modules/deduction/deduction.module';
 
 @NgModule({
   declarations: [
@@ -76,7 +82,19 @@ import { WelcomeComponent } from './modules/welcome/welcome.component';
     TaskManagementModule,
     DragDropModule,
     AllowanceModule,
+
     DepartmentManagementModule,
+
+    DeductionModule,
+    ToastModule,
+    BrowserAnimationsModule,
+    StoreModule.forRoot({}),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25, // Retains last 25 states
+      // logOnly: environment.production, // Restrict extension to log-only mode
+      autoPause: true, // Pauses recording actions and state changes when the extension window is not open
+    }),
+    EffectsModule.forRoot([]),
   ],
   providers: [
     provideClientHydration(),

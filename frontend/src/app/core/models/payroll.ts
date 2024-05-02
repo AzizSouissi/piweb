@@ -1,3 +1,5 @@
+import { User } from './User';
+
 export class Payroll {
   id!: string;
   userId!: string;
@@ -7,4 +9,5 @@ export class Payroll {
   irpp!: number;
   css!: number;
   netSalary!: number;
+  user?: User;
 }

@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { ListDeductionComponent } from './list-deduction/list-deduction.component';
 import { AuthGuard } from '../../core/guards/auth-guard.guard';
 import { readAttGuard } from '../../core/guards/readAtt-guard.guard';
-import { ListAllowanceComponent } from './list-allowance/list-allowance.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: ListAllowanceComponent,
+    component: ListDeductionComponent,
     canActivate: [AuthGuard, readAttGuard],
   },
 ];
@@ -16,4 +16,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class AllowanceRoutingModule {}
+export class DeductionRoutingModule {}

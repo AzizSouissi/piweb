@@ -16,7 +16,7 @@ import { Public } from 'src/auth/common/decorators/public.decorator';
 import { PermissionsGuard } from 'src/auth/common/guards/permissions.guard';
 import { RegisterRequest } from './dtos/RegisterRequest.dto';
 import { Observable } from 'rxjs';
-import { Userprofile } from './dtos/userprofile';
+import { Userprofile } from './dtos/Userprofile';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { UploadApiErrorResponse, UploadApiResponse, v2 as cloudinary } from 'cloudinary';
 import * as streamifier from 'streamifier'

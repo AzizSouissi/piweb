@@ -6,22 +6,29 @@ import { Deduction } from '@prisma/client';
 export class DeductionsService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async createDeduction(
-    createDeductionDto: Deduction,
-  ): Promise<Deduction> {
+  async createDeduction(createDeductionDto: Deduction): Promise<Deduction> {
     const { userId, description, amount, date } = createDeductionDto;
     return this.prisma.deduction.create({
       data: {
         userId,
         description,
         amount,
-        date
+        date,
       },
     });
   }
 
   async findAll(): Promise<Deduction[]> {
-    return this.prisma.deduction.findMany();
+    return this.prisma.deduction.findMany({
+      select: {
+        id: true,
+        userId: true,
+        description: true,
+        amount: true,
+        date: true,
+        user: true,
+      },
+    });
   }
 
   async findOne(id: string): Promise<Deduction | string> {
@@ -36,6 +43,7 @@ export class DeductionsService {
           description: true,
           amount: true,
           date: true,
+          user: true,
         },
       });
 
