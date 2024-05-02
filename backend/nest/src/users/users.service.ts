@@ -96,7 +96,7 @@ export class UsersService {
   }
 
   deteteUser(id: string) {
-    return this.prisma.user.deleteMany({
+    return this.prisma.user.delete({
       where: {
         id: id,
       },
