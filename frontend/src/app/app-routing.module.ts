@@ -13,6 +13,7 @@ import { ProfileComponent } from './modules/profile/profile.component';
 import { ConfigManagementModule } from './../app/modules/config-management/config-management.module';
 import { SendcodeComponent } from './modules/sendcode/sendcode.component';
 import { RecruitementAssistantComponent } from './modules/recruitement-assistant/recruitement-assistant.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 const routes: Routes = [
   { path: '', component: LoginComponent },
   { path: 'login', component: LoginComponent },
@@ -41,6 +42,7 @@ const routes: Routes = [
     component: HomeComponent,
     canActivate: [HomeGuard],
     children: [
+      { path: 'dashboard', component: DashboardComponent },
       { path: 'profile', component: ProfileComponent },
       {
         path: 'users',

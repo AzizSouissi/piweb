@@ -42,6 +42,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { RecruitementAssistantService } from './core/services/recruitementAssistant.service';
 import { RecruitementAssistantComponent } from './modules/recruitement-assistant/recruitement-assistant.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
@@ -57,6 +58,7 @@ import { RecruitementAssistantComponent } from './modules/recruitement-assistant
     ProfileComponent,
     SendcodeComponent,
     RecruitementAssistantComponent,
+    DashboardComponent,
   ],
   imports: [
     MatDialogModule,

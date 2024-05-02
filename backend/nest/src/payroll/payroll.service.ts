@@ -7,8 +7,15 @@ export class PayrollService {
   constructor(private readonly prisma: PrismaService) {}
 
   async createPayroll(createPayrollDto: Payroll): Promise<Payroll> {
-    const { userId, month, taxableSalary, cnssdeduction, irpp, css, netSalary } =
-      createPayrollDto;
+    const {
+      userId,
+      month,
+      taxableSalary,
+      cnssdeduction,
+      irpp,
+      css,
+      netSalary,
+    } = createPayrollDto;
 
     return this.prisma.payroll.create({
       data: {
@@ -28,9 +35,17 @@ export class PayrollService {
   }
 
   async getPayrollsByMonth(month: Date): Promise<Payroll[]> {
+    const targetMonth = month.getMonth() + 1; // JavaScript months are 0-indexed, Prisma uses 1-indexed months
+    const year = month.getFullYear();
+    const firstDayOfMonth = new Date(year, targetMonth - 1, 1);
+    const lastDayOfMonth = new Date(year, targetMonth, 0); // 0 as the day will give the last day of the previous month
     return this.prisma.payroll.findMany({
       where: {
-        month: month,
+        month: {
+          // Using Prisma's date filtering functions to filter by a specific month
+          gte: firstDayOfMonth,
+          lt: lastDayOfMonth,
+        },
       },
     });
   }
