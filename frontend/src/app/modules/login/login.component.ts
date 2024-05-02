@@ -23,55 +23,46 @@ export class LoginComponent {
   ) {}
 
   authenticate() {
-    
     this.authService.login(this.authRequest).subscribe({
       next: (response) => {
-        
         this.authResponse = response;
-        if(response.access_token=="sms")
-          {
-            const token = {email : this.authRequest.email, method : response.access_token }
-            localStorage.setItem('code',
-            JSON.stringify(token)
-            )
-            this.router.navigate(['/sendcode' ]);
-          } else
-          if(response.access_token=="mail")
-            {
-              const token = {email : this.authRequest.email, method : response.access_token }
-              localStorage.setItem('code',
-              JSON.stringify(token)
-              )
-              this.router.navigate(['/sendcode' ]);
-            }
+        if (response.access_token == 'sms') {
+          const token = {
+            email: this.authRequest.email,
+            method: response.access_token,
+          };
+          localStorage.setItem('code', JSON.stringify(token));
+          this.router.navigate(['/sendcode']);
+        } else if (response.access_token == 'mail') {
+          const token = {
+            email: this.authRequest.email,
+            method: response.access_token,
+          };
+          localStorage.setItem('code', JSON.stringify(token));
+          this.router.navigate(['/sendcode']);
+        } else {
+          localStorage.setItem('token', response.access_token as string);
+          this.userService.getUser(this.authRequest.email).subscribe({
+            next: (userData: any) => {
+              const user = {
+                firstname: userData.firstname,
+                lastname: userData.lastname,
+                email: userData.email,
+              };
 
-
-        else{
-        localStorage.setItem('token', response.access_token as string);
-        this.userService.getUser(this.authRequest.email).subscribe({
-          next: (userData: any) => {
-            const user = {
-              firstname: userData.firstname,
-              lastname: userData.lastname,
-              email: userData.email,
-            };
-
-            const authorities = this.encryptionService.encrypt(
-              JSON.stringify(userData.authorities),
-              '2f7'
-            );
-            localStorage.setItem('authorities', authorities);
-            localStorage.setItem('user', JSON.stringify(user));
-            this.router.navigate(['/home']);
-          },
-          error: (err: any) => {
-            
-          },
-        });
-      }
+              const authorities = this.encryptionService.encrypt(
+                JSON.stringify(userData.authorities),
+                '2f7'
+              );
+              localStorage.setItem('authorities', authorities);
+              localStorage.setItem('user', JSON.stringify(user));
+              this.router.navigate(['/home/dashboard']);
+            },
+            error: (err: any) => {},
+          });
+        }
       },
       error: (error) => {
-        
         this.errorMessage = 'Invalid email or password';
       },
     });

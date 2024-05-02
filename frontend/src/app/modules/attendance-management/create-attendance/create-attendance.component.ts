@@ -6,6 +6,7 @@ import {
 } from '../../../core/models/attendanceRecord';
 import { AttendanceTrackingService } from '../../../core/services/attendance-tracking.service';
 import { User } from '../../../core/models/User';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-create-attendance',
@@ -24,7 +25,10 @@ export class CreateAttendanceComponent implements OnInit {
   fullShifts!: number;
   quarterShifts!: number;
   absences!: number;
-  constructor(private attendanceService: AttendanceTrackingService) {}
+  constructor(
+    private attendanceService: AttendanceTrackingService,
+    private messageService: MessageService
+  ) {}
 
   ngOnInit(): void {
     let p = localStorage.getItem('user');
@@ -52,6 +56,26 @@ export class CreateAttendanceComponent implements OnInit {
     const formattedDay = day < 10 ? `0${day}` : day;
     this.dateStr = `${year}-${formattedMonth}-${formattedDay}`;
   }
+  showWarningToast(message: string): void {
+    this.messageService.add({
+      severity: 'warn',
+      summary: 'Warning',
+      detail: message,
+      life: 5000,
+      styleClass: 'custom-toast',
+    });
+  }
+
+  showSuccessToast(): void {
+    this.messageService.add({
+      severity: 'success',
+      summary: 'Success',
+      detail: 'Successfully submitted your attendance!',
+      life: 5000,
+      styleClass: 'custom-toast',
+    });
+  }
+
   submitForm(): void {
     user: this.attendanceService.find(this.id).subscribe((data) => data);
     const selectedDuration: ShiftType = this.selectedShiftType as ShiftType;
@@ -68,7 +92,13 @@ export class CreateAttendanceComponent implements OnInit {
     };
     this.attendanceService.create(this.id, formData).subscribe(
       (response) => {
-        alert(response['message']);
+        if (response && response.message) {
+          // Show warning toast
+          this.showWarningToast(response.message);
+        } else {
+          // Show success toast
+          this.showSuccessToast();
+        }
       },
       (error) => {
         console.error('You have already :', error);

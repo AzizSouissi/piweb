@@ -1,4 +1,5 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { AttendanceRecord } from '../../../core/models/attendanceRecord';
 import { User } from '../../../core/models/User';
 import { AttendanceTrackingService } from '../../../core/services/attendance-tracking.service';
@@ -6,36 +7,57 @@ import { AttendanceTrackingService } from '../../../core/services/attendance-tra
 @Component({
   selector: 'app-list-attendance',
   templateUrl: './list-attendance.component.html',
-  styleUrl: './list-attendance.component.css',
+  styleUrls: ['./list-attendance.component.css'],
 })
-export class ListAttendanceComponent {
-  user!: User; // Initialize as empty array
-  daysInMonth: any;
-  $day: any;
+export class ListAttendanceComponent implements OnInit, OnDestroy {
+  @Input() user!: User;
   attendanceRecord: AttendanceRecord[] = [];
   id!: string;
+  private refreshSubscription: Subscription;
 
-  constructor(private attendanceService: AttendanceTrackingService) {}
+  // Declare displayedColumns property and initialize it
+  displayedColumns: string[] = ['date', 'status', 'absentReason', 'shift'];
+
+  constructor(private attendanceService: AttendanceTrackingService) {
+    this.refreshSubscription = this.attendanceService.refreshNeeded.subscribe(
+      () => {
+        this.loadAttendanceRecords();
+      }
+    );
+  }
 
   ngOnInit(): void {
-    let p = localStorage.getItem('user');
-    console.log(p);
-    if (p) {
-      let email = JSON.parse(p)['email'];
-      this.attendanceService.getUserIdByEmail(email).subscribe((data) => {
-        this.id = data.id;
-        this.attendanceService.find(this.id).subscribe((data) => {
-          this.user = data;
-          console.log('user', this.user);
+    this.loadAttendanceRecords();
+  }
+
+  ngOnDestroy(): void {
+    this.refreshSubscription.unsubscribe();
+  }
+
+  loadAttendanceRecords(): void {
+    if (!this.user) {
+      let p = localStorage.getItem('user');
+      if (p) {
+        let email = JSON.parse(p)['email'];
+        this.attendanceService.getUserIdByEmail(email).subscribe((data) => {
+          this.id = data.id;
+          this.attendanceService.find(this.id).subscribe((userData) => {
+            this.user = userData;
+          });
         });
+      }
+    } else {
+      this.id = this.user.id;
+      this.attendanceService.find(this.id).subscribe((userData) => {
+        this.user = userData;
       });
     }
   }
 
-  getAttendanceStatus(user: User, date: string): string {
-    // Find the attendance record for the given date
-    const record = user.attendanceRecord.find((item) => item.date === date);
-    // Return the status if found, otherwise return an empty string
+  getAttendanceStatus(date: string): string {
+    const record = this.user?.attendanceRecord.find(
+      (item) => item.date === date
+    );
     return record ? record.status : '';
   }
 }
