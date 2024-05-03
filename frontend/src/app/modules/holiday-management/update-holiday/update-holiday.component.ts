@@ -56,8 +56,7 @@ export class UpdateHolidayComponent implements OnInit {
     this.holidayService.updateHoliday(this.holiday.id, this.holiday).subscribe(
       (response) => {
         alert('User Updated Successfully!');
-        console.log(this.holiday);
-        this.router.navigate(['home/holiday']);
+        this.holidayService.filter('register click')
       },
       (error) => {
         console.error('Update failed:', error);

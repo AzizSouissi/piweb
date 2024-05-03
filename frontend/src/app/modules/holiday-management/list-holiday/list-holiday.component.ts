@@ -22,7 +22,13 @@ export class ListHolidayComponent implements OnInit {
     private holidayService: HolidayService,
     private route: ActivatedRoute,
     private router: Router
-  ) {}
+  ) {
+
+    this.holidayService.listen().subscribe((m: any) => {
+      console.log(m);
+      this.ngOnInit()
+    });
+  }
 
   navigatetoAdd() {
     this.router.navigateByUrl('home/holiday/add');

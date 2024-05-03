@@ -229,13 +229,13 @@ export class AttendanceTrackingController {
     // Download the helper library from https://www.twilio.com/docs/node/install
     // Find your Account SID and Auth Token at twilio.com/console
     // and set the environment variables. See http://twil.io/secure
-    const accountSid = 'AC656429b580a8994d0cc560a9ae915228';
-    const authToken = '1460ba8886e7e2fc6f57b9cd5dd55f8b';
+    const accountSid = 'ACeac715d64064777d95e955b0a92ea6a0';
+    const authToken = '841a362976a7d8a940efc786dc2fdd05';
     const client = require('twilio')(accountSid, authToken);
     client.messages
       .create({
         body: "Hey there! It seems like you haven't logged your attendance for today yet. Could you please take a moment to do so?",
-        from: '+12512503383',
+        from: '+19062873999',
         to: number,
       })
       .then((message) => console.log(message.sid));

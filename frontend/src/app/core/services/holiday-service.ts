@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, throwError } from 'rxjs';
+import { Subject, catchError, throwError } from 'rxjs';
 import { Holiday } from '../models/Holiday';
 import { Observable } from 'rxjs';
 
@@ -15,6 +15,13 @@ export class HolidayService {
       'Content-type': 'application/json',
     }),
   };
+  private _listners = new Subject<any>();
+   listen(): Observable<any> {
+    return this._listners.asObservable();
+  }
+  filter(filterBy:string){
+    this._listners.next(filterBy);
+  }
   constructor(private http: HttpClient) { }
 
   getAll():Observable<Holiday[]> { // Change method name

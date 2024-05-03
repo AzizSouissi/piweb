@@ -19,6 +19,13 @@ export class AttendanceTrackingService {
       'Content-type': 'application/json',
     }),
   };
+  private _listners = new Subject<any>();
+   listen(): Observable<any> {
+    return this._listners.asObservable();
+  }
+  filter(filterBy:string){
+    this._listners.next(filterBy);
+  }
 
   constructor(private http: HttpClient) {}
   private _refreshNeeded$ = new Subject<void>();
