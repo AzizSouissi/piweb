@@ -19,7 +19,6 @@ export class PopupupdateComponent implements OnInit{
   users : any[]  = [];
   task: Task = new Task(); 
   assignedToEmail: string = '';
-form: any;
 ;
   constructor(@Inject(MAT_DIALOG_DATA) public data:any,private ref:MatDialogRef<PopupupdateComponent>,private taskService: TaskService, private router: Router, private userService: UserService){
 
