@@ -1,13 +1,14 @@
 import { User } from './User';
 
 export class Task {
-  taskId!: string;
+  id!: string; 
   title!: string;
   description!: string;
   priority!: TaskPriority;
   status!: TaskStatus;
   createBy!: string;
   createdAt!: Date;
+  deadline!: Date;
   updatedAt!: Date;
   assignedToEmail!: string
 }

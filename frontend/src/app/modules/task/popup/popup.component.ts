@@ -6,7 +6,6 @@ import { UserService } from '../../../core/services/user.service';
 import { TaskService } from '../../../core/services/task-service';
 import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
-import emailjs from '@emailjs/browser';
 
 
 @Component({
@@ -86,11 +85,7 @@ this.ref.close('Closed using function');
   }
 
   send(){
- emailjs.send("service_ij1thmz","template_sa8i4ft",{
-    to_name: "Nour",
-    from_name: "HRMS",
-    message: "A new task is assigned to your name; good luck",
-    });
+
   }
 
  
