@@ -3,11 +3,14 @@ import {
   ChangeDetectorRef,
   Component,
   ElementRef,
+  OnInit,
   ViewChild,
 } from '@angular/core';
 import { RecruitementAssistantService } from '../../core/services/recruitementAssistant.service';
 import { BehaviorSubject, Observable, scan } from 'rxjs';
 import { map } from 'rxjs';
+import { User } from '../../core/models/User';
+import { AttendanceTrackingService } from '../../core/services/attendance-tracking.service';
 
 @Component({
   selector: 'app-recruitement-assistant',
@@ -15,13 +18,15 @@ import { map } from 'rxjs';
   styleUrl: './recruitement-assistant.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class RecruitementAssistantComponent {
+export class RecruitementAssistantComponent implements OnInit {
   @ViewChild('chatBox') chatBox!: ElementRef<HTMLInputElement>;
   isOpen: boolean = false;
   chatmessage!: string;
   newMessage: string = '';
   messages: any[] = [];
   inputMessages$: BehaviorSubject<string[]> = new BehaviorSubject<string[]>([]);
+  user!: User;
+  id!: string;
 
   messages$!: Observable<any[]>;
   isResponding: boolean = false; // Variable to indicate if system is responding
@@ -29,8 +34,21 @@ export class RecruitementAssistantComponent {
   responseMessages: string[] = [];
   constructor(
     private chatService: RecruitementAssistantService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private attendanceService: AttendanceTrackingService
   ) {}
+  ngOnInit(): void {
+    let p = localStorage.getItem('user');
+    if (p) {
+      let email = JSON.parse(p)['email'];
+      this.attendanceService.getUserIdByEmail(email).subscribe((data) => {
+        this.id = data.id;
+        this.attendanceService.find(this.id).subscribe((res) => {
+          this.user = res;
+        });
+      });
+    }
+  }
   toggleChat() {
     const chatSection = document.getElementById('chat1');
     if (chatSection) {
@@ -129,13 +147,28 @@ export class RecruitementAssistantComponent {
     // Add the input message to the inputMessages list
     this.inputMessages.push(this.newMessage);
 
-    // Trigger change detection
+    // Set isResponding flag to true to indicate that a response is pending
+    this.isResponding = true;
+
+    // Track the index of the response currently being processed
+    const responseIndex = this.inputMessages.length - 1;
 
     // Simulate sending the message and receiving a response
     try {
-      const data = await this.chatService
+      const sendMessagePromise = this.chatService
         .sendMessage(this.newMessage)
         .toPromise();
+
+      // Check if the response is still pending
+      const timeout = setTimeout(() => {
+        this.isResponding = false;
+      }, 1000); // Adjust the timeout as needed
+
+      const data = await sendMessagePromise;
+
+      // Clear the timeout if the response is received before it expires
+      clearTimeout(timeout);
+
       console.log(data.answer);
       this.responseMessages.push(data.answer);
       this.newMessage = '';
@@ -143,8 +176,12 @@ export class RecruitementAssistantComponent {
       this.cdr.detectChanges();
     } catch (error) {
       console.error('Error:', error);
+    } finally {
+      // Reset isResponding flag
+      this.isResponding = false;
     }
   }
+
   /* async sendMessage() {
     // Add the input message to the inputMessages list
     const currentMessages = this.inputMessages$.value;
