@@ -71,6 +71,7 @@
                 class="btn btn-primary"
                 type="button"
                 (click)="sendMessage()"
+                [disabled]="isResponding"
               >
                 Send
               </button>
