@@ -18,6 +18,7 @@ import { NotificationsModule } from './notifications/notifications.module';
 import { ScheduleModule } from '@nestjs/schedule/dist/schedule.module';
 import { DepartmentManagementModule } from './department-management/department-management.module';
 import { CvassistantModule } from './cvassistant/cvassistant.module';
+import { MissionsModule } from './missions/missions.module';
 
 @Module({
   imports: [
@@ -39,6 +40,7 @@ import { CvassistantModule } from './cvassistant/cvassistant.module';
     NotificationsModule,
     DepartmentManagementModule,
     CvassistantModule,
+    MissionsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
