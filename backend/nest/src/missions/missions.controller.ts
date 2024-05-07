@@ -1,34 +1,35 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
-import { MissionsService } from './missions.service';
-import { CreateMissionDto } from './dto/create-mission.dto';
-import { UpdateMissionDto } from './dto/update-mission.dto';
+import { MissionService } from './missions.service';
+import { Public } from 'src/auth/common/decorators';
 
+@Public()
 @Controller('missions')
 export class MissionsController {
-  constructor(private readonly missionsService: MissionsService) {}
+  constructor(private readonly missionsService: MissionService) {}
 
   @Post()
-  create(@Body() createMissionDto: CreateMissionDto) {
+  create(@Body() createMissionDto: any) {
     return this.missionsService.create(createMissionDto);
   }
 
-  @Get()
-  findAll() {
-    return this.missionsService.findAll();
+  
+  @Patch('assign')
+  async assignUsersToMission(@Body() data : any)
+  {
+    return this.missionsService.assignUserToMission(data)
   }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.missionsService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateMissionDto: UpdateMissionDto) {
-    return this.missionsService.update(+id, updateMissionDto);
-  }
-
+ 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.missionsService.remove(+id);
+  deleteMission(@Param('missionId') missionId: string)
+  {
+    return this.missionsService.deleteMission(missionId);
+
+  }
+
+  @Patch('assignClientToMission/:id/:idMission')
+  assignClientToMission(@Param('clientId') clientId : string,@Param('idMission') idMission : string)
+  {
+    return this.missionsService.assignClientToMission(clientId,idMission)
+
   }
 }
