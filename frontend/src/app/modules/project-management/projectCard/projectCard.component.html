@@ -1,6 +1,21 @@
 <div class="card" style="width: 18rem">
-  <div class="card-header text-right">
-    <span class="badge badge-primary">{{ project.projectStatus }}</span>
+  <div
+    class="card-header text-right"
+    [ngStyle]="{
+      'background-color': 'blueviolet'
+    }"
+  >
+    <!-- Content Here -->
+
+    <span
+      class="badge"
+      [ngClass]="{
+        'badge-danger': project.projectStatus == 'ON_HOLD',
+        'badge-primary': project.projectStatus == 'RUNNING',
+        'badge-success': project.projectStatus == 'FINISHED'
+      }"
+      >{{ project.projectStatus }}</span
+    >
   </div>
   <div class="card-body">
     <h5 class="card-title">{{ project.leader }}</h5>
