@@ -27,12 +27,21 @@ export class MissionsService {
   }
 
   async assignUserToMission(createMissionDto: Mission): Promise<Mission> {
-    const {title ,description ,startDate ,endDate ,status, assignedTo, lieu, client } = createMissionDto;
+    const {
+      title,
+      description,
+      startDate,
+      endDate,
+      status,
+      assignedTo,
+      lieu,
+      client,
+    } = createMissionDto;
     return this.missionModel.create({
       data: {
         title,
         description,
-        startDate, 
+        startDate,
         endDate,
         status,
         assignedTo,
@@ -150,7 +159,7 @@ export class MissionsService {
     createMissionDto: CreateMissionDto,
     token: string,
   ): Promise<Mission> {
-    const clientId = await this.UsersService.getIdfromToken(token);
+    const clientId = '6608c88bdbe56e934b53913c';
 
     const client = await this.UsersService.getUserById(clientId);
 
@@ -164,7 +173,7 @@ export class MissionsService {
     return createdMission.save();
   }
   async getMissionByEmployeeId(token: string): Promise<Mission> {
-    const employeeId = await this.UsersService.getIdfromToken(token);
+    const employeeId = '6608c88bdbe56e934b53913c';
     console.log(employeeId);
 
     const mission = await this.missionModel
@@ -182,7 +191,7 @@ export class MissionsService {
     const availableUsers: User[] = [];
 
     for (const user of users) {
-      const isAvailable = await this.TasksService.findAll == null;
+      const isAvailable = (await this.TasksService.findAll) == null;
       if (isAvailable) {
         availableUsers.push(user);
       }
@@ -241,7 +250,7 @@ export class MissionsService {
   }
 
   async getmissionsbyclient(token: string): Promise<Mission[]> {
-    const id_client = await this.UsersService.getIdfromToken(token);
+    const id_client = '6608c88bdbe56e934b53913c';
     console.log(id_client);
     const missions = await this.missionModel.find({ client: id_client }).exec();
 
