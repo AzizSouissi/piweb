@@ -19,9 +19,11 @@ import { ScheduleModule } from '@nestjs/schedule/dist/schedule.module';
 import { DepartmentManagementModule } from './department-management/department-management.module';
 import { CvassistantModule } from './cvassistant/cvassistant.module';
 import { MissionsModule } from './missions/missions.module';
+import { MongooseModule } from '@nestjs/mongoose';
 
 @Module({
   imports: [
+    MongooseModule.forRoot(process.env.DATABASE_URL),
     AttendanceTrackingModule,
     AuthModule,
     PrismaModule,

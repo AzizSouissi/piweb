@@ -5,6 +5,8 @@ import { PrismaService } from 'src/prisma.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Mission, MissionSchema } from './schemas/Mission.Shema';
 import { entreprise, EntrepriseSchema } from './schemas/Entreprise.Schema';
+import { TasksService } from 'src/tasks/tasks.service';
+import { UsersService } from 'src/users/users.service';
 
 @Module({
   imports: [
@@ -14,6 +16,6 @@ import { entreprise, EntrepriseSchema } from './schemas/Entreprise.Schema';
     ]),
   ],
   controllers: [MissionsController],
-  providers: [MissionsService, PrismaService],
+  providers: [MissionsService, PrismaService, TasksService, UsersService],
 })
 export class MissionsModule {}
