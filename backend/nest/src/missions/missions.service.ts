@@ -6,7 +6,29 @@ import { PrismaService } from 'src/prisma/prisma.service';
 export class MissionService {
  
  
+ 
+ 
   constructor(private prisma : PrismaService){}
+
+  async getUserIdByEmail(email: string) {
+    const user=  await this.prisma.user.findFirst({
+      where : {
+        email : email
+      }
+    })
+    return {id : user.id}
+  }
+
+  async getAvailableUsers() {
+    return await this.prisma.user.findMany(
+      {
+        where: {
+          available : true
+        }
+        
+      }
+    )
+  }
 
   async getAllMissions() {
     return await this.prisma.mission.findMany()
@@ -36,9 +58,21 @@ export class MissionService {
         startDate : mission.startDate,
         endDate : mission.endDate,
         status : "PENDING",
+        client : mission.client,
+        userId : mission.userId
 
       }
     })
+    for(const id of mission.userId){
+    await this.prisma.user.update({
+      where : {
+        id :id
+
+      }, data : {
+        available : false
+      }
+    })
+  }
   }
 
   async assignClientToMission(clientId: string, idMission: string) {

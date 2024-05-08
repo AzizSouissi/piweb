@@ -52,6 +52,7 @@ model User {
   isInMission      Boolean?
   mission          Mission?           @relation(fields: [missionId], references: [id])
   missionId        String?            @db.ObjectId
+  available        Boolean?           @default(true)
 
   @@map("users")
 }
@@ -261,10 +262,10 @@ enum ProjectStatus {
 }
 
 model Company {
-  id       String    @id @default(auto()) @map("_id") @db.ObjectId
+  id       String  @id @default(auto()) @map("_id") @db.ObjectId
   name     String?
   location String?
-  Mission  Mission[]
+  //Mission  Mission[]
 }
 
 model Mission {
@@ -276,8 +277,9 @@ model Mission {
   status      MissionStatus?
   assignedTo  User[]
   userId      String[]       @db.ObjectId
-  location    Company?       @relation(fields: [locationId], references: [id])
-  locationId  String?        @db.ObjectId
+  // location    Company?       @relation(fields: [locationId], references: [id])
+  //locationId  String?        @db.ObjectId
+  location    String?
   client      String?        @db.ObjectId
 }
 

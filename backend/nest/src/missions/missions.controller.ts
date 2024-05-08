@@ -7,9 +7,21 @@ import { Public } from 'src/auth/common/decorators';
 export class MissionsController {
   constructor(private readonly missionsService: MissionService) {}
 
+
   @Post()
-  create(@Body() createMissionDto: any) {
-    return this.missionsService.create(createMissionDto);
+  create(@Body() mission: any) {
+    return this.missionsService.create(mission);
+  }
+
+  @Get('/availableUsers')
+  getAvailableUsers()
+  {
+    return this.missionsService.getAvailableUsers()
+  }
+  @Get('/email/:email')
+  getUserIdByEmail(@Param('email') email : string)
+  {
+    return this.missionsService.getUserIdByEmail(email)
   }
 
   

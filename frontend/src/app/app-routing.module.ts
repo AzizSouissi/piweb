@@ -52,6 +52,11 @@ const routes: Routes = [
           import('./modules/user/user.module').then((m) => m.UserModule),
       },
       {
+        path: 'missions',
+        loadChildren: () =>
+          import('./modules/mission/mission.module').then((m) => m.MissionModule),
+      },
+      {
         path: 'roles',
         loadChildren: () =>
           import('./modules/role/role.module').then((m) => m.RoleModule),
