@@ -3,6 +3,12 @@ import { CommonModule } from '@angular/common';
 import { AddMissionComponent } from './add-mission/add-mission.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MissionRoutingModule } from './mission-routing.module';
+import { MatTableModule } from '@angular/material/table';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
 
 
 
@@ -14,7 +20,13 @@ import { MissionRoutingModule } from './mission-routing.module';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    MissionRoutingModule
+    MissionRoutingModule,
+    MatTableModule,
+    MatPaginator,
+    MatSortModule,
+    MatButtonModule,
+    MatInputModule,
+    MatFormFieldModule,
     
   ]
 })

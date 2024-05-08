@@ -277,8 +277,6 @@ model Mission {
   status      MissionStatus?
   assignedTo  User[]
   userId      String[]       @db.ObjectId
-  // location    Company?       @relation(fields: [locationId], references: [id])
-  //locationId  String?        @db.ObjectId
   location    String?
   client      String?        @db.ObjectId
 }

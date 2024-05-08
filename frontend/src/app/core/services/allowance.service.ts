@@ -35,4 +35,6 @@ export class AllowanceService {
     const deleteUrl = `${this.URL}/${id}`;
     return this.http.delete<void>(deleteUrl);
   }
+
+  
 }

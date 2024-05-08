@@ -45,6 +45,12 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { DeductionModule } from './modules/deduction/deduction.module';
 import { ListMissionComponent } from './modules/mission/list-mission/list-mission.component';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
+import { MatTableModule } from '@angular/material/table';
 
 @NgModule({
   declarations: [
@@ -97,6 +103,12 @@ import { ListMissionComponent } from './modules/mission/list-mission/list-missio
       autoPause: true, // Pauses recording actions and state changes when the extension window is not open
     }),
     EffectsModule.forRoot([]),
+    MatTableModule,
+    MatPaginator,
+    MatSortModule,
+    MatButtonModule,
+    MatInputModule,
+    MatFormFieldModule,
   ],
   providers: [
     provideClientHydration(),
