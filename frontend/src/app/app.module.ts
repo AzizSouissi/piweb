@@ -44,6 +44,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { DeductionModule } from './modules/deduction/deduction.module';
+import { ListMissionComponent } from './modules/mission/list-mission/list-mission.component';
 
 @NgModule({
   declarations: [
@@ -62,6 +63,7 @@ import { DeductionModule } from './modules/deduction/deduction.module';
     DashboardComponent,
     RecruitementAssistantComponent,
     WelcomeComponent,
+    ListMissionComponent,
   ],
   imports: [
     BrowserModule,

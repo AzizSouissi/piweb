@@ -5,7 +5,12 @@ import { PrismaService } from 'src/prisma/prisma.service';
 @Injectable()
 export class MissionService {
  
+ 
   constructor(private prisma : PrismaService){}
+
+  async getAllMissions() {
+    return await this.prisma.mission.findMany()
+  }
 
   async assignUserToMission(data: any) {
     await this.prisma.mission.update(

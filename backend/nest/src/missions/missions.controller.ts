@@ -26,8 +26,14 @@ export class MissionsController {
 
   }
 
+  @Get()
+  getMissions()
+  {
+    return this.missionsService.getAllMissions();
+  }
+
   @Patch('assignClientToMission/:id/:idMission')
-  assignClientToMission(@Param('clientId') clientId : string,@Param('idMission') idMission : string)
+  assignClientToMission(@Param('id') clientId : string,@Param('idMission') idMission : string)
   {
     return this.missionsService.assignClientToMission(clientId,idMission)
 
