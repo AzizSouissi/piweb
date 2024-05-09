@@ -52,6 +52,12 @@
               <span class="pcoded-mtext">Payroll</span>
             </a>
           </li>
+          <li *ngIf="visibiliyMissionManagment" data-username="Table bootstrap datatable footable" class="nav-item">
+            <a routerLink="missions" class="nav-link">
+              <span class="pcoded-micon"><i class="feather icon-server"></i></span>
+              <span class="pcoded-mtext">Mission</span>
+            </a>
+          </li>
           <li *ngIf="visibiliyPayrollManagment" data-username="Table bootstrap datatable footable" class="nav-item">
             <a routerLink="payroll/payslip" class="nav-link">
               <span class="pcoded-micon"><i class="feather icon-server"></i></span>

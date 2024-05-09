@@ -15,17 +15,17 @@ export class ListUserComponent {
   displayedColumns: string[] = ['photo','firstname', 'lastname' ,'email','address','birthday','degree','Actions'];
   dataSource!: MatTableDataSource<any>;
   authorities = ""
-  updateUser =true
-  deleteUser =true
+  updateUser =false
+  deleteUser =false
   users = 0
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
   
-   ngOnInit(): void {
+   async ngOnInit(): Promise<void> {
 
-     this.getAuthorities()
+     await this.getAuthorities()
    
      
      if(this.authorities.includes("EDIT::USER")){
@@ -36,13 +36,14 @@ export class ListUserComponent {
       this.deleteUser =true
 
      }
-    this.getUsers();
+    await this.getUsers();
     
   }
   async getAuthorities() {
     try {
         const authoritiesCrypted =  localStorage.getItem('authorities');
         this.authorities = await this.encryptionService.decrypt(authoritiesCrypted!, "2f7");
+        
        
     } catch (error) {
   

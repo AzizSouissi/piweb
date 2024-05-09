@@ -50,7 +50,7 @@ export class AddMissionComponent implements OnInit{
       );
     
     }
-    this.getAvailableUser()
+   await  this.getAvailableUser()
     
   
   }

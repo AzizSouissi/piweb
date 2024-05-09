@@ -43,6 +43,7 @@ export class SidebarComponent implements OnInit {
 
   visibiliyConfigManagment = false;
   visibiliyPayrollManagment = false;
+  visibiliyMissionManagment = false;
 
   constructor(private encryptionService: EncryptionService) {}
 
@@ -52,9 +53,13 @@ export class SidebarComponent implements OnInit {
       authoritiesCrypted!,
       '2f7'
     );
+    
 
     if (authorities.includes('PAYROLL')) {
       this.visibiliyPayrollManagment = true;
+    }
+    if (authorities.includes('MISSION')) {
+      this.visibiliyMissionManagment = true;
     }
     if (authorities.includes('CONFIG')) {
       this.visibiliyConfigManagment = true;
